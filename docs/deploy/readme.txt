@@ -12,27 +12,25 @@
   cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp6/wtpwebapps/
   
 2，打包
-  rm -rf xnsms.tar.gz
-  tar zcvf xnsms.tar.gz xn-sms/
-  scp -P54012 ./xnsms.tar.gz root@121.42.196.238:/home/
-  scp -P53422 ./xnsms.tar.gz root@115.29.140.31:/home/
+  rm -rf sms.tar.gz
+  tar zcvf sms.tar.gz std-sms/
+  scp -P57652 ./sms.tar.gz root@120.55.113.192:/home/
   
 3，部署
-  ssh -p54012 root@121.42.196.238
-  ssh root@115.29.140.31 -p 53422
+  ssh root@120.55.113.192 -p 57652
   
-  cd /home/tomcat_GJS_xnsms/webapps/
-  rm -rf xnsms.tar.gz
-  cp ./xn-sms/WEB-INF/classes/application.properties .
-  cp ./xn-sms/WEB-INF/classes/config.properties .
-  rm -rf xn-sms/
-  mv /home/xnsms.tar.gz .
-  tar zxvf xnsms.tar.gz
-  mv -f application.properties ./xn-sms/WEB-INF/classes/
-  mv -f config.properties ./xn-sms/WEB-INF/classes/
+  cd /home/tomcat_STD_sms/webapps/
+  rm -rf sms.tar.gz
+  cp ./std-sms/WEB-INF/classes/application.properties .
+  cp ./std-sms/WEB-INF/classes/config.properties .
+  rm -rf std-sms/
+  mv /home/sms.tar.gz .
+  tar zxvf sms.tar.gz
+  mv -f application.properties ./std-sms/WEB-INF/classes/
+  mv -f config.properties ./std-sms/WEB-INF/classes/
   
 4,起停tomcat_develop_account
 
-http://115.29.140.31:8902/xn-sms/api
+http://120.55.113.192:8902/std-sms/api
 
 
