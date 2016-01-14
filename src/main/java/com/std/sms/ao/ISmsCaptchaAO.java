@@ -12,4 +12,7 @@ public interface ISmsCaptchaAO {
 
     public void doCheckCaptcha(String mobile, String captcha, String bizType);
 
+    public Long doSaveSmsCaptcha(String mobile, String captcha, String bizType,
+            boolean flag);
+
 }

@@ -42,7 +42,7 @@ public class XN799001 extends AProcessor {
             throw new ParaException("xn799001", "短信内容不能为空");
         }
         if (StringUtils.isBlank(req.getBizType())) {
-            throw new ParaException("xn799002", "业务类型不能为空");
+            throw new ParaException("xn799001", "业务类型不能为空");
         }
     }
 }
