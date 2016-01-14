@@ -7,7 +7,7 @@ public class XN799001Req {
     // 短信内容--必填
     private String content;
 
-    // 业务类型--非必填
+    // 业务类型--必填
     private String bizType;
 
     // 备注--非必填
