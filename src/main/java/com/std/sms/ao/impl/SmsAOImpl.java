@@ -15,6 +15,7 @@ import com.std.sms.enums.ESmsBizType;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.sent.Senter;
 import com.std.sms.util.DateUtil;
+import com.std.sms.util.PhoneUtil;
 
 @Service
 public class SmsAOImpl implements ISmsAO {
@@ -33,7 +34,8 @@ public class SmsAOImpl implements ISmsAO {
             String remark, boolean flag) {
         SmsOut data = new SmsOut();
         data.setMobile(moible);
-        data.setContent(changeContent(content));
+        String theSentContent = changeContent(moible, content, bizType);
+        data.setContent(theSentContent);
         data.setBizType(bizType);
         data.setRemark(remark);
         Date now = new Date();
@@ -68,13 +70,19 @@ public class SmsAOImpl implements ISmsAO {
     }
 
     @Override
-    public boolean doSend(String mobile, String content) {
-        senter.send(changeContent(content), mobile);
+    public boolean doSend(String mobile, String content, String bizType) {
+        String theSentContent = changeContent(mobile, content, bizType);
+
+        senter.send(theSentContent, mobile);
         return true;
     }
 
-    private String changeContent(String content) {
-        return content + "【个金所】";
+    private String changeContent(String mobile, String content, String bizType) {
+        if (ESmsBizType.YZM.getCode().equalsIgnoreCase(bizType)) {
+            return "尊敬的" + PhoneUtil.hideMobile(mobile) + "用户, 您的验证码为"
+                    + content + "，请妥善保管此验证码，切勿泄露给他人。" + "【个金所】";
+        } else {
+            return content + "【个金所】";
+        }
     }
-
 }

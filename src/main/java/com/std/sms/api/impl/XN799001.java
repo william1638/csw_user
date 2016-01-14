@@ -25,7 +25,8 @@ public class XN799001 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        boolean flag = smsAO.doSend(req.getMobile(), req.getContent());
+        boolean flag = smsAO.doSend(req.getMobile(), req.getContent(),
+            req.getBizType());
         Long id = smsAO.doSaveSmsOut(req.getMobile(), req.getContent(),
             req.getBizType(), req.getRemark(), flag);
         return new XN799001Res(id);
