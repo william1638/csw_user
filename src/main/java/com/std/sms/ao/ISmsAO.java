@@ -5,12 +5,11 @@ public interface ISmsAO {
      * 发送短信
      * @param mobile
      * @param content
-     * @param bizType
      * @return 
-     * @create: 2016年1月14日 下午2:52:08 myb858
+     * @create: 2016年1月15日 下午7:47:01 myb858
      * @history:
      */
-    public boolean doSend(String mobile, String content, String bizType);
+    public boolean doSend(String mobile, String content);
 
     /**
      * 发送短信日志

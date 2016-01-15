@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import org.springframework.stereotype.Component;
 
-import com.std.sms.enums.ESenterType;
+import com.std.sms.enums.EServerType;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.hhxx.SmsClientSend;
 
@@ -35,9 +35,9 @@ public class Senter {
 
     public void send(String content, String mobileNumber) throws BizException {
         String senterType = props.getProperty("senterType");
-        if (ESenterType.CSMD.getCode().equalsIgnoreCase(senterType)) {
+        if (EServerType.CSMD.getCode().equalsIgnoreCase(senterType)) {
             sendByCSMD(content, mobileNumber);
-        } else if (ESenterType.HHXX.getCode().equalsIgnoreCase(senterType)) {
+        } else if (EServerType.HHXX.getCode().equalsIgnoreCase(senterType)) {
             sendByHHXX(content, mobileNumber);
         } else {
             throw new BizException("xn709901", "短信配置信息，senterType未定义");

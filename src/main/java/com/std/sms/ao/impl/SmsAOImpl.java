@@ -10,10 +10,8 @@ import com.std.sms.ao.ISmsAO;
 import com.std.sms.bo.ISmsCaptchaBO;
 import com.std.sms.bo.ISmsOutBO;
 import com.std.sms.domain.SmsOut;
-import com.std.sms.enums.ESmsBizType;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.sent.Senter;
-import com.std.sms.util.PhoneUtil;
 
 @Service
 public class SmsAOImpl implements ISmsAO {
@@ -32,7 +30,7 @@ public class SmsAOImpl implements ISmsAO {
             String remark, boolean flag) {
         SmsOut data = new SmsOut();
         data.setMobile(moible);
-        String theSentContent = changeContent(moible, content, bizType);
+        String theSentContent = changeContent(moible, content);
         data.setContent(theSentContent);
         data.setBizType(bizType);
         data.setRemark(remark);
@@ -50,18 +48,13 @@ public class SmsAOImpl implements ISmsAO {
     }
 
     @Override
-    public boolean doSend(String mobile, String content, String bizType) {
-        String theSentContent = changeContent(mobile, content, bizType);
+    public boolean doSend(String mobile, String content) {
+        String theSentContent = changeContent(mobile, content);
         senter.send(theSentContent, mobile);
         return true;
     }
 
-    private String changeContent(String mobile, String content, String bizType) {
-        if (ESmsBizType.YZM.getCode().equalsIgnoreCase(bizType)) {
-            return "尊敬的" + PhoneUtil.hideMobile(mobile) + "用户, 您的验证码为"
-                    + content + "，请妥善保管此验证码，切勿泄露给他人。" + "【个金所】";
-        } else {
-            return content + "【个金所】";
-        }
+    private String changeContent(String mobile, String content) {
+        return content + "【个金所】";
     }
 }

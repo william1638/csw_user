@@ -1,9 +1,8 @@
 package com.std.sms.enums;
 
-public enum ESenterType {
-    CSMD("0", "创世漫道短信服务商"), HHXX("1", "汇禾信息短信服务商");
-
-    ESenterType(String code, String value) {
+public enum EContentType {
+    YZM("10", "平台主账户-验证码");
+    EContentType(String code, String value) {
         this.code = code;
         this.value = value;
     }
@@ -19,4 +18,5 @@ public enum ESenterType {
     public String getValue() {
         return value;
     }
+
 }

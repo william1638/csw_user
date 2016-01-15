@@ -13,13 +13,11 @@ package com.std.sms.enums;
  * @since: 2015-4-14 下午2:45:40 
  * @history:
  */
-public enum ESmsBizType {
+public enum EBizType {
     REGISTER("1", "平台主账户-注册"), FINDLOGINPWD("2", "平台主账户-找回登陆密码"), RESETLOGINPWD(
             "3", "平台主账户-重置登陆密码"), SETTRADEPWD("4", "平台主账户-设置交易密码"), FINDTRADEPWD(
             "5", "平台主账户-找回交易密码"), RESETTRADEPWD("6", "平台主账户-重置交易密码"), CHANGEMOBILE(
             "7", "平台主账户-修改手机号码")
-
-    , YZM("10", "平台主账户-验证码")
 
     , ChargeWithdraw("20", "平台主账户-充值取现"), Charge("21", "平台主账户-充值"), Charge_Yes(
             "22", "平台主账户-充值成功"), Charge_No("23", "平台主账户-充值失败"), Withdraw("25",
@@ -30,7 +28,7 @@ public enum ESmsBizType {
 
     , FAREN_ADD("98", "平台主账户-法人添加"), APP("99", "应用-委托发送");
 
-    ESmsBizType(String code, String value) {
+    EBizType(String code, String value) {
         this.code = code;
         this.value = value;
     }
