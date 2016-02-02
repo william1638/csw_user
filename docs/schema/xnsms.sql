@@ -34,7 +34,7 @@ CREATE TABLE `tjc_sms_captcha` (
   `check_datetime` datetime DEFAULT NULL COMMENT '验证时间',
   `check_times` int(11) DEFAULT NULL COMMENT '验证次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `tjc_sms_out` (
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   `sent_datetime` datetime DEFAULT NULL COMMENT '发送时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -66,4 +66,4 @@ CREATE TABLE `tjc_sms_out` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-25 14:32:14
+-- Dump completed on 2016-02-02 15:27:41
