@@ -15,7 +15,7 @@ import com.std.sms.util.PhoneUtil;
 import com.std.sms.util.RandomUtil;
 
 /**
- * 发送验证码
+ * 发送短信验证码
  * @author: myb858 
  * @since: 2016年1月14日 下午4:07:08 
  * @history:

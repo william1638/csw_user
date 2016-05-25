@@ -12,6 +12,12 @@ import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 import com.std.sms.util.PhoneUtil;
 
+/**
+ * 验证短信验证码
+ * @author: myb858 
+ * @since: 2016年5月25日 下午12:33:30 
+ * @history:
+ */
 public class XN799002 extends AProcessor {
     private ISmsCaptchaAO smsCaptchaAO = SpringContextHolder
         .getBean(ISmsCaptchaAO.class);
