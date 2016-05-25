@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS `tjc_sms_captcha`;
 CREATE TABLE `tjc_sms_captcha` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `mobile` varchar(16) NOT NULL COMMENT '手机号',
-  `biz_type` varchar(4) NOT NULL COMMENT '业务类型',
+  `biz_type` varchar(8) NOT NULL COMMENT '业务类型',
   `sms_captcha` varchar(8) NOT NULL COMMENT '验证码',
   `status` varchar(2) NOT NULL COMMENT '状态',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
@@ -21,7 +21,7 @@ CREATE TABLE `tjc_sms_out` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `mobile` varchar(16) NOT NULL COMMENT '手机号',
   `content` varchar(255) NOT NULL COMMENT '短信内容',
-  `biz_type` varchar(2) DEFAULT NULL COMMENT '业务类型',
+  `biz_type` varchar(8) DEFAULT NULL COMMENT '业务类型',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `status` varchar(2) NOT NULL COMMENT '状态',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
