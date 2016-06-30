@@ -6,6 +6,7 @@ import com.std.sms.ao.ISmsAO;
 import com.std.sms.ao.ISmsCaptchaAO;
 import com.std.sms.api.AProcessor;
 import com.std.sms.common.JsonUtil;
+import com.std.sms.common.PropertiesUtil;
 import com.std.sms.dto.req.XN799003Req;
 import com.std.sms.dto.res.XN799003Res;
 import com.std.sms.exception.BizException;
@@ -41,7 +42,7 @@ public class XN799003 extends AProcessor {
 
     private String addContent(String mobile, String captcha) {
         return "尊敬的" + PhoneUtil.hideMobile(mobile) + "用户, 您的验证码为" + captcha
-                + "，请妥善保管此验证码，切勿泄露给他人。" + "【个金所】";
+                + "，请妥善保管此验证码，切勿泄露给他人。" + PropertiesUtil.Config.PRE_SUF;
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.std.sms.ao.ISmsAO;
 import com.std.sms.bo.ISmsCaptchaBO;
 import com.std.sms.bo.ISmsOutBO;
+import com.std.sms.common.PropertiesUtil;
 import com.std.sms.domain.SmsOut;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.sent.Senter;
@@ -55,6 +56,6 @@ public class SmsAOImpl implements ISmsAO {
     }
 
     private String changeContent(String mobile, String content) {
-        return content + "【个金所】";
+        return content + PropertiesUtil.Config.PRE_SUF;
     }
 }

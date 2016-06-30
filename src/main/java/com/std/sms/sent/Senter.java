@@ -88,7 +88,7 @@ public class Senter {
         }
     }
 
-    // public static void main(String[] args) {
-    // new Senter().send("【个金所】尊敬的用户,您的验证码是678987 ,请妥善保留", "13958092437");
-    // }
+    public static void main(String[] args) {
+        new Senter().send("【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留", "18767101909");
+    }
 }
