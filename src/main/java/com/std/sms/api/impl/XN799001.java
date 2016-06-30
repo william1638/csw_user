@@ -13,7 +13,7 @@ import com.std.sms.spring.SpringContextHolder;
 import com.std.sms.util.PhoneUtil;
 
 /**
- * 发送短信
+ * 发送下行短信
  * @author: myb858 
  * @since: 2015年8月20日 上午10:29:57 
  * @history:
