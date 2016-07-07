@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.sms.dao.IXnSmsFormDAO">
+	<resultMap id="xnSmsForm_DB_Result" type="xnSmsForm">
+		<result column="code" property="code" />
+		<result column="company_code" property="companyCode" />
+		<result column="facilitator" property="facilitator" />
+		<result column="success" property="success" />
+		<result column="failure" property="failure" />
+		<result column="date" property="date" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="facilitator != null and facilitator != '' ">
+				AND t.facilitator = #{facilitator}
+			</if>
+			<if test="facilitator != null and facilitator != '' ">
+				AND t.date = #{date}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_xnSmsForm" parameterType="xnSmsForm"
+		resultMap="xnSmsForm_DB_Result">
+		SELECT
+		code
+		,company_code
+		,facilitator
+		,success
+		,failure
+		,date
+		FROM
+		xn_sms_form t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				#{order}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="select_xnSmsForm_count" parameterType="xnSmsForm"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM xn_sms_form t
+		<include refid="where_condition" />
+	</select>
+	
+	<insert id="insert_xnSmsForm" parameterType="xnSmsForm">
+		INSERT INTO
+		xn_sms_form(
+		code
+		,company_code
+		,facilitator
+		,success
+		,failure
+		,date
+		)
+		VALUES(
+		#{code}
+		,#{companyCode}
+		,#{facilitator}
+		,#{success}
+		,#{failure}
+		,#{date}
+		)
+	</insert>
+	
+<!-- 	<update id="update_xnSmsForm" parameterType="xnSmsForm">
+		UPDATE xn_sms_form
+		SET
+		facilitator = #{facilitator}
+		,account = #{account}
+		,password = #{password}
+		,user_id = #{userId}
+		WHERE
+		code = #{code}
+	</update>
+	
+	<delete id="delete_xnSmsForm" parameterType="xnSmsForm">
+		DELETE FROM
+		xn_sms_configure
+		WHERE
+		company_code = #{companyCode}
+	</delete> -->
+
+</mapper>

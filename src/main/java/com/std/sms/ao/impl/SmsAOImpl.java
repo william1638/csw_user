@@ -51,7 +51,7 @@ public class SmsAOImpl implements ISmsAO {
     @Override
     public boolean doSend(String mobile, String content) {
         String theSentContent = changeContent(mobile, content);
-        senter.send(theSentContent, mobile);
+        // senter.send(theSentContent, mobile);
         return true;
     }
 

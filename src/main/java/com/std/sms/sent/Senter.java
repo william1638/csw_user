@@ -33,7 +33,8 @@ public class Senter {
         }
     }
 
-    public void send(String content, String mobileNumber) throws BizException {
+    public void send(String content, String mobileNumber, String companyCode,
+            String channel) throws BizException {
         String senterType = props.getProperty("senterType");
         if (EServerType.CSMD.getCode().equalsIgnoreCase(senterType)) {
             sendByCSMD(content, mobileNumber);
@@ -42,7 +43,6 @@ public class Senter {
         } else {
             throw new BizException("xn709901", "短信配置信息，senterType未定义");
         }
-
     }
 
     private void sendByHHXX(String content, String mobileNumber)
@@ -89,6 +89,6 @@ public class Senter {
     }
 
     public static void main(String[] args) {
-        new Senter().send("【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留", "18767101909");
+        // new Senter().send("【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留", "18767101909");
     }
 }

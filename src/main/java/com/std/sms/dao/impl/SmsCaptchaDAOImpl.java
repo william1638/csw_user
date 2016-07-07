@@ -30,7 +30,7 @@ public class SmsCaptchaDAOImpl extends AMybatisTemplate implements
      */
     @Override
     public int delete(SmsCaptcha data) {
-        return super.update(NAMESPACE.concat("delete_smsCaptcha"), data);
+        return super.delete(NAMESPACE.concat("delete_smsCaptcha"), data);
     }
 
     /**

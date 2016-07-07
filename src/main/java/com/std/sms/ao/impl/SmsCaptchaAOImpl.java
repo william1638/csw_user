@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import com.std.sms.ao.ISmsCaptchaAO;
 import com.std.sms.bo.ISmsCaptchaBO;
 import com.std.sms.bo.base.Paginable;
+import com.std.sms.common.DateUtil;
 import com.std.sms.domain.SmsCaptcha;
 import com.std.sms.enums.ESmsStatus;
-import com.std.sms.util.DateUtil;
 
 @Service
 public class SmsCaptchaAOImpl implements ISmsCaptchaAO {
