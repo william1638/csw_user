@@ -1,6 +1,5 @@
 package com.std.sms.ao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.std.sms.domain.Pool;
@@ -16,8 +15,8 @@ public interface IPoolAO {
      * @create: 2016年7月7日 下午8:07:38 zuixian
      * @history: 
      */
-    public void doSaveSOutToPool(String mobile, String content, String channel,
-            Date sendDatetime);
+    public void doSaveSOutToPool(String channel, String mobile, String content,
+            String sendDatetime);
 
     /** 
      * @param code 
@@ -32,4 +31,11 @@ public interface IPoolAO {
      * @history: 
      */
     public List<Pool> queryPoolList(String code);
+
+    /** 
+     *  
+     * @create: 2016年7月8日 下午4:35:34 zuixian
+     * @history: 
+     */
+    public void doSendFromPool();
 }

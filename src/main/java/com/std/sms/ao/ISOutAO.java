@@ -10,7 +10,7 @@ public interface ISOutAO {
      * @create: 2016年7月7日 下午5:44:57 zuixian
      * @history: 
      */
-    public boolean doSend(String mobile, String content, String channel);
+    public boolean doSend(String channel, String mobile, String content);
 
     /** 
      * @param moible
@@ -20,6 +20,5 @@ public interface ISOutAO {
      * @create: 2016年7月7日 下午5:45:34 zuixian
      * @history: 
      */
-    public Long doSaveSOut(String mobile, String content, String channel,
-            String sendDatetime, boolean flag);
+    public String doSaveSOut(String channel, String mobile, String content);
 }

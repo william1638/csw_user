@@ -2,10 +2,13 @@ package com.std.sms.dao.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.std.sms.dao.ISOutDAO;
 import com.std.sms.dao.base.support.AMybatisTemplate;
 import com.std.sms.domain.SOut;
 
+@Repository("sOutDAOImpl")
 public class SOutDAOImpl extends AMybatisTemplate implements ISOutDAO {
 
     @Override

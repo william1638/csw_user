@@ -21,16 +21,16 @@ public class DayReport extends ABaseDO {
     private String companyCode;
 
     // 短信服务商
-    private String facilitator;
+    private String channel;
 
     // 发送成功的条数
-    private String success;
+    private String sucTimes;
 
     // 发送失败的条数
-    private String failure;
+    private String failTimes;
 
     // 日期
-    private String date;
+    private String reportDate;
 
     public String getCode() {
         return code;
@@ -48,35 +48,35 @@ public class DayReport extends ABaseDO {
         this.companyCode = companyCode;
     }
 
-    public String getSuccess() {
-        return success;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
-    public String getFailure() {
-        return failure;
+    public String getSucTimes() {
+        return sucTimes;
     }
 
-    public void setFailure(String failure) {
-        this.failure = failure;
+    public void setSucTimes(String sucTimes) {
+        this.sucTimes = sucTimes;
     }
 
-    public String getDate() {
-        return date;
+    public String getFailTimes() {
+        return failTimes;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setFailTimes(String failTimes) {
+        this.failTimes = failTimes;
     }
 
-    public String getFacilitator() {
-        return facilitator;
+    public String getReportDate() {
+        return reportDate;
     }
 
-    public void setFacilitator(String facilitator) {
-        this.facilitator = facilitator;
+    public void setReportDate(String reportDate) {
+        this.reportDate = reportDate;
     }
 }

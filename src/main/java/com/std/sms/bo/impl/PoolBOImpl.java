@@ -3,12 +3,14 @@ package com.std.sms.bo.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.IPoolBO;
 import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.IPoolDAO;
 import com.std.sms.domain.Pool;
 
+@Component
 public class PoolBOImpl extends PaginableBOImpl<Pool> implements IPoolBO {
 
     @Autowired

@@ -1,14 +1,12 @@
 package com.std.sms.sent;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.std.sms.enums.EServerType;
+import com.std.sms.ao.IConfigureAO;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.hhxx.SmsClientSend;
 
@@ -21,35 +19,54 @@ import com.std.sms.sent.hhxx.SmsClientSend;
 @Component
 public class Senter {
 
-    private static Properties props = new Properties();
-    static {
-        try {
-            props.load(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("config.properties"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    @Autowired
+    private IConfigureAO configureAO;
 
-    public void send(String content, String mobileNumber, String companyCode,
-            String channel) throws BizException {
-        String senterType = props.getProperty("senterType");
-        if (EServerType.CSMD.getCode().equalsIgnoreCase(senterType)) {
-            sendByCSMD(content, mobileNumber);
-        } else if (EServerType.HHXX.getCode().equalsIgnoreCase(senterType)) {
-            sendByHHXX(content, mobileNumber);
+    // private IConfigureAO configureAO = SpringContextHolder
+    // .getBean(IConfigureAO.class);
+
+    // private static Properties props = new Properties();
+    // static {
+    // try {
+    // props.load(Thread.currentThread().getContextClassLoader()
+    // .getResourceAsStream("config.properties"));
+    // } catch (FileNotFoundException e) {
+    // e.printStackTrace();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
+
+    public void send(String companyCode, String channel, String mobileNumber,
+            String content) throws BizException {
+        if (channel.equalsIgnoreCase("CSMD")) {
+            sendByCSMD(companyCode, channel, content, mobileNumber);
+        } else if (channel.equalsIgnoreCase("HHXX")) {
+            sendByHHXX(companyCode, channel, content, mobileNumber);
         } else {
-            throw new BizException("xn709901", "短信配置信息，senterType未定义");
+            throw new BizException("xn709901", "短信配置信息，channel未定义");
         }
+        // String senterType = props.getProperty("senterType");
+        // if (EServerType.CSMD.getCode().equalsIgnoreCase(senterType)) {
+        // sendByCSMD(content, mobileNumber);
+        // } else if (EServerType.HHXX.getCode().equalsIgnoreCase(senterType)) {
+        // sendByHHXX(content, mobileNumber);
+        // } else {
+        // throw new BizException("xn709901", "短信配置信息，senterType未定义");
+        // }
     }
 
-    private void sendByHHXX(String content, String mobileNumber)
-            throws BizException {
-        String userid = props.getProperty("hhxx_userid");
-        String account = props.getProperty("hhxx_account");
-        String password = props.getProperty("hhxx_password");
+    private void sendByHHXX(String companyCode, String channel, String content,
+            String mobileNumber) throws BizException {
+        // String userid = props.getProperty("hhxx_userid");
+        // String account = props.getProperty("hhxx_account");
+        // String password = props.getProperty("hhxx_password");
+        String userid = configureAO.doGetConfigure(companyCode, channel,
+            "hhxx_userid").getValue();
+        String account = configureAO.doGetConfigure(companyCode, channel,
+            "hhxx_account").getValue();
+        String password = configureAO.doGetConfigure(companyCode, channel,
+            "hhxx_password").getValue();
         if (userid == null || account == null || password == null) {
             throw new BizException("xn709901",
                 "短信发送失败，userid或account或password未定义");
@@ -67,10 +84,14 @@ public class Senter {
         }
     }
 
-    private void sendByCSMD(String content, String mobileNumber)
-            throws BizException {
-        String sn = props.getProperty("csmd_sn");
-        String pwd = props.getProperty("csmd_password");
+    private void sendByCSMD(String companyCode, String channel, String content,
+            String mobileNumber) throws BizException {
+        // String sn = props.getProperty("csmd_sn");
+        // String pwd = props.getProperty("csmd_password");
+        String sn = configureAO.doGetConfigure(companyCode, channel, "csmd_sn")
+            .getValue();
+        String pwd = configureAO.doGetConfigure(companyCode, channel,
+            "csmd_password").getValue();
         if (sn == null || pwd == null) {
             throw new BizException("xn709901", "短信发送失败，sn或password未定义");
         }
@@ -89,6 +110,8 @@ public class Senter {
     }
 
     public static void main(String[] args) {
-        // new Senter().send("【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留", "18767101909");
+        // new Senter().send("XN1001", "CSMD",
+        // "【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留",
+        // "15088750712");
     }
 }

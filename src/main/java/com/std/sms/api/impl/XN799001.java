@@ -2,7 +2,8 @@ package com.std.sms.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.std.sms.ao.ISmsAO;
+import com.std.sms.ao.IPoolAO;
+import com.std.sms.ao.ISOutAO;
 import com.std.sms.api.AProcessor;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.dto.req.XN799001Req;
@@ -19,16 +20,29 @@ import com.std.sms.util.PhoneUtil;
  * @history:
  */
 public class XN799001 extends AProcessor {
-    private ISmsAO smsAO = SpringContextHolder.getBean(ISmsAO.class);
+    private IPoolAO poolAO = SpringContextHolder.getBean(IPoolAO.class);
+
+    private ISOutAO sOutAO = SpringContextHolder.getBean(ISOutAO.class);
 
     private XN799001Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        boolean flag = smsAO.doSend(req.getMobile(), req.getContent());
-        Long id = smsAO.doSaveSmsOut(req.getMobile(), req.getContent(),
-            req.getBizType(), req.getRemark(), flag);
-        return new XN799001Res(id);
+        // boolean flag = smsAO.doSend(req.getMobile(), req.getContent());
+        // Long id = smsAO.doSaveSmsOut(req.getMobile(), req.getContent(),
+        // req.getBizType(), req.getRemark(), flag);
+        boolean flag = sOutAO.doSend(req.getChannel(), req.getMobile(),
+            req.getContent());
+        String code = null;
+        if (flag) {
+            code = sOutAO.doSaveSOut(req.getChannel(), req.getMobile(),
+                req.getContent());
+        } else {
+            poolAO.doSaveSOutToPool(req.getChannel(), req.getMobile(),
+                req.getContent(), req.getSendDatetime());
+            code = "待发送";
+        }
+        return new XN799001Res(code);
     }
 
     @Override
@@ -40,8 +54,8 @@ public class XN799001 extends AProcessor {
         if (StringUtils.isBlank(req.getContent())) {
             throw new ParaException("xn799001", "短信内容不能为空");
         }
-        if (StringUtils.isBlank(req.getBizType())) {
-            throw new ParaException("xn799001", "业务类型不能为空");
+        if (StringUtils.isBlank(req.getChannel())) {
+            throw new ParaException("xn799001", "通道不能为空");
         }
     }
 }

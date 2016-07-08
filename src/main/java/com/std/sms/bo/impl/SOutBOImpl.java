@@ -3,6 +3,7 @@ package com.std.sms.bo.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.ISOutBO;
 import com.std.sms.bo.base.Paginable;
@@ -10,6 +11,7 @@ import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISOutDAO;
 import com.std.sms.domain.SOut;
 
+@Component
 public class SOutBOImpl extends PaginableBOImpl<SOut> implements ISOutBO {
 
     @Autowired

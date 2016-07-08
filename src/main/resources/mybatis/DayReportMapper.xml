@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.std.sms.dao.IXnSmsFormDAO">
-	<resultMap id="xnSmsForm_DB_Result" type="xnSmsForm">
+<mapper namespace="com.std.sms.dao.IDayReportDAO">
+	<resultMap id="dayReport_DB_Result" type="dayReport">
 		<result column="code" property="code" />
 		<result column="company_code" property="companyCode" />
-		<result column="facilitator" property="facilitator" />
-		<result column="success" property="success" />
-		<result column="failure" property="failure" />
-		<result column="date" property="date" />
+		<result column="channel" property="channel" />
+		<result column="suc_times" property="sucTimes" />
+		<result column="fail_times" property="failTimes" />
+		<result column="report_date" property="reportDate" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -18,26 +18,26 @@
 			<if test="companyCode != null and companyCode != '' ">
 				AND t.company_code = #{companyCode}
 			</if>
-			<if test="facilitator != null and facilitator != '' ">
-				AND t.facilitator = #{facilitator}
+			<if test="channel != null and channel != '' ">
+				AND t.channel = #{channel}
 			</if>
-			<if test="facilitator != null and facilitator != '' ">
-				AND t.date = #{date}
+			<if test="reportDate != null and reportDate != '' ">
+				AND t.report_date = #{reportDate}
 			</if>
 		</trim>
 	</sql>
 	
-	<select id="select_xnSmsForm" parameterType="xnSmsForm"
-		resultMap="xnSmsForm_DB_Result">
+	<select id="select_dayReport" parameterType="dayReport"
+		resultMap="dayReport_DB_Result">
 		SELECT
 		code
 		,company_code
-		,facilitator
-		,success
-		,failure
-		,date
+		,channel
+		,suc_times
+		,fail_times
+		,report_date
 		FROM
-		xn_sms_form t
+		tjc_day_report t
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -46,29 +46,29 @@
 		</trim>
 	</select>
 	
-	<select id="select_xnSmsForm_count" parameterType="xnSmsForm"
+	<select id="select_dayReport_count" parameterType="dayReport"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM xn_sms_form t
+		SELECT count(1) FROM tjc_day_report t
 		<include refid="where_condition" />
 	</select>
 	
-	<insert id="insert_xnSmsForm" parameterType="xnSmsForm">
+	<insert id="insert_dayReport" parameterType="dayReport">
 		INSERT INTO
-		xn_sms_form(
+		tjc_day_report(
 		code
 		,company_code
-		,facilitator
-		,success
-		,failure
-		,date
+		,channel
+		,suc_times
+		,fail_times
+		,report_date
 		)
 		VALUES(
 		#{code}
 		,#{companyCode}
-		,#{facilitator}
-		,#{success}
-		,#{failure}
-		,#{date}
+		,#{channel}
+		,#{sucTimes}
+		,#{failTimes}
+		,#{reportDate}
 		)
 	</insert>
 	

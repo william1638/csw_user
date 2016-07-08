@@ -6,8 +6,8 @@
 		<result column="code" property="code" />
 		<result column="company_code" property="companyCode" />
 		<result column="channel" property="channel" />
-		<result column="key" property="key" />
-		<result column="value" property="value" />
+		<result column="k" property="key" />
+		<result column="v" property="value" />
 		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
@@ -22,7 +22,7 @@
 				AND t.channel = #{channel}
 			</if>
 			<if test="key != null and key != '' ">
-				AND t.key = #{key}
+				AND t.k = #{key}
 			</if>
 			<if test="remark != null and remark != '' ">
 				AND t.remark = #{remark}
@@ -36,8 +36,8 @@
 		code
 		,company_code
 		,channel
-		,key
-		,value
+		,k
+		,v
 		,remark
 		FROM
 		tjc_configure t
