@@ -39,9 +39,10 @@ public class Senter {
 
     public void send(String companyCode, String channel, String mobileNumber,
             String content) throws BizException {
-        if (channel.equalsIgnoreCase("CSMD")) {
+        String[] str = channel.split("-");
+        if (str[1].equalsIgnoreCase("CSMD")) {
             sendByCSMD(companyCode, channel, content, mobileNumber);
-        } else if (channel.equalsIgnoreCase("HHXX")) {
+        } else if (str[1].equalsIgnoreCase("HHXX")) {
             sendByHHXX(companyCode, channel, content, mobileNumber);
         } else {
             throw new BizException("xn709901", "短信配置信息，channel未定义");
@@ -61,12 +62,25 @@ public class Senter {
         // String userid = props.getProperty("hhxx_userid");
         // String account = props.getProperty("hhxx_account");
         // String password = props.getProperty("hhxx_password");
-        String userid = configureAO.doGetConfigure(companyCode, channel,
-            "hhxx_userid").getValue();
-        String account = configureAO.doGetConfigure(companyCode, channel,
-            "hhxx_account").getValue();
-        String password = configureAO.doGetConfigure(companyCode, channel,
-            "hhxx_password").getValue();
+        String userid = null;
+        String account = null;
+        String password = null;
+        String[] str = channel.split("-");
+        if (str[2].equalsIgnoreCase("K")) {
+            userid = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_userid_1").getValue();
+            account = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_account_1").getValue();
+            password = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_password_1").getValue();
+        } else {
+            userid = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_userid_2").getValue();
+            account = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_account_2").getValue();
+            password = configureAO.doGetConfigure(companyCode, str[1],
+                "hhxx_password_2").getValue();
+        }
         if (userid == null || account == null || password == null) {
             throw new BizException("xn709901",
                 "短信发送失败，userid或account或password未定义");
@@ -88,9 +102,10 @@ public class Senter {
             String mobileNumber) throws BizException {
         // String sn = props.getProperty("csmd_sn");
         // String pwd = props.getProperty("csmd_password");
-        String sn = configureAO.doGetConfigure(companyCode, channel, "csmd_sn")
+        String[] str = channel.split("-");
+        String sn = configureAO.doGetConfigure(companyCode, str[1], "csmd_sn")
             .getValue();
-        String pwd = configureAO.doGetConfigure(companyCode, channel,
+        String pwd = configureAO.doGetConfigure(companyCode, str[1],
             "csmd_password").getValue();
         if (sn == null || pwd == null) {
             throw new BizException("xn709901", "短信发送失败，sn或password未定义");

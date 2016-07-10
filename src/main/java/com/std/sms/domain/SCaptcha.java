@@ -1,5 +1,7 @@
 package com.std.sms.domain;
 
+import java.util.Date;
+
 import com.std.sms.dao.base.ABaseDO;
 
 /** 
@@ -17,12 +19,6 @@ public class SCaptcha extends ABaseDO {
     // 编号
     private String code;
 
-    // 公司编号
-    private String companyCode;
-
-    // 手机号码
-    private String mobile;
-
     // 验证码
     private String captcha;
 
@@ -30,7 +26,13 @@ public class SCaptcha extends ABaseDO {
     private String status;
 
     // 发送时间
-    private String sendTime;
+    private Date sendDatetime;
+
+    // 失效时间
+    private Date invalidDatetime;
+
+    // 发送时间
+    private Date checkDatetime;
 
     public String getCode() {
         return code;
@@ -38,22 +40,6 @@ public class SCaptcha extends ABaseDO {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getCompanyCode() {
-        return companyCode;
-    }
-
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public String getCaptcha() {
@@ -72,11 +58,28 @@ public class SCaptcha extends ABaseDO {
         this.status = status;
     }
 
-    public String getSendTime() {
-        return sendTime;
+    public Date getSendDatetime() {
+        return sendDatetime;
     }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
+    public void setSendDatetime(Date sendDatetime) {
+        this.sendDatetime = sendDatetime;
     }
+
+    public Date getInvalidDatetime() {
+        return invalidDatetime;
+    }
+
+    public void setInvalidDatetime(Date invalidDatetime) {
+        this.invalidDatetime = invalidDatetime;
+    }
+
+    public Date getCheckDatetime() {
+        return checkDatetime;
+    }
+
+    public void setCheckDatetime(Date checkDatetime) {
+        this.checkDatetime = checkDatetime;
+    }
+
 }

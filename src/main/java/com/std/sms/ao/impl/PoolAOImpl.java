@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.std.sms.ao.ICompanyAO;
 import com.std.sms.ao.IPoolAO;
 import com.std.sms.ao.ISOutAO;
 import com.std.sms.bo.IPoolBO;
 import com.std.sms.common.DateUtil;
 import com.std.sms.core.OrderNoGenerater;
+import com.std.sms.domain.Company;
 import com.std.sms.domain.Pool;
 import com.std.sms.sent.Senter;
 
@@ -25,6 +27,9 @@ public class PoolAOImpl implements IPoolAO {
 
     @Autowired
     Senter senter;
+
+    @Autowired
+    ICompanyAO companyAO;
 
     @Override
     public void doSaveSOutToPool(String channel, String mobile, String content,
@@ -63,14 +68,26 @@ public class PoolAOImpl implements IPoolAO {
                 Date now = DateUtil.strToDate(today,
                     DateUtil.DATA_TIME_PATTERN_2);
                 Date toSendDatetime = p.getToSendDatetime();
-                if (now.after(toSendDatetime) || now.equals(toSendDatetime)) {
-                    // senter.send();
-                    sOutAO.doSaveSOut(p.getChannel(), p.getMobile(),
-                        p.getContent());
-                    doRemoveSOutFromPool(p.getCode());
+                if (toSendDatetime != null) {
+                    if (now.after(toSendDatetime) || now.equals(toSendDatetime)) {
+                        String[] str = p.getChannel().split("-");
+                        String prefixContent = changeContent(str[0],
+                            p.getContent());
+                        senter.send(str[0], p.getChannel(), p.getMobile(),
+                            prefixContent);
+                        sOutAO.doSaveSOut(p.getChannel(), p.getMobile(),
+                            prefixContent);
+                        doRemoveSOutFromPool(p.getCode());
+                    }
                 }
             }
         }
+    }
+
+    public String changeContent(String companyCode, String content) {
+        Company data = companyAO.doGetCompany(companyCode);
+        String result = "【" + data.getPrefix() + "】" + content;
+        return result;
     }
 
 }

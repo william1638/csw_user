@@ -16,6 +16,11 @@ public class SOut extends ABaseDO {
      */
     private static final long serialVersionUID = 2299385736952404070L;
 
+    // ********* 查询字段 ***********
+    Date sendDatetimeStart;
+
+    Date sendDatetimeEnd;
+
     // 编号
     private String code;
 
@@ -104,4 +109,19 @@ public class SOut extends ABaseDO {
         this.sendDatetime = sendDatetime;
     }
 
+    public Date getSendDatetimeStart() {
+        return sendDatetimeStart;
+    }
+
+    public void setSendDatetimeStart(Date sendDatetimeStart) {
+        this.sendDatetimeStart = sendDatetimeStart;
+    }
+
+    public Date getSendDatetimeEnd() {
+        return sendDatetimeEnd;
+    }
+
+    public void setSendDatetimeEnd(Date sendDatetimeEnd) {
+        this.sendDatetimeEnd = sendDatetimeEnd;
+    }
 }

@@ -11,7 +11,7 @@ public interface IDayReportBO extends IPaginableBO<DayReport> {
      * @create: 2016年7月8日 下午5:45:26 zuixian
      * @history: 
      */
-    public void saveDayReport(DayReport data);
+    public int saveDayReport(DayReport data);
 
     /** 
      * @param data 

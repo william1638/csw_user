@@ -1,46 +1,33 @@
-package com.xnjr.sms.dao;
+package com.std.sms.ao.impl;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.unitils.spring.annotation.SpringBeanByType;
+import org.springframework.stereotype.Service;
 
+import com.std.sms.ao.IDayReportAO;
 import com.std.sms.bo.IDayReportBO;
+import com.std.sms.bo.ISOutBO;
+import com.std.sms.bo.base.Paginable;
 import com.std.sms.common.DateUtil;
 import com.std.sms.core.OrderNoGenerater;
-import com.std.sms.dao.ICompanyDAO;
-import com.std.sms.dao.ISOutDAO;
-import com.std.sms.domain.Company;
 import com.std.sms.domain.DayReport;
 import com.std.sms.domain.SOut;
 
-public class ICompanyDAOTest extends ADAOTest {
-
-    @SpringBeanByType
-    private ICompanyDAO companyDAO;
+@Service
+public class DayReportAOImpl implements IDayReportAO {
 
     @Autowired
-    private ISOutDAO sOutDAO;
+    private ISOutBO sOutBO;
 
     @Autowired
     private IDayReportBO dayReportBO;
 
-    @Test
-    public void select() {
-        Company condition = new Company();
-        condition.setCode("XN1001");
-        Company data = companyDAO.select(condition);
-        logger.info("select : {}", data.getCode() + "\t" + data.getName()
-                + "\t" + data.getPrefix());
-    }
-
-    @Test
-    public void sfsdf() {
-        System.out.println("asdasdas");
+    @Override
+    public void doSaveDayReport() {
         SOut sData = new SOut();
         DayReport dData = new DayReport();
         Set<String> channels = new HashSet<String>();
@@ -49,38 +36,31 @@ public class ICompanyDAOTest extends ADAOTest {
         Date end = DateUtil.getTodayEnd();
         sData.setSendDatetimeStart(start);
         sData.setSendDatetimeEnd(end);
-        List<SOut> list = sOutDAO.selectList(sData);
+        List<SOut> list = sOutBO.querySOutList(sData);
         for (SOut s : list) {
-            if (!channels.contains(s.getChannel()))
-                channels.add(s.getChannel());
+            if (!channels.contains(s.getChannel().split("-")[1]))
+                channels.add(s.getChannel().split("-")[1]);
             if (!companys.contains(s.getCompanyCode()))
                 companys.add(s.getCompanyCode());
-            System.out.println(s.toString());
         }
         int Scount = 0;
         int Fcount = 0;
         for (String company : companys) {
-            System.out.println(company);
             for (String channel : channels) {
-                System.out.println(channel);
                 for (SOut s : list) {
                     if (s.getCompanyCode().equals(company)
-                            && s.getChannel().split("-")[1].equals(channel
-                                .split("-")[1])) {
+                            && s.getChannel().split("-")[1].equals(channel)) {
                         if (s.getErrorCode().equals("1")) {
                             Scount++;
-                            System.out.println(Scount);
                         } else {
                             Fcount++;
-                            System.out.println(Fcount);
                         }
                     }
                 }
                 if (Scount != 0 || Fcount != 0) {
                     dData.setCode(OrderNoGenerater.generateM("DR"));
                     dData.setCompanyCode(company);
-                    String[] str = channel.split("-");
-                    dData.setChannel(str[1]);
+                    dData.setChannel(channel);
                     dData.setSucTimes(String.valueOf(Scount));
                     dData.setFailTimes(String.valueOf(Fcount));
                     String reportDate = DateUtil
@@ -93,5 +73,16 @@ public class ICompanyDAOTest extends ADAOTest {
                 }
             }
         }
+    }
+
+    @Override
+    public Paginable<DayReport> queryDayReportPage(int start, int limit,
+            DayReport condition) {
+        return dayReportBO.getPaginable(start, limit, condition);
+    }
+
+    @Override
+    public List<DayReport> queryDayReportList(DayReport condition) {
+        return dayReportBO.queryDayReportList(condition);
     }
 }

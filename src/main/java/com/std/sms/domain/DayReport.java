@@ -1,5 +1,7 @@
 package com.std.sms.domain;
 
+import java.util.Date;
+
 import com.std.sms.dao.base.ABaseDO;
 
 /** 
@@ -13,6 +15,11 @@ public class DayReport extends ABaseDO {
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
      */
     private static final long serialVersionUID = 612663667784971001L;
+
+    // ********* 查询字段 ***********
+    Date reportDatetimeStart;
+
+    Date reportDatetimeEnd;
 
     // 编号
     private String code;
@@ -30,7 +37,7 @@ public class DayReport extends ABaseDO {
     private String failTimes;
 
     // 日期
-    private String reportDate;
+    private Date reportDate;
 
     public String getCode() {
         return code;
@@ -72,11 +79,28 @@ public class DayReport extends ABaseDO {
         this.failTimes = failTimes;
     }
 
-    public String getReportDate() {
+    public Date getReportDatetimeStart() {
+        return reportDatetimeStart;
+    }
+
+    public void setReportDatetimeStart(Date reportDatetimeStart) {
+        this.reportDatetimeStart = reportDatetimeStart;
+    }
+
+    public Date getReportDatetimeEnd() {
+        return reportDatetimeEnd;
+    }
+
+    public void setReportDatetimeEnd(Date reportDatetimeEnd) {
+        this.reportDatetimeEnd = reportDatetimeEnd;
+    }
+
+    public Date getReportDate() {
         return reportDate;
     }
 
-    public void setReportDate(String reportDate) {
+    public void setReportDate(Date reportDate) {
         this.reportDate = reportDate;
     }
+
 }

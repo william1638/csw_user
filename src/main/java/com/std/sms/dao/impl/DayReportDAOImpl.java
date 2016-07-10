@@ -8,7 +8,7 @@ import com.std.sms.dao.IDayReportDAO;
 import com.std.sms.dao.base.support.AMybatisTemplate;
 import com.std.sms.domain.DayReport;
 
-@Repository("DayReportDAOImpl")
+@Repository("dayReportDAOImpl")
 public class DayReportDAOImpl extends AMybatisTemplate implements IDayReportDAO {
 
     @Override

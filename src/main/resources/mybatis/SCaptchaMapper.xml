@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.sms.dao.ISCaptchaDAO">
+	<resultMap id="sCaptcha_DB_Result" type="sCaptcha">
+		<result column="code" property="code" />
+		<result column="captcha" property="captcha" />
+		<result column="status" property="status" />
+		<result column="send_datetime" property="sendDatetime" />
+		<result column="invalid_datetime" property="invalidDatetime" />
+		<result column="check_datetime" property="checkDatetime" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="select_sCaptcha" parameterType="sCaptcha"
+		resultMap="sCaptcha_DB_Result">
+		SELECT
+		code
+		,captcha
+		,status
+		,send_datetime
+		,invalid_datetime
+		,check_datetime
+		FROM
+		tjc_sms_captcha t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				#{order}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="insert_sCaptcha" parameterType="sCaptcha">
+		INSERT INTO
+		tjc_sms_captcha(
+		code
+		,captcha
+		,status
+		,send_datetime
+		,invalid_datetime
+		,check_datetime
+		)
+		VALUES(
+		#{code}
+		,#{captcha}
+		,#{status}
+		,#{sendDatetime}
+		,#{invalidDatetime}
+		,#{checkDatetime}
+		)
+	</insert>
+	
+	<update id="update_sCaptcha" parameterType="sCaptcha">
+		UPDATE tjc_sms_captcha
+		SET 
+		status = #{status}
+		,check_datetime = #{checkDatetime}	
+		WHERE
+		code = #{code}
+	</update>
+</mapper>

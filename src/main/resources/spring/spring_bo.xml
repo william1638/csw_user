@@ -16,4 +16,12 @@
 	<bean id="smsOutBO" class="com.std.sms.bo.impl.SmsOutBOImpl">
 		<property name="paginableDAO" ref="smsOutDAOImpl" />
 	</bean>
+	
+	<bean id="dayReportBO" class="com.std.sms.bo.impl.DayReportBOImpl">
+		<property name="paginableDAO" ref="dayReportDAOImpl" />
+	</bean>
+	
+	<bean id="sOutBO" class="com.std.sms.bo.impl.SOutBOImpl">
+		<property name="paginableDAO" ref="sOutDAOImpl" />
+	</bean>
 </beans>

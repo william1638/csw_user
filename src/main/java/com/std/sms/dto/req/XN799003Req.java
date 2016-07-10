@@ -5,7 +5,7 @@ public class XN799003Req {
     private String mobile;
 
     // 业务类型--必填
-    private String bizType;
+    private String channel;
 
     public String getMobile() {
         return mobile;
@@ -15,12 +15,12 @@ public class XN799003Req {
         this.mobile = mobile;
     }
 
-    public String getBizType() {
-        return bizType;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setBizType(String bizType) {
-        this.bizType = bizType;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
 }

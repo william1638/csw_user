@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.std.sms.ao.ICompanyAO;
 import com.std.sms.ao.ISOutAO;
 import com.std.sms.bo.ISOutBO;
+import com.std.sms.bo.base.Paginable;
 import com.std.sms.core.OrderNoGenerater;
 import com.std.sms.domain.Company;
 import com.std.sms.domain.SOut;
@@ -29,13 +30,9 @@ public class SOutAOImpl implements ISOutAO {
     @Override
     public boolean doSend(String channel, String mobile, String content) {
         String[] str = channel.split("-");
-        if (str[2].equalsIgnoreCase("K")) {
+        if (str[2].equalsIgnoreCase("K") || str[2].equalsIgnoreCase("M")) {
             String prefixContent = changeContent(str[0], content);
-            senter.send(str[0], str[1], mobile, prefixContent);
-            return true;
-        } else if (str[2].equalsIgnoreCase("M")) {
-            String prefixContent = changeContent(str[0], content);
-            senter.send(str[0], str[1], mobile, prefixContent);
+            senter.send(str[0], channel, mobile, prefixContent);
             return true;
         }
         return false;
@@ -61,7 +58,12 @@ public class SOutAOImpl implements ISOutAO {
 
     public String changeContent(String companyCode, String content) {
         Company data = companyAO.doGetCompany(companyCode);
-        String result = data.getPrefix() + content + data.getPrefix();
+        String result = content + "【" + data.getPrefix() + "】";
         return result;
+    }
+
+    @Override
+    public Paginable<SOut> querySOutPage(int start, int limit, SOut condition) {
+        return sOutBO.getPaginable(start, limit, condition);
     }
 }

@@ -19,6 +19,7 @@
        <property name="triggers">  
            <list>
               <ref bean="poolTrigger"/> 
+              <ref bean="dayReportTrigger"/> 
            </list>  
        </property>  
        <property name="autoStartup" value="true"/>  
@@ -28,10 +29,22 @@
        <property name="jobDetail" ref="poolJobDetail"/>  
        <property name="cronExpression" value="10 0/1 * * * ?"/><!--0 0 0/1 * * ?每隔1个小时   -->
 	</bean>
+	
+	<bean id="dayReportTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+       <property name="jobDetail" ref="dayReportJobDetail"/>  
+       <property name="cronExpression" value="0 59 23 * * ? *"/><!--0 0 23 * * ?每天23点   -->
+	</bean>
+	
 	<bean id="poolJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
 	        <property name="targetObject" ref="poolAOImpl"/>  
 	        <property name="targetMethod" value="doSendFromPool"/>  
 	        <property name="concurrent" value="true"/> <!--  是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程   -->
-	</bean>  
+	</bean>
+	
+	<bean id="dayReportJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
+	        <property name="targetObject" ref="dayReportAOImpl"/>  
+	        <property name="targetMethod" value="doSaveDayReport"/>  
+	        <property name="concurrent" value="true"/> <!--  是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程   -->
+	</bean>
 	
 </beans>

@@ -32,8 +32,11 @@
 			<if test="errorInfo != null and errorInfo != '' ">
 				AND t.error_info = #{errorInfo}
 			</if>
-			<if test="sendDatetime != null and sendDatetime != '' ">
-				AND t.send_datetime = #{sendDatetime}
+			<if test="sendDatetimeStart != null and sendDatetimeStart != '' ">
+				<![CDATA[AND t.send_datetime >= #{sendDatetimeStart}]]>
+			</if>
+			<if test="sendDatetimeEnd != null and sendDatetimeEnd != '' ">
+				<![CDATA[AND t.send_datetime <= #{sendDatetimeEnd}]]>
 			</if>
 		</trim>
 	</sql>

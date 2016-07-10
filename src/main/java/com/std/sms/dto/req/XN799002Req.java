@@ -1,21 +1,18 @@
 package com.std.sms.dto.req;
 
 public class XN799002Req {
-    // 接受短信的手机号--必填
-    private String mobile;
+    // 待验证的手机验证码的编号--必填
+    private String code;
 
     // 待验证的手机验证码
     private String captcha;
 
-    // 业务类型--必填
-    private String bizType;
-
-    public String getMobile() {
-        return mobile;
+    public String getCode() {
+        return code;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getCaptcha() {
@@ -25,13 +22,4 @@ public class XN799002Req {
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
-
-    public String getBizType() {
-        return bizType;
-    }
-
-    public void setBizType(String bizType) {
-        this.bizType = bizType;
-    }
-
 }

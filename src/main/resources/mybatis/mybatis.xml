@@ -9,5 +9,6 @@
 		<typeAlias alias="sOut" type="com.std.sms.domain.SOut" />
 		<typeAlias alias="pool" type="com.std.sms.domain.Pool" />
 		<typeAlias alias="dayReport" type="com.std.sms.domain.DayReport" />
+		<typeAlias alias="sCaptcha" type="com.std.sms.domain.SCaptcha" />
 	</typeAliases>	
 </configuration>	
