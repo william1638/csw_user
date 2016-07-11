@@ -66,7 +66,7 @@ public class Senter {
         String account = null;
         String password = null;
         String[] str = channel.split("-");
-        if (str[2].equalsIgnoreCase("K")) {
+        if (str[2].equalsIgnoreCase("K") || str[2].equalsIgnoreCase("D")) {
             userid = configureAO.doGetConfigure(companyCode, str[1],
                 "hhxx_userid_1").getValue();
             account = configureAO.doGetConfigure(companyCode, str[1],
