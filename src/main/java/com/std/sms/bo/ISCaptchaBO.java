@@ -9,7 +9,7 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
      * @create: 2016年7月10日 下午2:11:25 zuixian
      * @history: 
      */
-    public int savaSCaptcha(SCaptcha data);
+    public String savaSCaptcha(String channel, String mobile, String captcha);
 
     /** 
      * @param data 

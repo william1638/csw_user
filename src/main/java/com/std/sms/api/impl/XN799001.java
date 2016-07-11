@@ -2,7 +2,6 @@ package com.std.sms.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.std.sms.ao.IPoolAO;
 import com.std.sms.ao.ISOutAO;
 import com.std.sms.api.AProcessor;
 import com.std.sms.common.JsonUtil;
@@ -11,6 +10,7 @@ import com.std.sms.dto.res.XN799001Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.ChannelUtil;
 import com.std.sms.util.PhoneUtil;
 
 /**
@@ -20,7 +20,6 @@ import com.std.sms.util.PhoneUtil;
  * @history:
  */
 public class XN799001 extends AProcessor {
-    private IPoolAO poolAO = SpringContextHolder.getBean(IPoolAO.class);
 
     private ISOutAO sOutAO = SpringContextHolder.getBean(ISOutAO.class);
 
@@ -28,20 +27,9 @@ public class XN799001 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        // boolean flag = smsAO.doSend(req.getMobile(), req.getContent());
-        // Long id = smsAO.doSaveSmsOut(req.getMobile(), req.getContent(),
-        // req.getBizType(), req.getRemark(), flag);
-        boolean flag = sOutAO.doSend(req.getChannel(), req.getMobile(),
-            req.getContent());
         String code = null;
-        if (flag) {
-            code = sOutAO.doSaveSOut(req.getChannel(), req.getMobile(),
-                req.getContent());
-        } else {
-            poolAO.doSaveSOutToPool(req.getChannel(), req.getMobile(),
-                req.getContent(), req.getSendDatetime());
-            code = "待发送";
-        }
+        code = sOutAO.doSend(req.getChannel(), req.getMobile(),
+            req.getContent(), req.getSendDatetime());
         return new XN799001Res(code);
     }
 
@@ -56,6 +44,9 @@ public class XN799001 extends AProcessor {
         }
         if (StringUtils.isBlank(req.getChannel())) {
             throw new ParaException("xn799001", "通道不能为空");
+        }
+        if (!ChannelUtil.isChannel(req.getChannel())) {
+            throw new ParaException("xn799001", "通道非法");
         }
     }
 }

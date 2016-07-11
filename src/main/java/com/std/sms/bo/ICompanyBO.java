@@ -11,5 +11,5 @@ public interface ICompanyBO extends IPaginableBO<Company> {
      * @create: 2016年7月8日 上午9:56:42 zuixian
      * @history: 
      */
-    public Company queryCompany(Company data);
+    public Company queryCompany(String code);
 }

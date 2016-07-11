@@ -15,7 +15,8 @@ public interface ISOutAO {
      * @create: 2016年7月7日 下午5:44:57 zuixian
      * @history: 
      */
-    public boolean doSend(String channel, String mobile, String content);
+    public String doSend(String channel, String mobile, String content,
+            String sendDatetime);
 
     /** 
      * @param moible

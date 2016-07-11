@@ -16,7 +16,9 @@ public class CompanyBOImpl extends PaginableBOImpl<Company> implements
     private ICompanyDAO companyDAO;
 
     @Override
-    public Company queryCompany(Company data) {
+    public Company queryCompany(String code) {
+        Company data = new Company();
+        data.setCode(code);
         return companyDAO.select(data);
     }
 

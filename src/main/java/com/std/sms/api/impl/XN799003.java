@@ -10,6 +10,7 @@ import com.std.sms.dto.res.XN799003Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.ChannelUtil;
 import com.std.sms.util.PhoneUtil;
 
 /**
@@ -41,6 +42,9 @@ public class XN799003 extends AProcessor {
         }
         if (StringUtils.isBlank(req.getChannel())) {
             throw new ParaException("xn799003", "通道不能为空");
+        }
+        if (!ChannelUtil.isChannel(req.getChannel())) {
+            throw new ParaException("xn799001", "通道非法");
         }
 
     }

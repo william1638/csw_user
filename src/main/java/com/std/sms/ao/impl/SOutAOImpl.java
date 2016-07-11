@@ -1,25 +1,22 @@
 package com.std.sms.ao.impl;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.std.sms.ao.ICompanyAO;
 import com.std.sms.ao.ISOutAO;
+import com.std.sms.bo.ICompanyBO;
+import com.std.sms.bo.IPoolBO;
 import com.std.sms.bo.ISOutBO;
 import com.std.sms.bo.base.Paginable;
-import com.std.sms.core.OrderNoGenerater;
 import com.std.sms.domain.Company;
 import com.std.sms.domain.SOut;
-import com.std.sms.enums.ESmsStatus;
 import com.std.sms.sent.Senter;
 
 @Service
 public class SOutAOImpl implements ISOutAO {
 
     @Autowired
-    ICompanyAO companyAO;
+    ICompanyBO companyBO;
 
     @Autowired
     Senter senter;
@@ -27,37 +24,33 @@ public class SOutAOImpl implements ISOutAO {
     @Autowired
     ISOutBO sOutBO;
 
+    @Autowired
+    IPoolBO poolBO;
+
     @Override
-    public boolean doSend(String channel, String mobile, String content) {
+    public String doSend(String channel, String mobile, String content,
+            String sendDatetime) {
         String[] str = channel.split("-");
+        String code = null;
         if (str[2].equalsIgnoreCase("K") || str[2].equalsIgnoreCase("M")) {
             String prefixContent = changeContent(str[0], content);
             senter.send(str[0], channel, mobile, prefixContent);
-            return true;
+            code = sOutBO.saveSOut(channel, mobile, prefixContent);
+        } else {
+            code = poolBO.savePool(channel, mobile, content, sendDatetime);
         }
-        return false;
+        return code;
     }
 
     @Override
     public String doSaveSOut(String channel, String mobile, String content) {
-        SOut data = new SOut();
         String[] str = channel.split("-");
-        data.setCode(OrderNoGenerater.generateM("SO"));
-        data.setCompanyCode(str[0]);
-        data.setMobile(mobile);
         String prefixContent = changeContent(str[0], content);
-        data.setContent(prefixContent);
-        data.setChannel(channel);
-        Date now = new Date();
-        data.setSendDatetime(now);
-        data.setErrorCode(ESmsStatus.SENT_YES.getCode());
-        data.setErrorInfo("成功发送");
-        sOutBO.saveSOut(data);
-        return data.getCode();
+        return sOutBO.saveSOut(channel, mobile, prefixContent);
     }
 
     public String changeContent(String companyCode, String content) {
-        Company data = companyAO.doGetCompany(companyCode);
+        Company data = companyBO.queryCompany(companyCode);
         String result = content + "【" + data.getPrefix() + "】";
         return result;
     }

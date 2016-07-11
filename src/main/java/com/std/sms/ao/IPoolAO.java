@@ -15,8 +15,8 @@ public interface IPoolAO {
      * @create: 2016年7月7日 下午8:07:38 zuixian
      * @history: 
      */
-    public void doSaveSOutToPool(String channel, String mobile, String content,
-            String sendDatetime);
+    public String doSaveSOutToPool(String channel, String mobile,
+            String content, String sendDatetime);
 
     /** 
      * @param code 

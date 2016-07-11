@@ -13,7 +13,8 @@ public interface IPoolBO extends IPaginableBO<Pool> {
      * @create: 2016年7月7日 下午7:54:03 zuixian
      * @history: 
      */
-    public int savePool(Pool data);
+    public String savePool(String channel, String mobile, String content,
+            String sendDatetime);
 
     /** 
      * @param data

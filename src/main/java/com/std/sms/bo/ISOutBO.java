@@ -13,7 +13,7 @@ public interface ISOutBO extends IPaginableBO<SOut> {
      * @create: 2016年7月7日 下午5:36:39 zuixian
      * @history: 
      */
-    public int saveSOut(SOut data);
+    public String saveSOut(String channel, String mobile, String content);
 
     /** 
      * @param data

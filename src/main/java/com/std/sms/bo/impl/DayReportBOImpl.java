@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.IDayReportBO;
 import com.std.sms.bo.base.PaginableBOImpl;
+import com.std.sms.common.DateUtil;
+import com.std.sms.core.OrderNoGenerater;
 import com.std.sms.dao.IDayReportDAO;
 import com.std.sms.domain.DayReport;
 
@@ -18,12 +20,18 @@ public class DayReportBOImpl extends PaginableBOImpl<DayReport> implements
     private IDayReportDAO dayReportDAO;
 
     @Override
-    public int saveDayReport(DayReport data) {
-        int count = 0;
-        if (data != null) {
-            count = dayReportDAO.insert(data);
-        }
-        return count;
+    public int saveDayReport(String companyCode, String channel,
+            String sucTimes, String failTimes) {
+        DayReport data = new DayReport();
+        data.setCode(OrderNoGenerater.generateM("DR"));
+        data.setCompanyCode(companyCode);
+        data.setChannel(channel);
+        data.setSucTimes(sucTimes);
+        data.setFailTimes(failTimes);
+        String reportDate = DateUtil.getToday(DateUtil.DATA_TIME_PATTERN_1);
+        data.setReportDate(DateUtil.strToDate(reportDate,
+            DateUtil.DATA_TIME_PATTERN_1));
+        return dayReportDAO.insert(data);
     }
 
     @Override

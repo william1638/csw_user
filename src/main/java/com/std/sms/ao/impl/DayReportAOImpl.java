@@ -13,7 +13,6 @@ import com.std.sms.bo.IDayReportBO;
 import com.std.sms.bo.ISOutBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.common.DateUtil;
-import com.std.sms.core.OrderNoGenerater;
 import com.std.sms.domain.DayReport;
 import com.std.sms.domain.SOut;
 
@@ -29,7 +28,6 @@ public class DayReportAOImpl implements IDayReportAO {
     @Override
     public void doSaveDayReport() {
         SOut sData = new SOut();
-        DayReport dData = new DayReport();
         Set<String> channels = new HashSet<String>();
         Set<String> companys = new HashSet<String>();
         Date start = DateUtil.getTodayStart();
@@ -58,16 +56,8 @@ public class DayReportAOImpl implements IDayReportAO {
                     }
                 }
                 if (Scount != 0 || Fcount != 0) {
-                    dData.setCode(OrderNoGenerater.generateM("DR"));
-                    dData.setCompanyCode(company);
-                    dData.setChannel(channel);
-                    dData.setSucTimes(String.valueOf(Scount));
-                    dData.setFailTimes(String.valueOf(Fcount));
-                    String reportDate = DateUtil
-                        .getToday(DateUtil.DATA_TIME_PATTERN_1);
-                    dData.setReportDate(DateUtil.strToDate(reportDate,
-                        DateUtil.DATA_TIME_PATTERN_1));
-                    dayReportBO.saveDayReport(dData);
+                    dayReportBO.saveDayReport(company, channel,
+                        String.valueOf(Scount), String.valueOf(Fcount));
                     Scount = 0;
                     Fcount = 0;
                 }

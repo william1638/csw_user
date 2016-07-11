@@ -15,9 +15,7 @@ public class CompanyAOImpl implements ICompanyAO {
 
     @Override
     public Company doGetCompany(String code) {
-        Company data = new Company();
-        data.setCode(code);
-        return companyBO.queryCompany(data);
+        return companyBO.queryCompany(code);
     }
 
 }

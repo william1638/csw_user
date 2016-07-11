@@ -2,8 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>		
-		<typeAlias alias="smsOut" type="com.std.sms.domain.SmsOut" />
-		<typeAlias alias="smsCaptcha" type="com.std.sms.domain.SmsCaptcha" />
 		<typeAlias alias="company" type="com.std.sms.domain.Company" />
 		<typeAlias alias="configure" type="com.std.sms.domain.Configure" />
 		<typeAlias alias="sOut" type="com.std.sms.domain.SOut" />
