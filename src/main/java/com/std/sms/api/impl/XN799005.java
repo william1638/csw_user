@@ -10,6 +10,12 @@ import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 
+/** 
+ * 日报表列表查询
+ * @author: zuixian 
+ * @since: 2016年7月12日 下午2:58:48 
+ * @history:
+ */
 public class XN799005 extends AProcessor {
 
     private IDayReportAO dayReportAO = SpringContextHolder

@@ -6,6 +6,7 @@ import com.std.sms.domain.Company;
 public interface ICompanyBO extends IPaginableBO<Company> {
 
     /** 
+     * 查询单条公司信息
      * @param data
      * @return 
      * @create: 2016年7月8日 上午9:56:42 zuixian

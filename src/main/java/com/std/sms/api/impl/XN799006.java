@@ -14,6 +14,12 @@ import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 import com.std.sms.util.DateTimeUtil;
 
+/** 
+ * 日报表分页查询
+ * @author: zuixian 
+ * @since: 2016年7月12日 下午2:59:20 
+ * @history:
+ */
 public class XN799006 extends AProcessor {
 
     private IDayReportAO dayReportAO = SpringContextHolder

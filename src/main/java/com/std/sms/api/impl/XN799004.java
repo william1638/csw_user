@@ -14,6 +14,12 @@ import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 import com.std.sms.util.DateTimeUtil;
 
+/** 
+ * 已发短信分页查询
+ * @author: zuixian 
+ * @since: 2016年7月12日 下午2:58:15 
+ * @history:
+ */
 public class XN799004 extends AProcessor {
 
     private ISOutAO sOutAO = SpringContextHolder.getBean(ISOutAO.class);

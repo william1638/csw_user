@@ -10,10 +10,12 @@ public class DateTimeUtil {
      * @history: 
      */
     public static boolean isDateTime(String channel, String dateTime) {
-        boolean result = false;
+        boolean result = true;
         if (channel.split("-")[2].equalsIgnoreCase("D")) {
             if (dateTime.matches("\\d{4}-\\d{1,2}-\\d{1,2}\\s\\d{2}:\\d{2}")) {
                 result = true;
+            } else {
+                result = false;
             }
         }
         return result;
