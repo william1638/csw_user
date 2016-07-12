@@ -43,11 +43,14 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
         boolean result = false;
         SCaptcha data = sCaptchaBO.getSCaptcha(code);
         if (data == null) {
-            throw new BizException("xn799002", "该短信验证码编号无验证码");
+            throw new BizException("xn799002", "该短信验证码编号不存在!");
         }
         Date invalidDatetime = data.getInvalidDatetime();
         Date now = new Date();
-        if (data.getCaptcha().equals(captcha) && invalidDatetime.after(now)) {
+        if (data.getCaptcha().equals(captcha)
+                && invalidDatetime.after(now)
+                && !data.getStatus().equalsIgnoreCase(
+                    ESmsStatus.CHECKED.getCode())) {
             data.setStatus(ESmsStatus.CHECKED.getCode());
             data.setCheckDatetime(now);
             sCaptchaBO.refreshSCaptchaInfo(data);

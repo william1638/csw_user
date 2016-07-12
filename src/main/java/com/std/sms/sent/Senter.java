@@ -22,21 +22,6 @@ public class Senter {
     @Autowired
     private IConfigureAO configureAO;
 
-    // private IConfigureAO configureAO = SpringContextHolder
-    // .getBean(IConfigureAO.class);
-
-    // private static Properties props = new Properties();
-    // static {
-    // try {
-    // props.load(Thread.currentThread().getContextClassLoader()
-    // .getResourceAsStream("config.properties"));
-    // } catch (FileNotFoundException e) {
-    // e.printStackTrace();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
-
     public void send(String companyCode, String channel, String mobileNumber,
             String content) throws BizException {
         String[] str = channel.split("-");
@@ -47,21 +32,10 @@ public class Senter {
         } else {
             throw new BizException("xn709901", "短信配置信息，channel未定义");
         }
-        // String senterType = props.getProperty("senterType");
-        // if (EServerType.CSMD.getCode().equalsIgnoreCase(senterType)) {
-        // sendByCSMD(content, mobileNumber);
-        // } else if (EServerType.HHXX.getCode().equalsIgnoreCase(senterType)) {
-        // sendByHHXX(content, mobileNumber);
-        // } else {
-        // throw new BizException("xn709901", "短信配置信息，senterType未定义");
-        // }
     }
 
     private void sendByHHXX(String companyCode, String channel, String content,
             String mobileNumber) throws BizException {
-        // String userid = props.getProperty("hhxx_userid");
-        // String account = props.getProperty("hhxx_account");
-        // String password = props.getProperty("hhxx_password");
         String userid = null;
         String account = null;
         String password = null;

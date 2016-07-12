@@ -51,16 +51,14 @@ public class XN799006 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN799006Req.class);
         StringValidater.validateNumber(req.getStart(), req.getLimit());
-        StringValidater.validateNumber(req.getDateStart(), req.getDateEnd());
-        if (req.getStart().length() > 16 || req.getLimit().length() > 16) {
-            throw new ParaException("xn799001", "输入数据格式错误");
+        if (req.getStart().length() > 10 || req.getLimit().length() > 10) {
+            throw new ParaException("xn799006", "输入数据格式错误");
         }
         if (!DateTimeUtil.isDate(req.getDateStart())) {
-            throw new ParaException("xn799001", "开始时间格式错误");
+            throw new ParaException("xn799006", "开始时间格式错误");
         }
         if (!DateTimeUtil.isDate(req.getDateEnd())) {
-            throw new ParaException("xn799001", "结束时间格式错误");
+            throw new ParaException("xn799006", "结束时间格式错误");
         }
     }
-
 }

@@ -9,6 +9,7 @@ import com.std.sms.dto.req.XN799005Req;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.DateTimeUtil;
 
 /** 
  * 日报表列表查询
@@ -38,6 +39,12 @@ public class XN799005 extends AProcessor {
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN799005Req.class);
+        if (!DateTimeUtil.isDate(req.getReportDateStart())) {
+            throw new ParaException("xn799005", "开始时间格式错误");
+        }
+        if (!DateTimeUtil.isDate(req.getReportDateEnd())) {
+            throw new ParaException("xn799005", "结束时间格式错误");
+        }
     }
 
 }
