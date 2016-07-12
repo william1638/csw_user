@@ -12,6 +12,7 @@ import com.std.sms.dto.req.XN799004Req;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.DateTimeUtil;
 
 public class XN799004 extends AProcessor {
 
@@ -44,5 +45,15 @@ public class XN799004 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN799004Req.class);
         StringValidater.validateNumber(req.getStart(), req.getLimit());
+        StringValidater.validateNumber(req.getDateStart(), req.getDateEnd());
+        if (req.getStart().length() > 16 || req.getLimit().length() > 16) {
+            throw new ParaException("xn799001", "输入数据格式错误");
+        }
+        if (!DateTimeUtil.isDate(req.getDateStart())) {
+            throw new ParaException("xn799001", "开始时间格式错误");
+        }
+        if (!DateTimeUtil.isDate(req.getDateEnd())) {
+            throw new ParaException("xn799001", "结束时间格式错误");
+        }
     }
 }

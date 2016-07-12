@@ -11,6 +11,7 @@ import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 import com.std.sms.util.ChannelUtil;
+import com.std.sms.util.DateTimeUtil;
 import com.std.sms.util.PhoneUtil;
 
 /**
@@ -47,6 +48,9 @@ public class XN799001 extends AProcessor {
         }
         if (!ChannelUtil.isChannel(req.getChannel())) {
             throw new ParaException("xn799001", "通道非法");
+        }
+        if (!DateTimeUtil.isDateTime(req.getChannel(), req.getSendDatetime())) {
+            throw new ParaException("xn799001", "待发时间格式错误");
         }
     }
 }

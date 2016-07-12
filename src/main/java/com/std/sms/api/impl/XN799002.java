@@ -33,12 +33,14 @@ public class XN799002 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN799002Req.class);
         if (StringUtils.isBlank(req.getCode())) {
-            throw new ParaException("xn799002", "短信验证码不能为空");
+            throw new ParaException("xn799002", "短信验证码编号不能为空");
         }
         if (StringUtils.isBlank(req.getCaptcha())) {
             throw new ParaException("xn799002", "短信验证码不能为空");
         }
-
+        if (req.getCode().length() > 32) {
+            throw new ParaException("xn799002", "请输入正确的短信验证码编号");
+        }
     }
 
 }

@@ -11,10 +11,6 @@ public class XN799006Req extends APageReq {
 
     private String channel;
 
-    private String reportDateStart;
-
-    private String reportDateEnd;
-
     public String getCompanyCode() {
         return companyCode;
     }
@@ -29,22 +25,6 @@ public class XN799006Req extends APageReq {
 
     public void setChannel(String channel) {
         this.channel = channel;
-    }
-
-    public String getReportDateStart() {
-        return reportDateStart;
-    }
-
-    public void setReportDateStart(String reportDateStart) {
-        this.reportDateStart = reportDateStart;
-    }
-
-    public String getReportDateEnd() {
-        return reportDateEnd;
-    }
-
-    public void setReportDateEnd(String reportDateEnd) {
-        this.reportDateEnd = reportDateEnd;
     }
 
 }

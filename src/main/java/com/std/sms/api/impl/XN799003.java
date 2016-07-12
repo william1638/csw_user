@@ -46,7 +46,6 @@ public class XN799003 extends AProcessor {
         if (!ChannelUtil.isChannel(req.getChannel())) {
             throw new ParaException("xn799001", "通道非法");
         }
-
     }
 
 }

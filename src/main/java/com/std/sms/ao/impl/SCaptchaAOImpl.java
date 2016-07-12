@@ -11,6 +11,7 @@ import com.std.sms.bo.ISCaptchaBO;
 import com.std.sms.domain.Company;
 import com.std.sms.domain.SCaptcha;
 import com.std.sms.enums.ESmsStatus;
+import com.std.sms.exception.BizException;
 import com.std.sms.sent.Senter;
 import com.std.sms.util.PhoneUtil;
 import com.std.sms.util.RandomUtil;
@@ -41,6 +42,9 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
     public boolean doCheck(String code, String captcha) {
         boolean result = false;
         SCaptcha data = sCaptchaBO.getSCaptcha(code);
+        if (data == null) {
+            throw new BizException("xn799002", "该短信验证码编号无验证码");
+        }
         Date invalidDatetime = data.getInvalidDatetime();
         Date now = new Date();
         if (data.getCaptcha().equals(captcha) && invalidDatetime.after(now)) {
