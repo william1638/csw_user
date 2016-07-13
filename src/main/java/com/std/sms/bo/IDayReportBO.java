@@ -7,7 +7,7 @@ import com.std.sms.domain.DayReport;
 
 public interface IDayReportBO extends IPaginableBO<DayReport> {
     /** 
-     * 生成日报表
+     * 保存日报表
      * @param data 
      * @create: 2016年7月8日 下午5:45:26 zuixian
      * @history: 
