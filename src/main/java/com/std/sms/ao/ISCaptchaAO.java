@@ -13,11 +13,22 @@ public interface ISCaptchaAO {
 
     /** 
      * 检查验证码是否正确
+     * @param code
      * @param captcha
-     * @param mobile
      * @return 验证码正确返回true
      * @create: 2016年7月10日 下午2:18:24 zuixian
      * @history: 
      */
-    public boolean doCheck(String captcha, String mobile);
+    public boolean doCheck(String code, String captcha);
+
+    /** 
+     * 通过公司编号与手机号来检查验证码是否正确
+     * @param companyCode
+     * @param mobile
+     * @param captcha
+     * @return 
+     * @create: 2016年10月17日 下午4:08:15 zuixian
+     * @history: 
+     */
+    public boolean doCheckByCM(String companyCode, String mobile, String captcha);
 }

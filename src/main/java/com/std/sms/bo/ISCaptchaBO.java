@@ -21,6 +21,15 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
     public SCaptcha getSCaptcha(String code);
 
     /** 
+     * 通过手机号与公司编号获取验证码
+     * @param code
+     * @return 
+     * @create: 2016年10月17日 下午4:00:59 zuixian
+     * @history: 
+     */
+    public SCaptcha getSCaptchaByCM(String companyCode, String mobile);
+
+    /** 
      * 更新验证码信息
      * @param code 
      * @create: 2016年7月10日 下午2:58:51 zuixian

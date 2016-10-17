@@ -5,7 +5,8 @@
 	<resultMap id="sCaptcha_DB_Result" type="sCaptcha">
 		<result column="code" property="code" />
 		<result column="captcha" property="captcha" />
-		<result column="status" property="status" />
+		<result column="company_code" property="companyCode" />
+		<result column="mobile" property="mobile" />
 		<result column="send_datetime" property="sendDatetime" />
 		<result column="invalid_datetime" property="invalidDatetime" />
 		<result column="check_datetime" property="checkDatetime" />
@@ -15,6 +16,15 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
+			<if test="companyCode != null and companyCoe != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="mobile != null and mobile != '' ">
+				AND t.mobile = #{mobile}
+			</if>
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
+			</if>
 		</trim>
 	</sql>
 	
@@ -23,6 +33,8 @@
 		SELECT
 		code
 		,captcha
+		,company_code
+		,mobile
 		,status
 		,send_datetime
 		,invalid_datetime
@@ -43,6 +55,8 @@
 		code
 		,captcha
 		,status
+		,company_code
+		,mobile
 		,send_datetime
 		,invalid_datetime
 		,check_datetime
@@ -50,6 +64,8 @@
 		VALUES(
 		#{code}
 		,#{captcha}
+		,#{companyCode}
+		,#{mobile}
 		,#{status}
 		,#{sendDatetime}
 		,#{invalidDatetime}

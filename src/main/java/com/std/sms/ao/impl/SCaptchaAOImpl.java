@@ -59,6 +59,27 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
         return result;
     }
 
+    @Override
+    public boolean doCheckByCM(String companyCode, String mobile, String captcha) {
+        boolean result = false;
+        SCaptcha data = sCaptchaBO.getSCaptchaByCM(companyCode, mobile);
+        if (data == null) {
+            throw new BizException("xn799002", "该短信验证码编号不存在!");
+        }
+        Date invalidDatetime = data.getInvalidDatetime();
+        Date now = new Date();
+        if (data.getCaptcha().equals(captcha)
+                && invalidDatetime.after(now)
+                && !data.getStatus().equalsIgnoreCase(
+                    ESmsStatus.CHECKED.getCode())) {
+            data.setStatus(ESmsStatus.CHECKED.getCode());
+            data.setCheckDatetime(now);
+            sCaptchaBO.refreshSCaptchaInfo(data);
+            result = true;
+        }
+        return result;
+    }
+
     public String changeContent(String companyCode, String content) {
         Company data = companyBO.queryCompany(companyCode);
         String result = "【" + data.getPrefix() + "】" + content;

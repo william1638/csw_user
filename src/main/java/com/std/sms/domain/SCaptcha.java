@@ -22,6 +22,12 @@ public class SCaptcha extends ABaseDO {
     // 验证码
     private String captcha;
 
+    // 公司编号
+    private String companyCode;
+
+    // 手机号
+    private String mobile;
+
     // 状态
     private String status;
 
@@ -80,6 +86,22 @@ public class SCaptcha extends ABaseDO {
 
     public void setCheckDatetime(Date checkDatetime) {
         this.checkDatetime = checkDatetime;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
 }
