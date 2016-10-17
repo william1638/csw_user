@@ -25,7 +25,7 @@ public class XN799007 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         boolean flag = sCaptchaAO.doCheckByCM(req.getCompanyCode(),
-            req.getMobile(), req.getCaptcha());
+            req.getMobile(), req.getCaptcha(), req.getBizType());
         return new BooleanRes(flag);
     }
 
@@ -33,7 +33,7 @@ public class XN799007 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN799007Req.class);
         StringValidater.validateBlank(req.getCompanyCode(), req.getMobile(),
-            req.getCaptcha());
+            req.getCaptcha(), req.getBizType());
     }
 
 }

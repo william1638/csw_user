@@ -22,10 +22,12 @@ public class SCaptchaBOImpl extends PaginableBOImpl<SCaptcha> implements
     private ISCaptchaDAO sCaptchaDAO;
 
     @Override
-    public String savaSCaptcha(String channel, String mobile, String captcha) {
+    public String savaSCaptcha(String channel, String mobile, String captcha,
+            String bizType) {
         SCaptcha data = new SCaptcha();
         String[] str = channel.split("-");
         data.setCompanyCode(str[0]);
+        data.setBizType(bizType);
         data.setMobile(mobile);
         data.setCode(OrderNoGenerater.generateM("SC"));
         data.setCaptcha(captcha);
@@ -50,13 +52,18 @@ public class SCaptchaBOImpl extends PaginableBOImpl<SCaptcha> implements
     }
 
     @Override
-    public SCaptcha getSCaptchaByCM(String companyCode, String mobile) {
+    public SCaptcha getSCaptchaByCM(String companyCode, String mobile,
+            String bizType) {
+        SCaptcha data = null;
         SCaptcha condition = new SCaptcha();
         condition.setCompanyCode(companyCode);
+        condition.setBizType(bizType);
         condition.setMobile(mobile);
         condition.setStatus(ESmsStatus.SENT_YES.getCode());
         List<SCaptcha> list = sCaptchaDAO.selectList(condition);
-        int size = list.size();
-        return list.get(size - 1);
+        if (list != null && list.size() > 0) {
+            data = list.get(list.size() - 1);
+        }
+        return data;
     }
 }

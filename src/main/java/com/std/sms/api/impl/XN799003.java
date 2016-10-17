@@ -30,7 +30,8 @@ public class XN799003 extends AProcessor {
     public Object doBusiness() throws BizException {
         String channel = req.getChannel();
         String mobile = req.getMobile();
-        String code = sCaptchaAO.doSend(channel, mobile);
+        String bizType = req.getBizType();
+        String code = sCaptchaAO.doSend(channel, mobile, bizType);
         return new XN799003Res(code);
     }
 
@@ -42,6 +43,9 @@ public class XN799003 extends AProcessor {
         }
         if (StringUtils.isBlank(req.getChannel())) {
             throw new ParaException("xn799003", "通道不能为空");
+        }
+        if (StringUtils.isBlank(req.getBizType())) {
+            throw new ParaException("xn799003", "业务类型不能为空");
         }
         if (!ChannelUtil.isChannel(req.getChannel())) {
             throw new ParaException("xn799001", "通道非法");

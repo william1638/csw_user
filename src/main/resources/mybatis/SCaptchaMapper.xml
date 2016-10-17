@@ -5,6 +5,7 @@
 	<resultMap id="sCaptcha_DB_Result" type="sCaptcha">
 		<result column="code" property="code" />
 		<result column="captcha" property="captcha" />
+		<result column="biz_type" property="bizType" />
 		<result column="company_code" property="companyCode" />
 		<result column="mobile" property="mobile" />
 		<result column="send_datetime" property="sendDatetime" />
@@ -16,7 +17,7 @@
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
 			</if>
-			<if test="companyCode != null and companyCoe != '' ">
+			<if test="companyCode != null and companyCode != '' ">
 				AND t.company_code = #{companyCode}
 			</if>
 			<if test="mobile != null and mobile != '' ">
@@ -24,6 +25,9 @@
 			</if>
 			<if test="status != null and status != '' ">
 				AND t.status = #{status}
+			</if>
+			<if test="bizType != null and bizType != '' ">
+				AND t.biz_type = #{bizType}
 			</if>
 		</trim>
 	</sql>
@@ -33,6 +37,7 @@
 		SELECT
 		code
 		,captcha
+		,biz_type
 		,company_code
 		,mobile
 		,status
@@ -54,6 +59,7 @@
 		tjc_sms_captcha(
 		code
 		,captcha
+		,biz_type
 		,status
 		,company_code
 		,mobile
@@ -64,9 +70,10 @@
 		VALUES(
 		#{code}
 		,#{captcha}
+		,#{bizType}
+		,#{status}
 		,#{companyCode}
 		,#{mobile}
-		,#{status}
 		,#{sendDatetime}
 		,#{invalidDatetime}
 		,#{checkDatetime}

@@ -10,7 +10,8 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
      * @create: 2016年7月10日 下午2:11:25 zuixian
      * @history: 
      */
-    public String savaSCaptcha(String channel, String mobile, String captcha);
+    public String savaSCaptcha(String channel, String mobile, String captcha,
+            String bizType);
 
     /** 
      * 获取验证码
@@ -27,7 +28,8 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
      * @create: 2016年10月17日 下午4:00:59 zuixian
      * @history: 
      */
-    public SCaptcha getSCaptchaByCM(String companyCode, String mobile);
+    public SCaptcha getSCaptchaByCM(String companyCode, String mobile,
+            String bizType);
 
     /** 
      * 更新验证码信息

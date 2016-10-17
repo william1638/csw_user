@@ -19,6 +19,9 @@ public class SCaptcha extends ABaseDO {
     // 编号
     private String code;
 
+    // 业务类型
+    private String bizType;
+
     // 验证码
     private String captcha;
 
@@ -102,6 +105,14 @@ public class SCaptcha extends ABaseDO {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getBizType() {
+        return bizType;
+    }
+
+    public void setBizType(String bizType) {
+        this.bizType = bizType;
     }
 
 }

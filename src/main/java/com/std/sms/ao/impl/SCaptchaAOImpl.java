@@ -29,13 +29,15 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
     ISCaptchaBO sCaptchaBO;
 
     @Override
-    public String doSend(String channel, String mobile) {
+    public String doSend(String channel, String mobile, String bizType) {
         String[] str = channel.split("-");
         String captcha = RandomUtil.generate4();
         String captchaContent = addContent(mobile, captcha);
         String content = changeContent(str[0], captchaContent);
+        String code = sCaptchaBO
+            .savaSCaptcha(channel, mobile, captcha, bizType);
         senter.send(str[0], channel, mobile, content);
-        return sCaptchaBO.savaSCaptcha(channel, mobile, captcha);
+        return code;
     }
 
     @Override
@@ -60,9 +62,11 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
     }
 
     @Override
-    public boolean doCheckByCM(String companyCode, String mobile, String captcha) {
+    public boolean doCheckByCM(String companyCode, String mobile,
+            String captcha, String bizType) {
         boolean result = false;
-        SCaptcha data = sCaptchaBO.getSCaptchaByCM(companyCode, mobile);
+        SCaptcha data = sCaptchaBO
+            .getSCaptchaByCM(companyCode, mobile, bizType);
         if (data == null) {
             throw new BizException("xn799002", "该短信验证码编号不存在!");
         }

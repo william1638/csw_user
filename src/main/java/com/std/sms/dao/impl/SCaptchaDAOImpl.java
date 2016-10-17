@@ -36,8 +36,8 @@ public class SCaptchaDAOImpl extends AMybatisTemplate implements ISCaptchaDAO {
 
     @Override
     public List<SCaptcha> selectList(SCaptcha condition) {
-        // TODO Auto-generated method stub
-        return null;
+        return super.selectList(NAMESPACE.concat("select_sCaptcha"), condition,
+            SCaptcha.class);
     }
 
     @Override

@@ -8,6 +8,8 @@ public class XN799007Req {
 
     private String captcha;
 
+    private String bizType;
+
     public String getCompanyCode() {
         return companyCode;
     }
@@ -30,5 +32,13 @@ public class XN799007Req {
 
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    public String getBizType() {
+        return bizType;
+    }
+
+    public void setBizType(String bizType) {
+        this.bizType = bizType;
     }
 }

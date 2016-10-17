@@ -9,7 +9,7 @@ public interface ISCaptchaAO {
      * @create: 2016年7月10日 下午2:17:47 zuixian
      * @history: 
      */
-    public String doSend(String channel, String mobile);
+    public String doSend(String channel, String mobile, String bizType);
 
     /** 
      * 检查验证码是否正确
@@ -30,5 +30,6 @@ public interface ISCaptchaAO {
      * @create: 2016年10月17日 下午4:08:15 zuixian
      * @history: 
      */
-    public boolean doCheckByCM(String companyCode, String mobile, String captcha);
+    public boolean doCheckByCM(String companyCode, String mobile,
+            String captcha, String bizType);
 }
