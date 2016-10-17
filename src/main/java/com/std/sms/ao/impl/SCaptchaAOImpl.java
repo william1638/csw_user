@@ -57,6 +57,8 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
             data.setCheckDatetime(now);
             sCaptchaBO.refreshSCaptchaInfo(data);
             result = true;
+        } else {
+            throw new BizException("xn799002", "验证失败!");
         }
         return result;
     }
@@ -80,6 +82,8 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
             data.setCheckDatetime(now);
             sCaptchaBO.refreshSCaptchaInfo(data);
             result = true;
+        } else {
+            throw new BizException("xn799002", "验证失败!");
         }
         return result;
     }
