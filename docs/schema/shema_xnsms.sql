@@ -31,14 +31,14 @@ CREATE TABLE `tjc_company` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_configure`;
 CREATE TABLE `tjc_configure` (
-  `code` varchar(32) NOT NULL COMMENT '配置信息编号',
+  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '序号',
   `company_code` varchar(32) DEFAULT NULL COMMENT '公司编号',
   `channel` varchar(255) DEFAULT NULL COMMENT '通道',
   `k` varchar(255) DEFAULT NULL COMMENT 'key',
   `v` varchar(255) DEFAULT NULL COMMENT 'value',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `tjc_day_report`
