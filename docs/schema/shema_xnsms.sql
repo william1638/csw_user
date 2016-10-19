@@ -38,7 +38,7 @@ CREATE TABLE `tjc_configure` (
   `v` varchar(255) DEFAULT NULL COMMENT 'value',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `tjc_day_report`

@@ -14,8 +14,8 @@ public class Configure extends ABaseDO {
      */
     private static final long serialVersionUID = 8475400191402067247L;
 
-    // 编号
-    private String code;
+    // 序号
+    private Integer id;
 
     // 公司编号
     private String companyCode;
@@ -32,12 +32,12 @@ public class Configure extends ABaseDO {
     // 备注信息
     private String remark;
 
-    public String getCode() {
-        return code;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCompanyCode() {
@@ -79,5 +79,4 @@ public class Configure extends ABaseDO {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
 }
