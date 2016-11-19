@@ -1,20 +1,20 @@
 package com.std.sms.dto.res;
 
 public class XN799003Res {
-    private Long id;
+    private String code;
 
     public XN799003Res() {
     }
 
-    public XN799003Res(Long id) {
-        this.id = id;
+    public XN799003Res(String code) {
+        this.code = code;
     }
 
-    public Long getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String code) {
+        this.code = code;
     }
 }

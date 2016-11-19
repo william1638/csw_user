@@ -1,17 +1,18 @@
 package com.std.sms.dto.req;
 
 public class XN799001Req {
+
+    // 通道--必填
+    private String channel;
+
     // 接受短信的手机号--必填
     private String mobile;
 
     // 短信内容--必填
     private String content;
 
-    // 业务类型--必填
-    private String bizType;
-
-    // 备注--非必填
-    private String remark;
+    // 发送时间--非必填
+    private String sendDatetime;
 
     public String getMobile() {
         return mobile;
@@ -29,19 +30,19 @@ public class XN799001Req {
         this.content = content;
     }
 
-    public String getBizType() {
-        return bizType;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setBizType(String bizType) {
-        this.bizType = bizType;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getSendDatetime() {
+        return sendDatetime;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setSendDatetime(String sendDatetime) {
+        this.sendDatetime = sendDatetime;
     }
 }

@@ -2,8 +2,7 @@ package com.std.sms.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.std.sms.ao.ISmsAO;
-import com.std.sms.ao.ISmsCaptchaAO;
+import com.std.sms.ao.ISCaptchaAO;
 import com.std.sms.api.AProcessor;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.dto.req.XN799003Req;
@@ -11,8 +10,8 @@ import com.std.sms.dto.res.XN799003Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.ChannelUtil;
 import com.std.sms.util.PhoneUtil;
-import com.std.sms.util.RandomUtil;
 
 /**
  * 发送短信验证码
@@ -21,27 +20,19 @@ import com.std.sms.util.RandomUtil;
  * @history:
  */
 public class XN799003 extends AProcessor {
-    private ISmsAO smsAO = SpringContextHolder.getBean(ISmsAO.class);
 
-    private ISmsCaptchaAO smsCaptchaAO = SpringContextHolder
-        .getBean(ISmsCaptchaAO.class);
+    private ISCaptchaAO sCaptchaAO = SpringContextHolder
+        .getBean(ISCaptchaAO.class);
 
     private XN799003Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        String captcha = RandomUtil.generate4();
+        String channel = req.getChannel();
         String mobile = req.getMobile();
-        String smsContent = addContent(mobile, captcha);
-        boolean flag = smsAO.doSend(mobile, smsContent);
-        Long id = smsCaptchaAO.doSaveSmsCaptcha(req.getMobile(), captcha,
-            req.getBizType(), flag);
-        return new XN799003Res(id);
-    }
-
-    private String addContent(String mobile, String captcha) {
-        return "尊敬的" + PhoneUtil.hideMobile(mobile) + "用户, 您的验证码为" + captcha
-                + "，请妥善保管此验证码，切勿泄露给他人。";
+        String bizType = req.getBizType();
+        String code = sCaptchaAO.doSend(channel, mobile, bizType);
+        return new XN799003Res(code);
     }
 
     @Override
@@ -50,10 +41,14 @@ public class XN799003 extends AProcessor {
         if (!PhoneUtil.isMobile(req.getMobile())) {
             throw new ParaException("xn799003", "手机号非法");
         }
+        if (StringUtils.isBlank(req.getChannel())) {
+            throw new ParaException("xn799003", "通道不能为空");
+        }
         if (StringUtils.isBlank(req.getBizType())) {
             throw new ParaException("xn799003", "业务类型不能为空");
         }
-
+        if (!ChannelUtil.isChannel(req.getChannel())) {
+            throw new ParaException("xn799001", "通道非法");
+        }
     }
-
 }

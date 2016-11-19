@@ -2,7 +2,7 @@ package com.std.sms.api.impl;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.std.sms.ao.ISmsAO;
+import com.std.sms.ao.ISOutAO;
 import com.std.sms.api.AProcessor;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.dto.req.XN799001Req;
@@ -10,6 +10,8 @@ import com.std.sms.dto.res.XN799001Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.ChannelUtil;
+import com.std.sms.util.DateTimeUtil;
 import com.std.sms.util.PhoneUtil;
 
 /**
@@ -19,16 +21,17 @@ import com.std.sms.util.PhoneUtil;
  * @history:
  */
 public class XN799001 extends AProcessor {
-    private ISmsAO smsAO = SpringContextHolder.getBean(ISmsAO.class);
+
+    private ISOutAO sOutAO = SpringContextHolder.getBean(ISOutAO.class);
 
     private XN799001Req req = null;
 
     @Override
     public Object doBusiness() throws BizException {
-        boolean flag = smsAO.doSend(req.getMobile(), req.getContent());
-        Long id = smsAO.doSaveSmsOut(req.getMobile(), req.getContent(),
-            req.getBizType(), req.getRemark(), flag);
-        return new XN799001Res(id);
+        String code = null;
+        code = sOutAO.doSend(req.getChannel(), req.getMobile(),
+            req.getContent(), req.getSendDatetime());
+        return new XN799001Res(code);
     }
 
     @Override
@@ -40,8 +43,14 @@ public class XN799001 extends AProcessor {
         if (StringUtils.isBlank(req.getContent())) {
             throw new ParaException("xn799001", "短信内容不能为空");
         }
-        if (StringUtils.isBlank(req.getBizType())) {
-            throw new ParaException("xn799001", "业务类型不能为空");
+        if (StringUtils.isBlank(req.getChannel())) {
+            throw new ParaException("xn799001", "通道不能为空");
+        }
+        if (!ChannelUtil.isChannel(req.getChannel())) {
+            throw new ParaException("xn799001", "通道非法");
+        }
+        if (!DateTimeUtil.isDateTime(req.getChannel(), req.getSendDatetime())) {
+            throw new ParaException("xn799001", "待发时间格式错误");
         }
     }
 }
