@@ -23,6 +23,8 @@ public class DateUtil {
 
     public static final String DATA_TIME_PATTERN_6 = "yyyy年MM月dd日";
 
+    public static final String DATA_TIME_PATTERN_7 = "yyyy年MM月dd日 HH:mm:ss";
+
     public static final String TIME_BEGIN = " 00:00:00";
 
     public static final String TIME_MIDDLE = " 12:00:00";
