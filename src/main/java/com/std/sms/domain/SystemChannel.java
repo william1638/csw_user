@@ -18,10 +18,10 @@ public class SystemChannel extends ABaseDO {
     // 系统名称
     private String systemName;
 
-    // 渠道大类
+    // 渠道大类(1短信 2 APP 3 微信 4 系统)
     private String channelType;
 
-    // 渠道小类
+    // 渠道小类(11 创世漫道 12 汇合 21 极光推送 31 微信 41 公告)
     private String pushType;
 
     // 状态(1 启用 0 不启用)

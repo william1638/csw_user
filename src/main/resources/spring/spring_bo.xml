@@ -20,4 +20,5 @@
 	<bean id="sOutBO" class="com.std.sms.bo.impl.SOutBOImpl">
 		<property name="paginableDAO" ref="sOutDAOImpl" />
 	</bean>
+	
 </beans>

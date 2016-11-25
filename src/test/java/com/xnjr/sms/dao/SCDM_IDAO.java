@@ -9,23 +9,23 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
     // 实体
-    private static String key = "systemChannel";
+    private static String key = "coupon";
 
     // 实体名称
-    private static String keyName = "系统渠道";
+    private static String keyName = "卡券";
 
     // 包路径
-    private static String packge = "com.std.sms.";
+    private static String packge = "com.std.user.";
 
     // 表名
-    private static String dbname = "tstd_system_channel";
+    private static String dbname = "tstd_coupon";
 
-    private static String[] DBwords = { "system_code", "system_name",
-            "channel_type", "push_type", "status", "push_system",
-            "private_key1", "private_key2", "private_key3", "remark" };
+    private static String[] DBwords = { "code", "amount", "cny_price",
+            "use_times", "style", "status", "creator", "create_datetime",
+            "scanner", "scan_datetime", "company_code" };
 
-    private static String[] DBwordsName = { "系统编号", "系统名称", "渠道大类", "渠道小类",
-            "状态(1 启用 0 不启用)", "渠道给系统的代号", "私钥1", "私钥2", "私钥3", "备注" };
+    private static String[] DBwordsName = { "编号", "积分面值", "人民币价格", "使用次数",
+            "样式", "状态", "创建人", "创建时间", "扫描人", "扫描时间", "公司编号" };
 
     private static String[] DOwords = getDOwords();
 
@@ -199,7 +199,7 @@ public class SCDM_IDAO {
             str2 += "\tpublic void set" + word + "(String " + DOwords[i]
                     + ") {\n\t\t";
             str2 += "this." + DOwords[i] + " = " + DOwords[i] + ";\n\t}\n\n";
-            str2 += "\tpublic void get" + word + "() {\n\t\t";
+            str2 += "\tpublic String get" + word + "() {\n\t\t";
             str2 += "return " + DOwords[i] + ";\n\t}\n\n";
         }
 

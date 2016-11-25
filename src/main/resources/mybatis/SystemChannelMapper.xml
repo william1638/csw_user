@@ -88,6 +88,11 @@
 		,#{remark}
 		)
 	</insert>
+	
+	<delete id="delete_systemChannel" parameterType="systemChannel">
+		DELETE FROM tstd_system_channel
+		WHERE system_code = #{systemCode}
+	</delete>
 
 	<update id="update_systemChannel" parameterType="systemChannel">
 		UPDATE tstd_system_channel
@@ -103,6 +108,4 @@
 		,remark = #{remark}
 		WHERE system_code = #{systemCode}
 	</update>
-
-
 </mapper>
