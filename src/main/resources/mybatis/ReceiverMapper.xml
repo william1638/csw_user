@@ -32,7 +32,7 @@
 		SELECT
 		t.mobile
 		,t.system_code
-		,t.system_name
+		,(select system_name from tstd_system_channel tsc where tsc.system_code = t.system_code) as system_name
 		,t.name
 		,t.level
 		,t.wechat_id
@@ -59,7 +59,6 @@
 		tstd_receiver(
 		mobile
 		,system_code
-		,system_name
 		,name
 		,level
 		,wechat_id
@@ -69,7 +68,6 @@
 		VALUES(
 		#{mobile}
 		,#{systemCode}
-		,#{systemName}
 		,#{name}
 		,#{level}
 		,#{wechatId}
@@ -86,8 +84,7 @@
 	<update id="update_receiver" parameterType="receiver">
 		UPDATE tstd_receiver
 		SET
-		system_name = #{systemName}
-		,name = #{name}
+		name = #{name}
 		,level = #{level}
 		,wechat_id = #{wechatId}
 		,jpush_id = #{jpushId}

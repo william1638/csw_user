@@ -2,6 +2,7 @@ package com.std.sms.ao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import com.std.sms.ao.IReceiverAO;
 import com.std.sms.bo.IReceiverBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Receiver;
+import com.std.sms.exception.BizException;
 
 @Service
 public class ReceiverAOImpl implements IReceiverAO {
@@ -21,22 +23,34 @@ public class ReceiverAOImpl implements IReceiverAO {
      */
     @Override
     public void synchReceivers() {
-        // TODO Auto-generated method stub
-
     }
 
-    /** 
-     * @see com.std.sms.ao.IReceiverAO#importReceivers(java.util.List)
+    /**
+     * @see com.std.sms.ao.IReceiverAO#importReceivers(java.lang.String, java.util.List)
      */
     @Override
-    public void importReceivers(List<Receiver> dataList) {
-        for (Receiver receiver : dataList) {
-            receiverBO.saveReceiver(receiver);
+    public void importReceivers(String systemCode, List<Receiver> dataList) {
+        for (Receiver data : dataList) {
+            data.setSystemCode(systemCode);
+            if (StringUtils.isNotBlank(data.getMobile())
+                    && StringUtils.isNotBlank(data.getName())) {
+                boolean result = receiverBO.isExistReceiver(data.getMobile(),
+                    data.getSystemCode());
+                if (result) {
+                    continue;
+                }
+                receiverBO.saveReceiver(data);
+            }
         }
     }
 
     @Override
     public void addReceiver(Receiver data) {
+        boolean result = receiverBO.isExistReceiver(data.getMobile(),
+            data.getSystemCode());
+        if (result) {
+            throw new BizException("xn702002", "接收者已存在");
+        }
         receiverBO.saveReceiver(data);
     }
 

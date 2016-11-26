@@ -7,6 +7,8 @@ import com.std.sms.domain.Receiver;
 
 public interface IReceiverBO extends IPaginableBO<Receiver> {
 
+    public boolean isExistReceiver(String mobile, String systemCode);
+
     public String saveReceiver(Receiver data);
 
     public int removeReceiver(String mobile, String systemCode);

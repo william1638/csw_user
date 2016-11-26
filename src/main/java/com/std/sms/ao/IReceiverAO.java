@@ -6,7 +6,7 @@ import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Receiver;
 
 public interface IReceiverAO {
-    static final String DEFAULT_ORDER_COLUMN = "code";
+    static final String DEFAULT_ORDER_COLUMN = "system_code";
 
     /**
      * 同步接收者
@@ -17,11 +17,12 @@ public interface IReceiverAO {
 
     /**
      * 导入接收者
+     * @param systemCode
      * @param dataList 
-     * @create: 2016年11月20日 下午4:22:21 xieyj
+     * @create: 2016年11月26日 下午2:31:01 xieyj
      * @history:
      */
-    public void importReceivers(List<Receiver> dataList);
+    public void importReceivers(String systemCode, List<Receiver> dataList);
 
     public void addReceiver(Receiver data);
 
