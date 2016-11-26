@@ -21,4 +21,16 @@
 		<property name="paginableDAO" ref="sOutDAOImpl" />
 	</bean>
 	
+	<bean id="systemChannelBO" class="com.std.sms.bo.impl.SystemChannelBOImpl">
+		<property name="paginableDAO" ref="systemChannelDAOImpl" />
+	</bean>
+	
+	<bean id="receiverBO" class="com.std.sms.bo.impl.ReceiverBOImpl">
+		<property name="paginableDAO" ref="receiverDAOImpl" />
+	</bean>
+	
+	<bean id="smsBO" class="com.std.sms.bo.impl.SmsBOImpl">
+		<property name="paginableDAO" ref="smsDAOImpl" />
+	</bean>
+	
 </beans>

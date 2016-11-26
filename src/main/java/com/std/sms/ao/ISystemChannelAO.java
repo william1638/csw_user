@@ -6,7 +6,7 @@ import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.SystemChannel;
 
 public interface ISystemChannelAO {
-    static final String DEFAULT_ORDER_COLUMN = "code";
+    static final String DEFAULT_ORDER_COLUMN = "system_code";
 
     public String addSystemChannel(SystemChannel data);
 
