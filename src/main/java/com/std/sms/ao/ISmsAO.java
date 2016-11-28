@@ -6,7 +6,7 @@ import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Sms;
 
 public interface ISmsAO {
-    static final String DEFAULT_ORDER_COLUMN = "code";
+    static final String DEFAULT_ORDER_COLUMN = "id";
 
     /**
      * 立即发,type 传 1;定时发，type传2

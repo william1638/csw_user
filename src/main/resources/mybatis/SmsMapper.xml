@@ -21,6 +21,9 @@
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id != '' ">
+				AND t.id = #{id}
+			</if>
 			<if test="fromSystemCode != null and fromSystemCode != '' ">
 				AND t.from_system_code = #{fromSystemCode}
 			</if>
