@@ -23,10 +23,10 @@ public class Sms extends ABaseDO {
     // from系统名称
     private String fromSystemName;
 
-    // 渠道大类
+    // 渠道大类(0 全渠道 1短信 2 APP 3 微信 4 公告)
     private String channelType;
 
-    // 渠道小类
+    // 渠道小类(11 创世漫道 12 汇禾 21 极光推送 31 微信 41 公告)
     private String pushType;
 
     // to系统编号
@@ -44,7 +44,7 @@ public class Sms extends ABaseDO {
     // 消息内容
     private String smsContent;
 
-    // 状态（0 未发送，1 发送成功，2 发送失败）
+    // 状态（0 未发送，1 已发送）
     private String status;
 
     // 生成时间

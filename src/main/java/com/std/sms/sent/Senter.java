@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.std.sms.ao.IConfigureAO;
 import com.std.sms.exception.BizException;
+import com.std.sms.sent.csmd.CsmdWebServiceClient;
 import com.std.sms.sent.hhxx.SmsClientSend;
 
 /**

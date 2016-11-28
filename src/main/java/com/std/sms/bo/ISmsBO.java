@@ -18,5 +18,4 @@ public interface ISmsBO extends IPaginableBO<Sms> {
     public List<Sms> querySmsList(Sms condition);
 
     public Sms getSms(Long id);
-
 }

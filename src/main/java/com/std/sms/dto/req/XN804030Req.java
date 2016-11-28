@@ -2,6 +2,8 @@ package com.std.sms.dto.req;
 
 import java.util.Date;
 
+import com.std.sms.sent.wechat.WxTemplate;
+
 public class XN804030Req {
     // from系统编号(必填)
     private String fromSystemCode;
@@ -32,6 +34,17 @@ public class XN804030Req {
 
     // 备注(选填)
     private String remark;
+
+    // 微信消息内容(选填)
+    private WxTemplate wxContent;
+
+    public WxTemplate getWxContent() {
+        return wxContent;
+    }
+
+    public void setWxContent(WxTemplate wxContent) {
+        this.wxContent = wxContent;
+    }
 
     public String getFromSystemCode() {
         return fromSystemCode;

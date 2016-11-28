@@ -34,5 +34,8 @@ public class PropertiesUtil {
 
     public static final class Config {
         public static String PRE_SUF = props.getProperty("PRE_SUF");
+
+        public static String APNS_PRODUCTION = props
+            .getProperty("APNS_PRODUCTION");
     }
 }
