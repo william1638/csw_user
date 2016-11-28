@@ -9,17 +9,17 @@ import com.std.sms.enums.EPushType;
 
 public interface ISystemChannelBO extends IPaginableBO<SystemChannel> {
 
-    public boolean isSystemChannelExist(String systemCode);
+    public boolean isSystemChannelExist(Long id);
 
-    public String saveSystemChannel(SystemChannel data);
+    public void saveSystemChannel(SystemChannel data);
 
-    public int removeSystemChannel(String systemCode);
+    public int removeSystemChannel(Long id);
 
     public int refreshSystemChannel(SystemChannel data);
 
     public List<SystemChannel> querySystemChannelList(SystemChannel condition);
 
-    public SystemChannel getSystemChannel(String systemCode);
+    public SystemChannel getSystemChannel(Long id);
 
     public SystemChannel getSystemChannelByCondition(String systemCode,
             EChannelType channelType, EPushType pushType);

@@ -23,12 +23,13 @@ public class XN804007 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return systemChannelAO.getSystemChannel(req.getSystemCode());
+        Long id = StringValidater.toLong(req.getId());
+        return systemChannelAO.getSystemChannel(id);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804007Req.class);
-        StringValidater.validateBlank(req.getSystemCode());
+        StringValidater.validateBlank(req.getId());
     }
 }

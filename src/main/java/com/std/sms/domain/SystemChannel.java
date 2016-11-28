@@ -12,11 +12,11 @@ public class SystemChannel extends ABaseDO {
 
     private static final long serialVersionUID = 1L;
 
+    // 序号
+    private Long id;
+
     // 系统编号
     private String systemCode;
-
-    // 系统名称
-    private String systemName;
 
     // 渠道大类(1短信 2 APP 3 微信 4 系统)
     private String channelType;
@@ -42,20 +42,20 @@ public class SystemChannel extends ABaseDO {
     // 备注
     private String remark;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getSystemCode() {
         return systemCode;
     }
 
     public void setSystemCode(String systemCode) {
         this.systemCode = systemCode;
-    }
-
-    public String getSystemName() {
-        return systemName;
-    }
-
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
     }
 
     public String getChannelType() {

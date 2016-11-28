@@ -18,24 +18,24 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
     private ISystemChannelBO systemChannelBO;
 
     @Override
-    public String addSystemChannel(SystemChannel data) {
-        return systemChannelBO.saveSystemChannel(data);
+    public void addSystemChannel(SystemChannel data) {
+        systemChannelBO.saveSystemChannel(data);
     }
 
     @Override
-    public int editSystemChannel(SystemChannel data) {
-        if (!systemChannelBO.isSystemChannelExist(data.getSystemCode())) {
+    public void editSystemChannel(SystemChannel data) {
+        if (!systemChannelBO.isSystemChannelExist(data.getId())) {
             throw new BizException("xn0000", "记录编号不存在");
         }
-        return systemChannelBO.refreshSystemChannel(data);
+        systemChannelBO.refreshSystemChannel(data);
     }
 
     @Override
-    public int dropSystemChannel(String systemCode) {
-        if (!systemChannelBO.isSystemChannelExist(systemCode)) {
+    public void dropSystemChannel(Long id) {
+        if (!systemChannelBO.isSystemChannelExist(id)) {
             throw new BizException("xn0000", "记录编号不存在");
         }
-        return systemChannelBO.removeSystemChannel(systemCode);
+        systemChannelBO.removeSystemChannel(id);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
     }
 
     @Override
-    public SystemChannel getSystemChannel(String systemCode) {
-        return systemChannelBO.getSystemChannel(systemCode);
+    public SystemChannel getSystemChannel(Long id) {
+        return systemChannelBO.getSystemChannel(id);
     }
 }

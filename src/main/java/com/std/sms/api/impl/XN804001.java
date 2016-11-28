@@ -26,8 +26,8 @@ public class XN804001 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         SystemChannel data = new SystemChannel();
+        data.setId(StringValidater.toLong(req.getId()));
         data.setSystemCode(req.getSystemCode());
-        data.setSystemName(req.getSystemName());
         data.setChannelType(req.getChannelType());
         data.setPushType(req.getPushType());
         data.setStatus(req.getStatus());
@@ -43,7 +43,7 @@ public class XN804001 extends AProcessor {
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804001Req.class);
-        StringValidater.validateBlank(req.getSystemCode(), req.getSystemName(),
+        StringValidater.validateBlank(req.getId(), req.getSystemCode(),
             req.getChannelType(), req.getPushType(), req.getStatus());
     }
 }

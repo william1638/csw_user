@@ -24,7 +24,7 @@ public class XN804006 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         SystemChannel condition = new SystemChannel();
-        condition.setSystemName(req.getSystemName());
+        condition.setSystemCode(req.getSystemCode());
         condition.setChannelType(req.getChannelType());
         condition.setPushType(req.getPushType());
         condition.setStatus(req.getStatus());

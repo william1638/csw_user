@@ -3,8 +3,8 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.std.sms.dao.ISystemChannelDAO">
 	<resultMap id="systemChannel_DB_Result" type="systemChannel">
+		<result column="id" property="id" />
 		<result column="system_code" property="systemCode" />
-		<result column="system_name" property="systemName" />
 		<result column="channel_type" property="channelType" />
 		<result column="push_type" property="pushType" />
 		<result column="status" property="status" />
@@ -16,11 +16,11 @@
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id != '' ">
+				AND t.id = #{id}
+			</if>
 			<if test="systemCode != null and systemCode != '' ">
 				AND t.system_code = #{systemCode}
-			</if>
-			<if test="systemName != null and systemName != '' ">
-				AND t.system_name = #{systemName}
 			</if>
 			<if test="channelType != null and channelType != '' ">
 				AND t.channel_type = #{channelType}
@@ -35,8 +35,8 @@
 	</sql>
 	<select id="select_systemChannel" parameterType="systemChannel" resultMap="systemChannel_DB_Result">
 		SELECT
-		t.system_code
-		,t.system_name
+		t.id
+		,t.system_code
 		,t.channel_type
 		,t.push_type
 		,t.status
@@ -65,7 +65,6 @@
 		INSERT INTO
 		tstd_system_channel(
 		system_code
-		,system_name
 		,channel_type
 		,push_type
 		,status
@@ -77,7 +76,6 @@
 		)
 		VALUES(
 		#{systemCode}
-		,#{systemName}
 		,#{channelType}
 		,#{pushType}
 		,#{status}
@@ -91,13 +89,13 @@
 	
 	<delete id="delete_systemChannel" parameterType="systemChannel">
 		DELETE FROM tstd_system_channel
-		WHERE system_code = #{systemCode}
+		WHERE id = #{id}
 	</delete>
 
 	<update id="update_systemChannel" parameterType="systemChannel">
 		UPDATE tstd_system_channel
 		SET
-		system_name = #{systemName}
+		system_code = #{systemCode}
 		,channel_type = #{channelType}
 		,push_type = #{pushType}
 		,status = #{status}
@@ -106,6 +104,6 @@
 		,private_key2 = #{privateKey2}
 		,private_key3 = #{privateKey3}
 		,remark = #{remark}
-		WHERE system_code = #{systemCode}
+		WHERE id = #{id}
 	</update>
 </mapper>

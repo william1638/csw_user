@@ -1,8 +1,8 @@
 package com.std.sms.dto.req;
 
 public class XN804006Req {
-    // 系统名称(选填)
-    private String systemName;
+    // 系统编号(选填)
+    private String systemCode;
 
     // 渠道大类(1短信 2 APP 3 微信 4 系统)(选填)
     private String channelType;
@@ -13,12 +13,12 @@ public class XN804006Req {
     // 状态(1 启用 0 不启用)(选填)
     private String status;
 
-    public String getSystemName() {
-        return systemName;
+    public String getSystemCode() {
+        return systemCode;
     }
 
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
     }
 
     public String getChannelType() {

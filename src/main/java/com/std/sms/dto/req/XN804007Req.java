@@ -1,14 +1,14 @@
 package com.std.sms.dto.req;
 
 public class XN804007Req {
-    // 系统编号(必填)
-    private String systemCode;
+    // 序号(必填)
+    private String id;
 
-    public String getSystemCode() {
-        return systemCode;
+    public String getId() {
+        return id;
     }
 
-    public void setSystemCode(String systemCode) {
-        this.systemCode = systemCode;
+    public void setId(String id) {
+        this.id = id;
     }
 }

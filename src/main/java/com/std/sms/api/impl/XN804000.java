@@ -6,7 +6,7 @@ import com.std.sms.common.JsonUtil;
 import com.std.sms.core.StringValidater;
 import com.std.sms.domain.SystemChannel;
 import com.std.sms.dto.req.XN804000Req;
-import com.std.sms.dto.res.PKCodeRes;
+import com.std.sms.dto.res.BooleanRes;
 import com.std.sms.exception.BizException;
 import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
@@ -26,7 +26,7 @@ public class XN804000 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         SystemChannel data = new SystemChannel();
-        data.setSystemName(req.getSystemName());
+        data.setSystemCode(req.getSystemCode());
         data.setChannelType(req.getChannelType());
         data.setPushType(req.getPushType());
         data.setStatus(req.getStatus());
@@ -35,13 +35,14 @@ public class XN804000 extends AProcessor {
         data.setPrivateKey2(req.getPrivateKey2());
         data.setPrivateKey3(req.getPrivateKey3());
         data.setRemark(req.getRemark());
-        return new PKCodeRes(systemChannelAO.addSystemChannel(data));
+        systemChannelAO.addSystemChannel(data);
+        return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804000Req.class);
-        StringValidater.validateBlank(req.getSystemName(),
+        StringValidater.validateBlank(req.getSystemCode(),
             req.getChannelType(), req.getPushType(), req.getStatus());
     }
 }

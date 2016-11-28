@@ -32,4 +32,21 @@
 
 http://120.55.113.192:8902/std-sms/api
 
+ --------------------push-sms
+  cd /home/wwwroot/push-sms/tomcat_std_sms/webapps
+  cp ./std-sms/WEB-INF/classes/application.properties .
+  cp ./std-sms/WEB-INF/classes/config.properties .
+  
+  rm -rf std-sms.war
+  rm -rf std-sms
+  mv /home/std-sms.war .
+  
+  mv -f application.properties ./std-sms/WEB-INF/classes/
+  mv -f config.properties ./std-sms/WEB-INF/classes/
+  
+  ../bin/shutdown.sh
+  ../bin/startup.sh
+  
+  http://121.43.101.148:6502/std-sms/api
+
 
