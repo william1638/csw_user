@@ -200,55 +200,23 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public void toSendSms(Sms data) {
-        String systemCode = data.getToSystemCode();
         String channelType = data.getChannelType();
-        String content = data.getSmsContent();
-        String mobile = data.getToMobile();
+        String pushType = data.getPushType();
         if (EBoolean.NO.getCode().equals(channelType)) {
-            // 全渠道
-            // 站内信
-            // 极光
-            // 微信
-            // 短信
+            this.toSendDxSms(data);
+            this.toSendJgSms(data);
+            this.toSendWxSms(data);
         } else {
-            String status = ESmsStatus.TOSEND.getCode();
             if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
-                boolean result = true;
-                if (EPushType.JIGUANG.getCode().equals(data.getPushType())) {
-                    // this.sendJPush(systemCode, mobile, content);
-                    // private void sendJPush(String systemCode, String mobile,
-                    // String content) {
-                    // SystemChannel jgSc =
-                    // systemChannelBO.getSystemChannelByCondition(
-                    // systemCode, EChannelType.APP, EPushType.JIGUANG);
-                    // if (StringUtils.isNotBlank(mobile)) {
-                    // Receiver receiver = receiverBO.getReceiver(mobile,
-                    // systemCode);
-                    // JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                    // jgSc.getPrivateKey1(), receiver.getJpushId(), content);
-                    // } else {
-                    // JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                    // jgSc.getPrivateKey1(), content);
-                    // }
-                    // }
-                } else if (EPushType.WEIXIN.getCode()
-                    .equals(data.getPushType())) {
-                    // Receiver receiver =
-                    // receiverBO.getReceiver(mobile,systemCode);
-                    // this.sendWeChat(systemCode, mobile,
-                    // receiver.getWechatId(),content);
-                } else if (EPushType.NOTICE.getCode()
-                    .equals(data.getPushType())) {
-                    // 将数据插入阅读表
+                if (EPushType.CSMD.getCode().equals(pushType)
+                        || EPushType.CSMD.getCode().equals(pushType)) {
+                    this.toSendDxSms(data);
+                } else if (EPushType.JIGUANG.getCode().equals(pushType)) {
+                    this.toSendJgSms(data);
+                } else if (EPushType.WEIXIN.getCode().equals(pushType)) {
+                    this.toSendWxSms(data);
                 }
-                if (result) {
-                    status = ESmsStatus.SENT_YES.getCode();
-                } else {
-                    status = ESmsStatus.SENT_NO.getCode();
-                }
-                data.setStatus(status);
             }
-            smsBO.saveSms(data);
         }
     }
 

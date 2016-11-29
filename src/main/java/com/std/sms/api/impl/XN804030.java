@@ -26,7 +26,7 @@ import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 
 /** 
- * 发送消息
+ * 发送消息(不含公告)
  * @author: xieyj 
  * @since: 2016年11月21日 下午5:42:18 
  * @history:
@@ -49,12 +49,13 @@ public class XN804030 extends AProcessor {
         data.setSmsContent(req.getSmsContent());
         if (EChannelType.WECHAT.getCode().equals(req.getChannelType())
                 && EPushType.WEIXIN.getCode().equals(req.getPushType())) {
-            data.setSmsContent(JsonUtil.Object2Json(req.getWxContent()));
+            data.setWxSmsContent(req.getWxContent());
         } else {
             data.setSmsContent(req.getSmsContent());
         }
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),
             false));
+        data.setUpdater(req.getUpdater());
         data.setRemark(req.getRemark());
         smsAO.toSendSms(data);
         return new BooleanRes(true);
@@ -65,7 +66,7 @@ public class XN804030 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN804030Req.class);
         StringValidater.validateBlank(req.getFromSystemCode(),
             req.getChannelType(), req.getPushType(), req.getToSystemCode(),
-            req.getSmsType(), req.getSmsContent());
+            req.getSmsType(), req.getSmsContent(), req.getUpdater());
         if (EChannelType.WECHAT.getCode().equals(req.getChannelType())
                 && EPushType.WEIXIN.getCode().equals(req.getPushType())) {
             if (null == req.getWxContent()) {

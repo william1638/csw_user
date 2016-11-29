@@ -1,7 +1,5 @@
 package com.std.sms.dto.req;
 
-import java.util.Date;
-
 /**
  * 短信发送(填手机号单发，不填群发)
  * @author: xieyj 

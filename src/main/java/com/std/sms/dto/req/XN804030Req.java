@@ -36,11 +36,22 @@ public class XN804030Req {
     // 拟发送时间(选填)
     private String topushDatetime;
 
+    // 更新人(必填)
+    private String updater;
+
     // 备注(选填)
     private String remark;
 
     // 微信消息内容(选填)
     private Map<String, String> wxContent;
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
 
     public Map<String, String> getWxContent() {
         return wxContent;
