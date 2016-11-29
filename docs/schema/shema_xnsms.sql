@@ -101,3 +101,18 @@ CREATE TABLE `tjc_sms_pool` (
   `to_send_datetime` datetime DEFAULT NULL COMMENT '待发时间',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `tstd_items`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_items`;
+CREATE TABLE `tstd_items` (
+  `code` varchar(32) NOT NULL COMMENT '编号',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户编号',
+  `real_name` varchar(32) DEFAULT NULL COMMENT '真实姓名',
+  `department` varchar(32) DEFAULT NULL COMMENT '审批部门',
+  `content` varchar(255) DEFAULT NULL COMMENT '办理事项',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

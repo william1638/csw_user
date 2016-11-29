@@ -1,6 +1,6 @@
 package com.std.sms.dto.req;
 
-public class XN804051Req {
+public class XN804057Req {
     // 编号(必填)
     private String code;
 

@@ -33,4 +33,7 @@
 		<property name="paginableDAO" ref="smsDAOImpl" />
 	</bean>
 	
+	<bean id="itemsBO" class="com.std.sms.bo.impl.ItemsBOImpl">
+		<property name="paginableDAO" ref="itemsDAOImpl" />
+	</bean>
 </beans>

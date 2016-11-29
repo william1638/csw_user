@@ -1,8 +1,6 @@
 package com.std.sms.dto.req;
 
-import java.util.Date;
-
-import com.std.sms.sent.wechat.WxTemplate;
+import java.util.Map;
 
 /**
  * 全渠道发送(短信、极光和微信，不包含公告)
@@ -36,19 +34,19 @@ public class XN804030Req {
     private String smsContent;
 
     // 拟发送时间(选填)
-    private Date topushDatetime;
+    private String topushDatetime;
 
     // 备注(选填)
     private String remark;
 
     // 微信消息内容(选填)
-    private WxTemplate wxContent;
+    private Map<String, String> wxContent;
 
-    public WxTemplate getWxContent() {
+    public Map<String, String> getWxContent() {
         return wxContent;
     }
 
-    public void setWxContent(WxTemplate wxContent) {
+    public void setWxContent(Map<String, String> wxContent) {
         this.wxContent = wxContent;
     }
 
@@ -116,11 +114,11 @@ public class XN804030Req {
         this.smsContent = smsContent;
     }
 
-    public Date getTopushDatetime() {
+    public String getTopushDatetime() {
         return topushDatetime;
     }
 
-    public void setTopushDatetime(Date topushDatetime) {
+    public void setTopushDatetime(String topushDatetime) {
         this.topushDatetime = topushDatetime;
     }
 

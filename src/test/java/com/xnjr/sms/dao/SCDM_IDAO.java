@@ -20,12 +20,11 @@ public class SCDM_IDAO {
     // 表名
     private static String dbname = "tstd_items";
 
-    private static String[] DBwords = { "code", "system_code", "mobile",
-            "real_name", "login_name", "department", "status", "content",
-            "remark", "create_datetime" };
+    private static String[] DBwords = { "code", "real_name", "department",
+            "status", "content", "remark", "user_id", "system_code" };
 
-    private static String[] DBwordsName = { "编号", "系统编号", "手机号", "真实姓名", "登录名",
-            "审批部门", "状态", "办理事项", "备注", "申请时间" };
+    private static String[] DBwordsName = { "编号", "真实姓名", "审批部门", "状态", "办理事项",
+            "备注", "用户编号", "系统编号" };
 
     private static String[] DOwords = getDOwords();
 
