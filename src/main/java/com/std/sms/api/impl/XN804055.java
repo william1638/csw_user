@@ -29,6 +29,7 @@ public class XN804055 extends AProcessor {
         condition.setRealName(req.getRealName());
         condition.setDepartment(req.getDepartment());
         condition.setSystemCode(req.getSystemCode());
+        condition.setUserId(req.getUserId());
         String column = req.getOrderColumn();
         if (StringUtils.isBlank(column)) {
             column = IItemsAO.DEFAULT_ORDER_COLUMN;

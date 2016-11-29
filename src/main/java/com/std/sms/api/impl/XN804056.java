@@ -23,6 +23,7 @@ public class XN804056 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Items condition = new Items();
+        condition.setUserId(req.getUserId());
         condition.setRealName(req.getRealName());
         condition.setDepartment(req.getDepartment());
         condition.setSystemCode(req.getSystemCode());

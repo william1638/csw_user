@@ -28,6 +28,7 @@ public class XN804050 extends AProcessor {
         data.setRealName(req.getRealName());
         data.setDepartment(req.getDepartment());
         data.setContent(req.getContent());
+        data.setTelephone(req.getTelephone());
         data.setRemark(req.getRemark());
         data.setUserId(req.getUserId());
         data.setSystemCode(req.getSystemCode());
@@ -38,7 +39,7 @@ public class XN804050 extends AProcessor {
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804050Req.class);
         StringValidater.validateBlank(req.getRealName(), req.getDepartment(),
-            req.getContent(), req.getRemark(), req.getUserId(),
-            req.getSystemCode());
+            req.getContent(), req.getTelephone(), req.getRemark(),
+            req.getUserId(), req.getSystemCode());
     }
 }

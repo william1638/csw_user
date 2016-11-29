@@ -6,6 +6,9 @@ public class XN804055Req extends APageReq {
      */
     private static final long serialVersionUID = 1L;
 
+    // 用户编号(选填)
+    private String userId;
+
     // 真实姓名(选填)
     private String realName;
 
@@ -14,6 +17,14 @@ public class XN804055Req extends APageReq {
 
     // 系统编号(选填)
     private String systemCode;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getRealName() {
         return realName;

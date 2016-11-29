@@ -24,6 +24,9 @@ public class Items extends ABaseDO {
     // 办理事项
     private String content;
 
+    // 联系电话
+    private String telephone;
+
     // 备注
     private String remark;
 
@@ -32,6 +35,14 @@ public class Items extends ABaseDO {
 
     // 系统编号
     private String systemCode;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public void setCode(String code) {
         this.code = code;

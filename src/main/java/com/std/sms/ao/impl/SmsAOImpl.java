@@ -209,7 +209,7 @@ public class SmsAOImpl implements ISmsAO {
         } else {
             if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
                 if (EPushType.CSMD.getCode().equals(pushType)
-                        || EPushType.CSMD.getCode().equals(pushType)) {
+                        || EPushType.HHXX.getCode().equals(pushType)) {
                     this.toSendDxSms(data);
                 } else if (EPushType.JIGUANG.getCode().equals(pushType)) {
                     this.toSendJgSms(data);

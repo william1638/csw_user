@@ -13,11 +13,22 @@ public class XN804052Req {
     // 办理事项(必填)
     private String content;
 
+    // 联系电话(必填)
+    private String telephone;
+
     // 备注(选填)
     private String remark;
 
     // 系统编号(必填)
     private String systemCode;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public String getCode() {
         return code;

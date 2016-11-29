@@ -7,6 +7,7 @@
 		<result column="real_name" property="realName" />
 		<result column="department" property="department" />
 		<result column="content" property="content" />
+		<result column="telephone" property="telephone" />
 		<result column="remark" property="remark" />
 		<result column="system_code" property="systemCode" />
 	</resultMap>
@@ -14,6 +15,9 @@
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND t.user_id = #{userId}
 			</if>
 			<if test="realName != null and realName != '' ">
 				AND t.real_name = #{realName}
@@ -33,6 +37,7 @@
 		,t.real_name
 		,t.department
 		,t.content
+		,t.telephone
 		,t.remark
 		,t.system_code
 		FROM
@@ -59,6 +64,7 @@
 		,real_name
 		,department
 		,content
+		,telephone
 		,remark
 		,system_code
 		)
@@ -68,6 +74,7 @@
 		,#{realName}
 		,#{department}
 		,#{content}
+		,#{telephone}
 		,#{remark}
 		,#{systemCode}
 		)
@@ -84,6 +91,7 @@
 		real_name = #{realName}
 		,department = #{department}
 		,content = #{content}
+		,telephone = #{telephone}
 		,remark = #{remark}
 		,system_code = #{systemCode}
 		WHERE code = #{code}
