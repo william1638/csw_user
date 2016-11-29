@@ -5,7 +5,6 @@
 	<resultMap id="sms_DB_Result" type="sms">
 		<result column="id" property="id" />
 		<result column="from_system_code" property="fromSystemCode" />
-		<result column="from_system_name" property="fromSystemName" />
 		<result column="channel_type" property="channelType" />
 		<result column="push_type" property="pushType" />
 		<result column="to_system_code" property="toSystemCode" />
@@ -28,9 +27,6 @@
 			</if>
 			<if test="fromSystemCode != null and fromSystemCode != '' ">
 				AND t.from_system_code = #{fromSystemCode}
-			</if>
-			<if test="fromSystemName != null and fromSystemName != '' ">
-				AND t.from_system_name = #{fromSystemName}
 			</if>
 			<if test="channelType != null and channelType != '' ">
 				AND t.channel_type = #{channelType}
@@ -56,7 +52,6 @@
 		SELECT
 		t.id
 		,t.from_system_code
-		,t.from_system_name
 		,t.channel_type
 		,t.push_type
 		,t.to_system_code

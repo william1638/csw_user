@@ -1,22 +1,22 @@
 /*
-Navicat MySQL Data Transfer
+ Navicat MySQL Data Transfer
 
-Source Server         : zxc
-Source Server Version : 50630
-Source Host           : localhost:3306
-Source Database       : xn_sms
+ Source Server         : 148
+ Source Server Version : 50545
+ Source Host           : 121.43.101.148
+ Source Database       : push_std_sms
 
-Target Server Type    : MYSQL
-Target Server Version : 50630
-File Encoding         : 65001
+ Target Server Version : 50545
+ File Encoding         : utf-8
 
-Date: 2016-07-11 10:31:00
+ Date: 11/29/2016 23:05:43 PM
 */
 
-SET FOREIGN_KEY_CHECKS=0;
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for `tjc_company`
+--  Table structure for `tjc_company`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_company`;
 CREATE TABLE `tjc_company` (
@@ -27,7 +27,7 @@ CREATE TABLE `tjc_company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `tjc_configure`
+--  Table structure for `tjc_configure`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_configure`;
 CREATE TABLE `tjc_configure` (
@@ -41,7 +41,7 @@ CREATE TABLE `tjc_configure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `tjc_day_report`
+--  Table structure for `tjc_day_report`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_day_report`;
 CREATE TABLE `tjc_day_report` (
@@ -54,9 +54,8 @@ CREATE TABLE `tjc_day_report` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 -- ----------------------------
--- Table structure for `tjc_sms_captcha`
+--  Table structure for `tjc_sms_captcha`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_sms_captcha`;
 CREATE TABLE `tjc_sms_captcha` (
@@ -73,7 +72,7 @@ CREATE TABLE `tjc_sms_captcha` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `tjc_sms_out`
+--  Table structure for `tjc_sms_out`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_sms_out`;
 CREATE TABLE `tjc_sms_out` (
@@ -89,7 +88,7 @@ CREATE TABLE `tjc_sms_out` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `tjc_sms_pool`
+--  Table structure for `tjc_sms_pool`
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_sms_pool`;
 CREATE TABLE `tjc_sms_pool` (
@@ -103,7 +102,7 @@ CREATE TABLE `tjc_sms_pool` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for `tstd_items`
+--  Table structure for `tstd_items`
 -- ----------------------------
 DROP TABLE IF EXISTS `tstd_items`;
 CREATE TABLE `tstd_items` (
@@ -112,7 +111,67 @@ CREATE TABLE `tstd_items` (
   `real_name` varchar(32) DEFAULT NULL COMMENT '真实姓名',
   `department` varchar(32) DEFAULT NULL COMMENT '审批部门',
   `content` varchar(255) DEFAULT NULL COMMENT '办理事项',
+  `telephone` varchar(32) DEFAULT NULL COMMENT '联系电话',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tstd_receiver`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_receiver`;
+CREATE TABLE `tstd_receiver` (
+  `mobile` varchar(32) NOT NULL COMMENT '手机号',
+  `system_code` varchar(32) NOT NULL DEFAULT '' COMMENT '系统编号',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `level` varchar(32) DEFAULT NULL COMMENT '等级',
+  `wechat_id` varchar(255) DEFAULT NULL COMMENT '微信id',
+  `jpush_id` varchar(255) DEFAULT NULL COMMENT '极光id',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`mobile`,`system_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tstd_sms`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_sms`;
+CREATE TABLE `tstd_sms` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `from_system_code` varchar(32) DEFAULT NULL COMMENT 'from系统编号',
+  `channel_type` varchar(32) DEFAULT NULL COMMENT '渠道大类',
+  `push_type` varchar(32) DEFAULT NULL COMMENT '渠道小类',
+  `to_system_code` varchar(32) DEFAULT NULL COMMENT 'to公司编号',
+  `to_mobile` varchar(32) DEFAULT NULL COMMENT 'to手机号',
+  `sms_type` varchar(32) DEFAULT NULL COMMENT '消息类型（即时发,定时发）',
+  `sms_title` varchar(255) DEFAULT NULL COMMENT '消息标题（可为空）',
+  `sms_content` text COMMENT '消息内容',
+  `status` varchar(32) DEFAULT NULL COMMENT '状态（未发送，发送成功，发送失败）',
+  `create_datetime` datetime DEFAULT NULL COMMENT '生成时间',
+  `topush_datetime` datetime DEFAULT NULL COMMENT '拟发送时间',
+  `pushed_datetime` datetime DEFAULT NULL COMMENT '发送时间',
+  `updater` varchar(32) DEFAULT NULL COMMENT '更新人',
+  `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tstd_system_channel`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_system_channel`;
+CREATE TABLE `tstd_system_channel` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
+  `channel_type` varchar(32) DEFAULT NULL COMMENT '渠道大类',
+  `push_type` varchar(32) DEFAULT NULL COMMENT '渠道小类',
+  `status` varchar(32) DEFAULT NULL COMMENT '状态（启用/不启用）',
+  `push_system` varchar(255) DEFAULT NULL COMMENT '渠道给系统的代号',
+  `private_key1` varchar(255) DEFAULT NULL COMMENT '秘钥1',
+  `private_key2` varchar(255) DEFAULT NULL COMMENT '秘钥2',
+  `private_key3` varchar(255) DEFAULT NULL COMMENT '秘钥3',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;

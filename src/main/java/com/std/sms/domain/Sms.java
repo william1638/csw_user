@@ -21,9 +21,6 @@ public class Sms extends ABaseDO {
     // from系统编号
     private String fromSystemCode;
 
-    // from系统名称
-    private String fromSystemName;
-
     // 渠道大类(0 全渠道 1短信 2 APP 3 微信 4 公告)
     private String channelType;
 
@@ -109,14 +106,6 @@ public class Sms extends ABaseDO {
 
     public String getFromSystemCode() {
         return fromSystemCode;
-    }
-
-    public void setFromSystemName(String fromSystemName) {
-        this.fromSystemName = fromSystemName;
-    }
-
-    public String getFromSystemName() {
-        return fromSystemName;
     }
 
     public void setChannelType(String channelType) {

@@ -24,7 +24,7 @@ public class SCDM_IDAO {
             "status", "content", "remark", "user_id", "system_code" };
 
     private static String[] DBwordsName = { "编号", "真实姓名", "审批部门", "状态", "办理事项",
-            "备注", "用户编号", "系统编号" };
+            "联系电话", "备注", "用户编号", "系统编号" };
 
     private static String[] DOwords = getDOwords();
 
