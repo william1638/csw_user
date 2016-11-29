@@ -3,6 +3,7 @@ package com.std.sms.bo.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import com.std.sms.bo.ISmsBO;
 import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISmsDAO;
 import com.std.sms.domain.Sms;
+import com.std.sms.enums.ESmsStatus;
 import com.std.sms.enums.ESmsType;
 import com.std.sms.exception.BizException;
 
@@ -33,10 +35,15 @@ public class SmsBOImpl extends PaginableBOImpl<Sms> implements ISmsBO {
     public String saveSms(Sms data) {
         String code = null;
         if (data != null) {
-            data.setCreateDatetime(new Date());
-            data.setTopushDatetime(new Date());
+            Date date = new Date();
+            data.setCreateDatetime(date);
+            data.setTopushDatetime(date);
+            data.setUpdateDatetime(date);
             if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
-                data.setPushedDatetime(new Date());
+                data.setPushedDatetime(date);
+            }
+            if (StringUtils.isBlank(data.getStatus())) {
+                data.setStatus(ESmsStatus.TOSEND.getCode());
             }
             smsDAO.insert(data);
         }
@@ -57,7 +64,27 @@ public class SmsBOImpl extends PaginableBOImpl<Sms> implements ISmsBO {
     @Override
     public int refreshSms(Sms data) {
         int count = 0;
-        if (null != data.getId()) {
+        if (null != data) {
+            data.setUpdateDatetime(new Date());
+            count = smsDAO.update(data);
+        }
+        return count;
+    }
+
+    /** 
+     * @see com.std.sms.bo.ISmsBO#refreshSmsStatus(java.lang.Long, java.lang.String, java.lang.String)
+     */
+    @Override
+    public int refreshSmsStatus(Long id, String status, String updater) {
+        int count = 0;
+        if (null != id) {
+            Date date = new Date();
+            Sms data = new Sms();
+            data.setId(id);
+            data.setStatus(status);
+            data.setPushedDatetime(date);
+            data.setUpdater(updater);
+            data.setUpdateDatetime(date);
             count = smsDAO.updateStatus(data);
         }
         return count;

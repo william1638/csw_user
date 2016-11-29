@@ -37,5 +37,13 @@ public class PropertiesUtil {
 
         public static String APNS_PRODUCTION = props
             .getProperty("APNS_PRODUCTION");
+
+        public static String TEMPLATE_ID = props.getProperty("TEMPLATE_ID");
+
+        public static String URL = props.getProperty("URL");
+
+        public static String COLOR1 = props.getProperty("COLOR1");
+
+        public static String COLOR2 = props.getProperty("COLOR2");
     }
 }

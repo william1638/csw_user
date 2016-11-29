@@ -14,8 +14,11 @@ package com.std.sms.enums;
  * @history:
  */
 public enum ESmsStatus {
-    TOSEND("0", "待发送"), SENT_YES("1", "已发送"), SENT_NO("2", "发送失败"), CHECKED(
+    TOSEND("0", "待发送"), SENT_YES("1", "已发送/使用中"), SENT_NO("2", "发送失败/过期"), CHECKED(
             "3", "已验证");
+
+    // 公告 0 待发送 1使用中 2 过期
+    // 短信/微信/极光 0 待发送 1已发送 2 发送失败
 
     ESmsStatus(String code, String value) {
         this.code = code;

@@ -8,6 +8,8 @@
  */
 package com.std.sms.sent.wechat;
 
+import com.std.sms.common.PropertiesUtil;
+
 /** 
  * @author: haiqingzheng 
  * @since: 2016年11月25日 上午10:52:35 
@@ -17,6 +19,19 @@ public class TemplateData {
     private String value;
 
     private String color;
+
+    public TemplateData() {
+    }
+
+    public TemplateData(String value) {
+        this.value = value;
+        this.color = PropertiesUtil.Config.COLOR2;
+    }
+
+    public TemplateData(String value, String color) {
+        this.value = value;
+        this.color = color;
+    }
 
     public String getValue() {
         return value;

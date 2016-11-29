@@ -15,6 +15,8 @@ public interface ISmsBO extends IPaginableBO<Sms> {
 
     public int refreshSms(Sms data);
 
+    public int refreshSmsStatus(Long id, String status, String updater);
+
     public List<Sms> querySmsList(Sms condition);
 
     public Sms getSms(Long id);

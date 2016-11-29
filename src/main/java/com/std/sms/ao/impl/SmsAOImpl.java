@@ -6,12 +6,15 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.sms.ao.ISmsAO;
 import com.std.sms.bo.IReceiverBO;
 import com.std.sms.bo.ISmsBO;
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.bo.base.Paginable;
+import com.std.sms.common.JsonUtil;
+import com.std.sms.common.PropertiesUtil;
 import com.std.sms.domain.Receiver;
 import com.std.sms.domain.Sms;
 import com.std.sms.domain.SystemChannel;
@@ -20,9 +23,11 @@ import com.std.sms.enums.EChannelType;
 import com.std.sms.enums.EPushType;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.enums.ESmsType;
+import com.std.sms.exception.BizException;
 import com.std.sms.sent.jiguang.JPushClientSend;
 import com.std.sms.sent.sms.DxClientSend;
 import com.std.sms.sent.wechat.WeChatClientSend;
+import com.std.sms.sent.wechat.WxTemplate;
 
 @Service
 public class SmsAOImpl implements ISmsAO {
@@ -35,6 +40,163 @@ public class SmsAOImpl implements ISmsAO {
 
     @Autowired
     private IReceiverBO receiverBO;
+
+    @Override
+    public void toSendDxSms(Sms data) {
+        String mobile = data.getToMobile();
+        String systemCode = data.getToSystemCode();
+        String content = data.getSmsContent();
+        String status = ESmsStatus.TOSEND.getCode();
+        if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
+            if (StringUtils.isNotBlank(mobile)) {
+                boolean result = sendSms(systemCode, mobile, content,
+                    data.getPushType());
+                if (result) {
+                    status = ESmsStatus.SENT_YES.getCode();
+                } else {
+                    status = ESmsStatus.SENT_NO.getCode();
+                }
+                data.setStatus(status);
+                smsBO.saveSms(data);
+            } else {
+                Receiver condition = new Receiver();
+                condition.setSystemCode(systemCode);
+                List<Receiver> receiverList = receiverBO
+                    .queryReceiverList(condition);
+                if (CollectionUtils.isNotEmpty(receiverList)) {
+                    for (Receiver receiver : receiverList) {
+                        boolean result = sendSms(systemCode,
+                            receiver.getMobile(), content, data.getPushType());
+                        if (result) {
+                            status = ESmsStatus.SENT_YES.getCode();
+                        } else {
+                            status = ESmsStatus.SENT_NO.getCode();
+                        }
+                        data.setStatus(status);
+                        smsBO.saveSms(data);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean sendSms(String systemCode, String mobile, String content,
+            String pushType) {
+        boolean result = true;
+        SystemChannel smsSc = systemChannelBO.getSystemChannelByCondition(
+            systemCode, EChannelType.SMS, EPushType.CSMD);
+        content = "【" + smsSc.getRemark() + "】" + content;
+        if (EPushType.CSMD.getCode().equals(pushType)) {
+            result = DxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
+                smsSc.getPrivateKey2(), mobile, content);
+        } else if (EPushType.HHXX.getCode().equals(pushType)) {
+            result = DxClientSend
+                .sendByHHXX(smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
+                    smsSc.getPrivateKey3(), mobile, content);
+        }
+        return result;
+    }
+
+    @Override
+    public void toSendJgSms(Sms data) {
+        boolean result = true;
+        String mobile = data.getToMobile();
+        String systemCode = data.getToSystemCode();
+        String content = data.getSmsContent();
+        String status = ESmsStatus.TOSEND.getCode();
+        if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
+            SystemChannel jgSc = systemChannelBO.getSystemChannelByCondition(
+                systemCode, EChannelType.APP, EPushType.JIGUANG);
+            if (StringUtils.isNotBlank(mobile)) {
+                Receiver receiver = receiverBO.getReceiver(mobile, systemCode);
+                if (StringUtils.isNotBlank(receiver.getJpushId())) {
+                    result = JPushClientSend.toSendPush(jgSc.getPushSystem(),
+                        jgSc.getPrivateKey1(), receiver.getJpushId(), content);
+                }
+            } else {
+                result = JPushClientSend.toSendPush(jgSc.getPushSystem(),
+                    jgSc.getPrivateKey1(), content);
+            }
+            if (result) {
+                status = ESmsStatus.SENT_YES.getCode();
+            } else {
+                status = ESmsStatus.SENT_NO.getCode();
+            }
+            data.setStatus(status);
+        }
+        smsBO.saveSms(data);
+    }
+
+    @Override
+    public void toSendWxSms(Sms data) {
+        String mobile = data.getToMobile();
+        String systemCode = data.getToSystemCode();
+        if (StringUtils.isNotBlank(mobile)) {
+            this.sendWeChatSingle(data);
+        } else {
+            Receiver condition = new Receiver();
+            condition.setSystemCode(systemCode);
+            List<Receiver> receiverList = receiverBO
+                .queryReceiverList(condition);
+            if (CollectionUtils.isNotEmpty(receiverList)) {
+                for (Receiver receiver : receiverList) {
+                    data.setToMobile(receiver.getMobile());
+                    this.sendWeChatSingle(data);
+                }
+            }
+        }
+    }
+
+    @Transactional
+    private void sendWeChatSingle(Sms data) {
+        // 填充内容
+        Receiver receiver = receiverBO.getReceiver(data.getToMobile(),
+            data.getToSystemCode());
+        String weChatId = receiver.getWechatId();
+        if (StringUtils.isNotBlank(weChatId)) {
+            WxTemplate content = new WxTemplate(
+                PropertiesUtil.Config.TEMPLATE_ID, weChatId,
+                PropertiesUtil.Config.URL, data.getWxSmsContent());
+            SystemChannel weChatSystemChannel = systemChannelBO
+                .getSystemChannelByCondition(data.getToSystemCode(),
+                    EChannelType.WECHAT, EPushType.WEIXIN);
+            WeChatClientSend.sendWeChatSingle(data.getToSystemCode(),
+                weChatSystemChannel.getPrivateKey1(),
+                weChatSystemChannel.getPrivateKey2(),
+                JsonUtil.Object2Json(content));
+            smsBO.saveSms(data);
+        }
+    }
+
+    @Override
+    public void addNoticeSms(Sms data) {
+        smsBO.saveSms(data);
+    }
+
+    @Override
+    public void editNoticeSms(Sms data) {
+        Sms sms = smsBO.getSms(data.getId());
+        if (ESmsStatus.SENT_YES.getCode().equals(sms.getStatus())) {
+            throw new BizException("xn702002", "公告已发布，无法修改");
+        }
+        smsBO.refreshSms(data);
+    }
+
+    /** 
+     * @see com.std.sms.ao.ISmsAO#toSendNoticeSms(java.lang.Long, java.lang.String)
+     */
+    @Override
+    public void toSendNoticeSms(Long id, String updater) {
+        Sms sms = smsBO.getSms(id);
+        if (ESmsStatus.SENT_NO.getCode().equals(sms.getStatus())) {
+            throw new BizException("xn702002", "公告已下撤，无法发布");
+        }
+        String status = ESmsStatus.SENT_YES.getCode();
+        if (ESmsStatus.SENT_YES.getCode().equals(sms.getStatus())) {
+            status = ESmsStatus.SENT_NO.getCode();
+        }
+        smsBO.refreshSmsStatus(id, status, updater);
+    }
 
     @Override
     public void toSendSms(Sms data) {
@@ -52,19 +214,29 @@ public class SmsAOImpl implements ISmsAO {
             String status = ESmsStatus.TOSEND.getCode();
             if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
                 boolean result = true;
-                // 创世漫道
-                if (EPushType.CSMD.getCode().equals(data.getPushType())) {
-                    this.sendCsmd(systemCode, mobile, content);
-                    // 汇禾信息
-                } else if (EPushType.HHXX.getCode().equals(data.getPushType())) {
-                    this.sendHhxx(systemCode, mobile, content);
-                    // 极光推送
-                } else if (EPushType.JIGUANG.getCode().equals(
-                    data.getPushType())) {
-                    this.sendJPush(systemCode, mobile, content);
+                if (EPushType.JIGUANG.getCode().equals(data.getPushType())) {
+                    // this.sendJPush(systemCode, mobile, content);
+                    // private void sendJPush(String systemCode, String mobile,
+                    // String content) {
+                    // SystemChannel jgSc =
+                    // systemChannelBO.getSystemChannelByCondition(
+                    // systemCode, EChannelType.APP, EPushType.JIGUANG);
+                    // if (StringUtils.isNotBlank(mobile)) {
+                    // Receiver receiver = receiverBO.getReceiver(mobile,
+                    // systemCode);
+                    // JPushClientSend.toSendPush(jgSc.getPushSystem(),
+                    // jgSc.getPrivateKey1(), receiver.getJpushId(), content);
+                    // } else {
+                    // JPushClientSend.toSendPush(jgSc.getPushSystem(),
+                    // jgSc.getPrivateKey1(), content);
+                    // }
+                    // }
                 } else if (EPushType.WEIXIN.getCode()
                     .equals(data.getPushType())) {
-                    this.sendWeChat(systemCode, mobile, content);
+                    // Receiver receiver =
+                    // receiverBO.getReceiver(mobile,systemCode);
+                    // this.sendWeChat(systemCode, mobile,
+                    // receiver.getWechatId(),content);
                 } else if (EPushType.NOTICE.getCode()
                     .equals(data.getPushType())) {
                     // 将数据插入阅读表
@@ -82,7 +254,12 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public void reSendSms(Sms data) {
-        smsBO.refreshSms(data);
+    }
+
+    @Override
+    public void copySms(Long id) {
+        Sms sms = smsBO.getSms(id);
+        smsBO.saveSms(sms);
     }
 
     @Override
@@ -101,91 +278,9 @@ public class SmsAOImpl implements ISmsAO {
     }
 
     /** 
-     * @see com.std.sms.ao.ISmsAO#copySms(java.lang.Long)
-     */
-    @Override
-    public void copySms(Long id) {
-        Sms sms = smsBO.getSms(id);
-        smsBO.saveSms(sms);
-    }
-
-    /** 
      * @see com.std.sms.ao.ISmsAO#doSmsDaily()
      */
     @Override
     public void doSmsDaily() {
-    }
-
-    private void sendCsmd(String systemCode, String mobile, String content) {
-        SystemChannel smsSc = systemChannelBO.getSystemChannelByCondition(
-            systemCode, EChannelType.SMS, EPushType.CSMD);
-        content = "【" + smsSc.getRemark() + "】" + content;
-        if (StringUtils.isNotBlank(mobile)) {
-            // 单发
-            receiverBO.getReceiver(mobile, systemCode);
-            DxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
-                smsSc.getPrivateKey2(), mobile, content);
-        } else {
-            // 群发
-            Receiver condition = new Receiver();
-            condition.setSystemCode(systemCode);
-            List<Receiver> receiverList = receiverBO
-                .queryReceiverList(condition);
-            if (CollectionUtils.isNotEmpty(receiverList)) {
-                for (Receiver receiver : receiverList) {
-                    DxClientSend.sendByCSMD(smsSc.getPushSystem(),
-                        smsSc.getPrivateKey1(), receiver.getMobile(), content);
-                }
-            }
-        }
-    }
-
-    private void sendHhxx(String systemCode, String mobile, String content) {
-        SystemChannel smsSc = systemChannelBO.getSystemChannelByCondition(
-            systemCode, EChannelType.SMS, EPushType.HHXX);
-        content = "【" + smsSc.getRemark() + "】" + content;
-        if (StringUtils.isNotBlank(mobile)) {
-            // 单发
-            DxClientSend
-                .sendByHHXX(smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
-                    smsSc.getPrivateKey3(), mobile, content);
-        } else {
-            // 群发
-            Receiver condition = new Receiver();
-            condition.setSystemCode(systemCode);
-            List<Receiver> receiverList = receiverBO
-                .queryReceiverList(condition);
-            if (CollectionUtils.isNotEmpty(receiverList)) {
-                for (Receiver receiver : receiverList) {
-                    DxClientSend.sendByHHXX(smsSc.getPushSystem(),
-                        smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
-                        receiver.getMobile(), content);
-                }
-            }
-        }
-    }
-
-    private void sendJPush(String systemCode, String mobile, String content) {
-        SystemChannel jgSc = systemChannelBO.getSystemChannelByCondition(
-            systemCode, EChannelType.APP, EPushType.JIGUANG);
-        if (StringUtils.isNotBlank(mobile)) {
-            Receiver receiver = receiverBO.getReceiver(mobile, systemCode);
-            JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                jgSc.getPrivateKey1(), receiver.getJpushId(), content);
-        } else {
-            JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                jgSc.getPrivateKey1(), content);
-        }
-    }
-
-    private void sendWeChat(String systemCode, String mobile, String content) {
-        SystemChannel weChatSystemChannel = systemChannelBO
-            .getSystemChannelByCondition(systemCode, EChannelType.WECHAT,
-                EPushType.WEIXIN);
-        Receiver receiver = receiverBO.getReceiver(mobile, systemCode);
-        WeChatClientSend.sendWeChatSingle(systemCode,
-            weChatSystemChannel.getPrivateKey1(),
-            weChatSystemChannel.getPrivateKey2(), receiver.getWechatId(),
-            mobile, content);
     }
 }

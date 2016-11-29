@@ -5,7 +5,6 @@
 	<resultMap id="receiver_DB_Result" type="receiver">
 		<result column="mobile" property="mobile" />
 		<result column="system_code" property="systemCode" />
-		<result column="system_name" property="systemName" />
 		<result column="name" property="name" />
 		<result column="level" property="level" />
 		<result column="wechat_id" property="wechatId" />
@@ -32,7 +31,6 @@
 		SELECT
 		t.mobile
 		,t.system_code
-		,(select system_name from tstd_system_channel tsc where tsc.system_code = t.system_code) as system_name
 		,t.name
 		,t.level
 		,t.wechat_id

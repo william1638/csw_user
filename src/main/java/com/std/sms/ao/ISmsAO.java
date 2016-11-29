@@ -9,7 +9,58 @@ public interface ISmsAO {
     static final String DEFAULT_ORDER_COLUMN = "id";
 
     /**
-     * 立即发,type 传 1;定时发，type传2
+     * 短信发送
+     * @param data
+     * @return 
+     * @create: 2016年11月20日 下午4:45:14 xieyj
+     * @history:
+     */
+    public void toSendDxSms(Sms data);
+
+    /**
+     * 极光发送
+     * @param data
+     * @return 
+     * @create: 2016年11月20日 下午4:45:14 xieyj
+     * @history:
+     */
+    public void toSendJgSms(Sms data);
+
+    /**
+     * 微信发送
+     * @param data
+     * @return 
+     * @create: 2016年11月20日 下午4:45:14 xieyj
+     * @history:
+     */
+    public void toSendWxSms(Sms data);
+
+    /**
+     * 新增公告
+     * @param data 
+     * @create: 2016年11月29日 下午5:20:18 xieyj
+     * @history:
+     */
+    public void addNoticeSms(Sms data);
+
+    /**
+     * 修改公告
+     * @param data 
+     * @create: 2016年11月29日 下午6:13:23 xieyj
+     * @history:
+     */
+    public void editNoticeSms(Sms data);
+
+    /**
+     * 公告发布/下撤
+     * @param id
+     * @param updater 
+     * @create: 2016年11月29日 下午5:18:51 xieyj
+     * @history:
+     */
+    public void toSendNoticeSms(Long id, String updater);
+
+    /**
      * @param data
      * @return 
      * @create: 2016年11月20日 下午4:45:14 xieyj

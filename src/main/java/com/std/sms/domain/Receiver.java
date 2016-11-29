@@ -18,9 +18,6 @@ public class Receiver extends ABaseDO {
     // 系统编号
     private String systemCode;
 
-    // 系统名称
-    private String systemName;
-
     // 姓名
     private String name;
 
@@ -50,14 +47,6 @@ public class Receiver extends ABaseDO {
 
     public String getSystemCode() {
         return systemCode;
-    }
-
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
-    }
-
-    public String getSystemName() {
-        return systemName;
     }
 
     public void setName(String name) {

@@ -21,6 +21,14 @@ public class SmsDAOImpl extends AMybatisTemplate implements ISmsDAO {
         return super.delete(NAMESPACE.concat("delete_sms"), data);
     }
 
+    /** 
+     * @see com.std.sms.dao.ISmsDAO#update(com.std.sms.domain.Sms)
+     */
+    @Override
+    public int update(Sms data) {
+        return super.update(NAMESPACE.concat("update_sms"), data);
+    }
+
     @Override
     public int updateStatus(Sms data) {
         return super.update(NAMESPACE.concat("update_sms_status"), data);

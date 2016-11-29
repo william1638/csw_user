@@ -8,6 +8,7 @@
  */
 package com.std.sms.sent.wechat;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /** 
@@ -25,6 +26,22 @@ public class WxTemplate {
     private String topcolor;
 
     private Map<String, TemplateData> data;
+
+    public WxTemplate() {
+    }
+
+    public WxTemplate(String templateId, String toUser, String url,
+            Map<String, String> data) {
+        this.template_id = templateId;
+        this.touser = toUser;
+        this.url = url;
+        Map<String, TemplateData> dataMap = new HashMap<String, TemplateData>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            String key = entry.getKey();
+            dataMap.put(key, new TemplateData(entry.getValue()));
+        }
+        this.data = dataMap;
+    }
 
     public String getTemplate_id() {
         return template_id;

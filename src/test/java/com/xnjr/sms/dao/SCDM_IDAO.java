@@ -9,23 +9,23 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
     // 实体
-    private static String key = "coupon";
+    private static String key = "items";
 
     // 实体名称
-    private static String keyName = "卡券";
+    private static String keyName = "办件";
 
     // 包路径
-    private static String packge = "com.std.user.";
+    private static String packge = "com.std.sms.";
 
     // 表名
-    private static String dbname = "tstd_coupon";
+    private static String dbname = "tstd_items";
 
-    private static String[] DBwords = { "code", "amount", "cny_price",
-            "use_times", "style", "status", "creator", "create_datetime",
-            "scanner", "scan_datetime", "company_code" };
+    private static String[] DBwords = { "code", "system_code", "mobile",
+            "real_name", "login_name", "department", "status", "content",
+            "remark", "create_datetime" };
 
-    private static String[] DBwordsName = { "编号", "积分面值", "人民币价格", "使用次数",
-            "样式", "状态", "创建人", "创建时间", "扫描人", "扫描时间", "公司编号" };
+    private static String[] DBwordsName = { "编号", "系统编号", "手机号", "真实姓名", "登录名",
+            "审批部门", "状态", "办理事项", "备注", "申请时间" };
 
     private static String[] DOwords = getDOwords();
 

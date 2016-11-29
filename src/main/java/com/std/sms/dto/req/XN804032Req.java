@@ -2,23 +2,15 @@ package com.std.sms.dto.req;
 
 import java.util.Date;
 
-import com.std.sms.sent.wechat.WxTemplate;
-
 /**
- * 全渠道发送(短信、极光和微信，不包含公告)
+ * 极光发送(填手机号单发，不填群发)
  * @author: xieyj 
  * @since: 2016年11月29日 上午11:53:27 
  * @history:
  */
-public class XN804030Req {
+public class XN804032Req {
     // from系统编号(必填)
     private String fromSystemCode;
-
-    // 渠道大类(必填)
-    private String channelType;
-
-    // 渠道小类(必填)
-    private String pushType;
 
     // to系统编号(选填)
     private String toSystemCode;
@@ -29,27 +21,24 @@ public class XN804030Req {
     // 消息类型(必填)（1 即时发 2定时发）
     private String smsType;
 
-    // 消息标题(选填)
-    private String smsTitle;
-
     // 消息内容(必填)
     private String smsContent;
 
-    // 拟发送时间(选填)
-    private Date topushDatetime;
+    // 拟发送时间(选填，定时发必填)
+    private String topushDatetime;
+
+    // 更新人(必填)
+    private String updater;
 
     // 备注(选填)
     private String remark;
 
-    // 微信消息内容(选填)
-    private WxTemplate wxContent;
-
-    public WxTemplate getWxContent() {
-        return wxContent;
+    public String getUpdater() {
+        return updater;
     }
 
-    public void setWxContent(WxTemplate wxContent) {
-        this.wxContent = wxContent;
+    public void setUpdater(String updater) {
+        this.updater = updater;
     }
 
     public String getFromSystemCode() {
@@ -58,22 +47,6 @@ public class XN804030Req {
 
     public void setFromSystemCode(String fromSystemCode) {
         this.fromSystemCode = fromSystemCode;
-    }
-
-    public String getChannelType() {
-        return channelType;
-    }
-
-    public void setChannelType(String channelType) {
-        this.channelType = channelType;
-    }
-
-    public String getPushType() {
-        return pushType;
-    }
-
-    public void setPushType(String pushType) {
-        this.pushType = pushType;
     }
 
     public String getToSystemCode() {
@@ -100,14 +73,6 @@ public class XN804030Req {
         this.smsType = smsType;
     }
 
-    public String getSmsTitle() {
-        return smsTitle;
-    }
-
-    public void setSmsTitle(String smsTitle) {
-        this.smsTitle = smsTitle;
-    }
-
     public String getSmsContent() {
         return smsContent;
     }
@@ -116,11 +81,11 @@ public class XN804030Req {
         this.smsContent = smsContent;
     }
 
-    public Date getTopushDatetime() {
+    public String getTopushDatetime() {
         return topushDatetime;
     }
 
-    public void setTopushDatetime(Date topushDatetime) {
+    public void setTopushDatetime(String topushDatetime) {
         this.topushDatetime = topushDatetime;
     }
 
@@ -131,4 +96,5 @@ public class XN804030Req {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }

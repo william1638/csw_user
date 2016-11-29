@@ -1,6 +1,7 @@
 package com.std.sms.domain;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.std.sms.dao.base.ABaseDO;
 
@@ -56,11 +57,46 @@ public class Sms extends ABaseDO {
     // 发送时间
     private Date pushedDatetime;
 
+    // 更新人
+    private String updater;
+
+    // 更新时间
+    private Date updateDatetime;
+
     // 备注
     private String remark;
 
+    // ****************db properties ***********************
+
+    // 消息内容
+    private Map<String, String> wxSmsContent;
+
+    public Map<String, String> getWxSmsContent() {
+        return wxSmsContent;
+    }
+
+    public void setWxSmsContent(Map<String, String> wxSmsContent) {
+        this.wxSmsContent = wxSmsContent;
+    }
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public Date getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(Date updateDatetime) {
+        this.updateDatetime = updateDatetime;
     }
 
     public Long getId() {
