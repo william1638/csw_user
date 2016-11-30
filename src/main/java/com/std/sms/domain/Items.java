@@ -39,6 +39,27 @@ public class Items extends ABaseDO {
     // 系统编号
     private String systemCode;
 
+    // ****************db properties ****************
+    private String loginName;
+
+    private String updater;
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
     public String getFirst() {
         return first;
     }

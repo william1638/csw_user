@@ -33,8 +33,6 @@ public class PropertiesUtil {
     }
 
     public static final class Config {
-        public static String PRE_SUF = props.getProperty("PRE_SUF");
-
         public static String APNS_PRODUCTION = props
             .getProperty("APNS_PRODUCTION");
 
@@ -45,5 +43,9 @@ public class PropertiesUtil {
         public static String COLOR1 = props.getProperty("COLOR1");
 
         public static String COLOR2 = props.getProperty("COLOR2");
+
+        public static String BJ_ROLE_CODE = props.getProperty("BJ_ROLE_CODE");
+
+        public static String USER_URL = props.getProperty("USER_URL");
     }
 }

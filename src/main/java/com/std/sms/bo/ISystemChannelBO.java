@@ -5,7 +5,6 @@ import java.util.List;
 import com.std.sms.bo.base.IPaginableBO;
 import com.std.sms.domain.SystemChannel;
 import com.std.sms.enums.EChannelType;
-import com.std.sms.enums.EPushType;
 
 public interface ISystemChannelBO extends IPaginableBO<SystemChannel> {
 
@@ -24,5 +23,5 @@ public interface ISystemChannelBO extends IPaginableBO<SystemChannel> {
     public SystemChannel getSystemChannel(Long id);
 
     public SystemChannel getSystemChannelByCondition(String systemCode,
-            EChannelType channelType, EPushType pushType);
+            EChannelType channelType, String pushType);
 }

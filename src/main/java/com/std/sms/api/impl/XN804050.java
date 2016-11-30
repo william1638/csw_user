@@ -25,22 +25,24 @@ public class XN804050 extends AProcessor {
     @Override
     public Object doBusiness() throws BizException {
         Items data = new Items();
+        data.setLoginName(req.getLoginName());
         data.setRealName(req.getRealName());
         data.setFirst(req.getFirst());
         data.setDepartment(req.getDepartment());
         data.setContent(req.getContent());
         data.setTelephone(req.getTelephone());
         data.setRemark(req.getRemark());
-        data.setUserId(req.getUserId());
         data.setSystemCode(req.getSystemCode());
+        data.setUpdater(req.getUpdater());
         return new PKCodeRes(itemsAO.addItems(data));
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804050Req.class);
-        StringValidater.validateBlank(req.getRealName(), req.getFirst(),
-            req.getDepartment(), req.getContent(), req.getTelephone(),
-            req.getRemark(), req.getUserId(), req.getSystemCode());
+        StringValidater.validateBlank(req.getLoginName(), req.getRealName(),
+            req.getFirst(), req.getDepartment(), req.getContent(),
+            req.getTelephone(), req.getRemark(), req.getSystemCode(),
+            req.getUpdater());
     }
 }

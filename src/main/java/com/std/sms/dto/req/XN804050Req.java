@@ -1,6 +1,9 @@
 package com.std.sms.dto.req;
 
 public class XN804050Req {
+    // 登录名(必填)
+    private String loginName;
+
     // 真实姓名(必填)
     private String realName;
 
@@ -19,11 +22,27 @@ public class XN804050Req {
     // 备注(选填)
     private String remark;
 
-    // 用户编号(必填)
-    private String userId;
-
     // 系统编号(必填)
     private String systemCode;
+
+    // 更新人(必填)
+    private String updater;
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
     public String getFirst() {
         return first;
@@ -71,14 +90,6 @@ public class XN804050Req {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getSystemCode() {

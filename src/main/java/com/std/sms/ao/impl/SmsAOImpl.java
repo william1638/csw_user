@@ -90,7 +90,7 @@ public class SmsAOImpl implements ISmsAO {
             String pushType) {
         boolean result = true;
         SystemChannel smsSc = systemChannelBO.getSystemChannelByCondition(
-            systemCode, EChannelType.SMS, EPushType.CSMD);
+            systemCode, EChannelType.SMS, pushType);
         content = "【" + smsSc.getRemark() + "】" + content;
         if (EPushType.CSMD.getCode().equals(pushType)) {
             result = DxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
@@ -112,16 +112,16 @@ public class SmsAOImpl implements ISmsAO {
         String status = ESmsStatus.TOSEND.getCode();
         if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
             SystemChannel jgSc = systemChannelBO.getSystemChannelByCondition(
-                systemCode, EChannelType.APP, EPushType.JIGUANG);
+                systemCode, EChannelType.APP, EPushType.JIGUANG.getCode());
             if (StringUtils.isNotBlank(mobile)) {
                 Receiver receiver = receiverBO.getReceiver(mobile, systemCode);
                 if (StringUtils.isNotBlank(receiver.getJpushId())) {
-                    result = JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                        jgSc.getPrivateKey1(), receiver.getJpushId(), content);
+                    result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
+                        jgSc.getPrivateKey2(), receiver.getJpushId(), content);
                 }
             } else {
-                result = JPushClientSend.toSendPush(jgSc.getPushSystem(),
-                    jgSc.getPrivateKey1(), content);
+                result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
+                    jgSc.getPrivateKey2(), content);
             }
             if (result) {
                 status = ESmsStatus.SENT_YES.getCode();
@@ -175,7 +175,7 @@ public class SmsAOImpl implements ISmsAO {
                 PropertiesUtil.Config.URL, data.getWxSmsContent());
             SystemChannel weChatSystemChannel = systemChannelBO
                 .getSystemChannelByCondition(data.getToSystemCode(),
-                    EChannelType.WECHAT, EPushType.WEIXIN);
+                    EChannelType.WECHAT, EPushType.WEIXIN.getCode());
             boolean result = WeChatClientSend.sendWeChatSingle(
                 data.getToSystemCode(), weChatSystemChannel.getPrivateKey1(),
                 weChatSystemChannel.getPrivateKey2(),
@@ -239,6 +239,9 @@ public class SmsAOImpl implements ISmsAO {
                     this.toSendJgSms(data);
                 } else if (EPushType.WEIXIN.getCode().equals(pushType)) {
                     this.toSendWxSms(data);
+                } else if (EPushType.NOTICE.getCode().equals(pushType)) {
+                    data.setStatus(ESmsStatus.SENT_YES.getCode());
+                    this.addNoticeSms(data);
                 }
             }
         }

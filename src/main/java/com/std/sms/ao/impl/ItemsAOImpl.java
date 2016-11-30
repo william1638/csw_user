@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.std.sms.ao.IItemsAO;
 import com.std.sms.bo.IItemsBO;
+import com.std.sms.bo.IUserBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Items;
 import com.std.sms.exception.BizException;
@@ -17,14 +18,13 @@ public class ItemsAOImpl implements IItemsAO {
     @Autowired
     private IItemsBO itemsBO;
 
+    @Autowired
+    private IUserBO userBO;
+
     @Override
     public String addItems(Items data) {
-        Items condition = new Items();
-        condition.setUserId(data.getUserId());
-        long count = itemsBO.getTotalCount(condition);
-        if (count > 0) {
-            throw new BizException("xn0000", "该办件员已存在");
-        }
+        String userId = userBO.addUser(data.getLoginName(), data.getUpdater());
+        data.setUserId(userId);
         return itemsBO.saveItems(data);
     }
 

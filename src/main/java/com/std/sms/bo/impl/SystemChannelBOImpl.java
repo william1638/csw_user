@@ -12,7 +12,6 @@ import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISystemChannelDAO;
 import com.std.sms.domain.SystemChannel;
 import com.std.sms.enums.EChannelType;
-import com.std.sms.enums.EPushType;
 import com.std.sms.exception.BizException;
 
 @Component
@@ -95,14 +94,14 @@ public class SystemChannelBOImpl extends PaginableBOImpl<SystemChannel>
 
     @Override
     public SystemChannel getSystemChannelByCondition(String systemCode,
-            EChannelType channelType, EPushType pushType) {
+            EChannelType channelType, String pushType) {
         SystemChannel data = null;
         if (StringUtils.isNotBlank(systemCode) && null != channelType
                 && null != pushType) {
             SystemChannel condition = new SystemChannel();
             condition.setSystemCode(systemCode);
             condition.setChannelType(channelType.getCode());
-            condition.setPushType(pushType.getCode());
+            condition.setPushType(pushType);
             List<SystemChannel> list = systemChannelDAO.selectList(condition);
             if (CollectionUtils.isNotEmpty(list)) {
                 data = list.get(0);
