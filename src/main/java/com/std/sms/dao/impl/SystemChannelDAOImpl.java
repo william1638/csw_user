@@ -56,4 +56,13 @@ public class SystemChannelDAOImpl extends AMybatisTemplate implements
         return super.selectList(NAMESPACE.concat("select_systemChannel"),
             start, count, condition, SystemChannel.class);
     }
+
+    /** 
+     * @see com.std.sms.dao.ISystemChannelDAO#updateRemark(com.std.sms.domain.SystemChannel)
+     */
+    @Override
+    public int updateRemark(SystemChannel data) {
+        return super.update(NAMESPACE.concat("update_systemChannel_remark"),
+            data);
+    }
 }

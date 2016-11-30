@@ -26,6 +26,7 @@ public class XN804050 extends AProcessor {
     public Object doBusiness() throws BizException {
         Items data = new Items();
         data.setRealName(req.getRealName());
+        data.setFirst(req.getFirst());
         data.setDepartment(req.getDepartment());
         data.setContent(req.getContent());
         data.setTelephone(req.getTelephone());
@@ -38,8 +39,8 @@ public class XN804050 extends AProcessor {
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804050Req.class);
-        StringValidater.validateBlank(req.getRealName(), req.getDepartment(),
-            req.getContent(), req.getTelephone(), req.getRemark(),
-            req.getUserId(), req.getSystemCode());
+        StringValidater.validateBlank(req.getRealName(), req.getFirst(),
+            req.getDepartment(), req.getContent(), req.getTelephone(),
+            req.getRemark(), req.getUserId(), req.getSystemCode());
     }
 }

@@ -60,6 +60,9 @@ public class DxClientSend {
             // 发送短信，如果是以负号开头就是发送失败。
             if (result_mt.startsWith("-") || result_mt.equals("")) {
                 logger.error("短信发送失败，错误代码：" + result_mt);
+                result = false;
+            } else {
+                result = true;
             }
         } catch (UnsupportedEncodingException e) {
             logger.error("创世漫道发送短信未知错误", e);

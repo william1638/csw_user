@@ -5,6 +5,7 @@
 	<resultMap id="items_DB_Result" type="items">
 		<result column="user_id" property="userId" />
 		<result column="real_name" property="realName" />
+		<result column="first" property="first" />
 		<result column="department" property="department" />
 		<result column="content" property="content" />
 		<result column="telephone" property="telephone" />
@@ -35,6 +36,7 @@
 		t.code
 		,t.user_id
 		,t.real_name
+		,t.first
 		,t.department
 		,t.content
 		,t.telephone
@@ -62,6 +64,7 @@
 		code
 		,user_id
 		,real_name
+		,first
 		,department
 		,content
 		,telephone
@@ -72,6 +75,7 @@
 		#{code}
 		,#{userId}
 		,#{realName}
+		,#{first}
 		,#{department}
 		,#{content}
 		,#{telephone}
@@ -89,6 +93,7 @@
 		UPDATE tstd_items
 		SET
 		real_name = #{realName}
+		,first = #{first}
 		,department = #{department}
 		,content = #{content}
 		,telephone = #{telephone}

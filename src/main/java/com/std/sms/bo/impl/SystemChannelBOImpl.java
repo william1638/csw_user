@@ -59,6 +59,21 @@ public class SystemChannelBOImpl extends PaginableBOImpl<SystemChannel>
         return count;
     }
 
+    /** 
+     * @see com.std.sms.bo.ISystemChannelBO#refreshSystemChannel(java.lang.Long, java.lang.String)
+     */
+    @Override
+    public int refreshSystemChannel(Long id, String remark) {
+        int count = 0;
+        if (id == null) {
+            SystemChannel data = new SystemChannel();
+            data.setId(id);
+            data.setRemark(remark);
+            systemChannelDAO.updateRemark(data);
+        }
+        return count;
+    }
+
     @Override
     public List<SystemChannel> querySystemChannelList(SystemChannel condition) {
         return systemChannelDAO.selectList(condition);

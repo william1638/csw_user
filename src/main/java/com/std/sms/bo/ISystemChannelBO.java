@@ -17,6 +17,8 @@ public interface ISystemChannelBO extends IPaginableBO<SystemChannel> {
 
     public int refreshSystemChannel(SystemChannel data);
 
+    public int refreshSystemChannel(Long id, String remark);
+
     public List<SystemChannel> querySystemChannelList(SystemChannel condition);
 
     public SystemChannel getSystemChannel(Long id);

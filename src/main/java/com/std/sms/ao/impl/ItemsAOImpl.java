@@ -19,6 +19,12 @@ public class ItemsAOImpl implements IItemsAO {
 
     @Override
     public String addItems(Items data) {
+        Items condition = new Items();
+        condition.setUserId(data.getUserId());
+        long count = itemsBO.getTotalCount(condition);
+        if (count > 0) {
+            throw new BizException("xn0000", "该办件员已存在");
+        }
         return itemsBO.saveItems(data);
     }
 

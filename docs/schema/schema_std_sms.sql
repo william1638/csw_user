@@ -109,6 +109,7 @@ CREATE TABLE `tstd_items` (
   `code` varchar(32) NOT NULL COMMENT '编号',
   `user_id` varchar(32) DEFAULT NULL COMMENT '用户编号',
   `real_name` varchar(32) DEFAULT NULL COMMENT '真实姓名',
+  `first` varchar(255) DEFAULT NULL COMMENT '问候语',
   `department` varchar(32) DEFAULT NULL COMMENT '审批部门',
   `content` varchar(255) DEFAULT NULL COMMENT '办理事项',
   `telephone` varchar(32) DEFAULT NULL COMMENT '联系电话',

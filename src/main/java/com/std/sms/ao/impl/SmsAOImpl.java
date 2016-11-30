@@ -1,6 +1,7 @@
 package com.std.sms.ao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,7 @@ import com.std.sms.ao.ISmsAO;
 import com.std.sms.bo.IReceiverBO;
 import com.std.sms.bo.ISmsBO;
 import com.std.sms.bo.ISystemChannelBO;
+import com.std.sms.bo.ITemplateBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.common.PropertiesUtil;
@@ -26,6 +28,7 @@ import com.std.sms.enums.ESmsType;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.jiguang.JPushClientSend;
 import com.std.sms.sent.sms.DxClientSend;
+import com.std.sms.sent.wechat.Template;
 import com.std.sms.sent.wechat.WeChatClientSend;
 import com.std.sms.sent.wechat.WxTemplate;
 
@@ -40,6 +43,9 @@ public class SmsAOImpl implements ISmsAO {
 
     @Autowired
     private IReceiverBO receiverBO;
+
+    @Autowired
+    private ITemplateBO templateBO;
 
     @Override
     public void toSendDxSms(Sms data) {
@@ -129,6 +135,16 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public void toSendWxSms(Sms data) {
+        // 设置内容
+        Template template = templateBO.getTemplate(data.getToSystemCode());
+        String smsContent = template.getContent();
+        for (Map.Entry<String, String> entry : data.getWxSmsContent()
+            .entrySet()) {
+            String key = entry.getKey();
+            smsContent = smsContent.replace("{{" + key + ".DATA}}",
+                entry.getValue());
+        }
+        data.setSmsContent(smsContent);
         String mobile = data.getToMobile();
         String systemCode = data.getToSystemCode();
         if (StringUtils.isNotBlank(mobile)) {
@@ -149,7 +165,7 @@ public class SmsAOImpl implements ISmsAO {
 
     @Transactional
     private void sendWeChatSingle(Sms data) {
-        // 填充内容
+        String status = ESmsStatus.TOSEND.getCode();
         Receiver receiver = receiverBO.getReceiver(data.getToMobile(),
             data.getToSystemCode());
         String weChatId = receiver.getWechatId();
@@ -160,12 +176,20 @@ public class SmsAOImpl implements ISmsAO {
             SystemChannel weChatSystemChannel = systemChannelBO
                 .getSystemChannelByCondition(data.getToSystemCode(),
                     EChannelType.WECHAT, EPushType.WEIXIN);
-            WeChatClientSend.sendWeChatSingle(data.getToSystemCode(),
-                weChatSystemChannel.getPrivateKey1(),
+            boolean result = WeChatClientSend.sendWeChatSingle(
+                data.getToSystemCode(), weChatSystemChannel.getPrivateKey1(),
                 weChatSystemChannel.getPrivateKey2(),
                 JsonUtil.Object2Json(content));
-            smsBO.saveSms(data);
+            if (result) {
+                status = ESmsStatus.SENT_YES.getCode();
+            } else {
+                status = ESmsStatus.SENT_NO.getCode();
+            }
+        } else {
+            status = ESmsStatus.SENT_NO.getCode();
         }
+        data.setStatus(status);
+        smsBO.saveSms(data);
     }
 
     @Override

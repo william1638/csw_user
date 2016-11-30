@@ -4,6 +4,9 @@ public class XN804050Req {
     // 真实姓名(必填)
     private String realName;
 
+    // 问候语(必填)
+    private String first;
+
     // 审批部门(必填)
     private String department;
 
@@ -21,6 +24,14 @@ public class XN804050Req {
 
     // 系统编号(必填)
     private String systemCode;
+
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
 
     public String getTelephone() {
         return telephone;

@@ -15,6 +15,9 @@ public class Items extends ABaseDO {
     // 编号
     private String code;
 
+    // 问候语
+    private String first;
+
     // 真实姓名
     private String realName;
 
@@ -35,6 +38,14 @@ public class Items extends ABaseDO {
 
     // 系统编号
     private String systemCode;
+
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
 
     public String getTelephone() {
         return telephone;

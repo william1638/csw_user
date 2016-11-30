@@ -12,4 +12,6 @@ public interface ISystemChannelDAO extends IBaseDAO<SystemChannel> {
     String NAMESPACE = ISystemChannelDAO.class.getName().concat(".");
 
     public int update(SystemChannel data);
+
+    public int updateRemark(SystemChannel data);
 }
