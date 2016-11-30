@@ -75,7 +75,7 @@ public interface ISmsAO {
      * @create: 2016年11月20日 下午4:44:07 xieyj
      * @history:
      */
-    public void reSendSms(Sms data);
+    public void reSendSms(Long id);
 
     /**
      * 成功再发

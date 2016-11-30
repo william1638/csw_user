@@ -49,7 +49,7 @@ public class SmsAOImpl implements ISmsAO {
         String status = ESmsStatus.TOSEND.getCode();
         if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
             if (StringUtils.isNotBlank(mobile)) {
-                boolean result = sendSms(systemCode, mobile, content,
+                boolean result = this.sendSms(systemCode, mobile, content,
                     data.getPushType());
                 if (result) {
                     status = ESmsStatus.SENT_YES.getCode();
@@ -221,7 +221,22 @@ public class SmsAOImpl implements ISmsAO {
     }
 
     @Override
-    public void reSendSms(Sms data) {
+    public void reSendSms(Long id) {
+        Sms data = smsBO.getSms(id);
+        String pushType = data.getPushType();
+        if (!ESmsStatus.SENT_NO.getCode().equals(data.getStatus())) {
+            throw new BizException("xn702002", "该消息不是失败状态，无法失败重发");
+        }
+        if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
+            if (EPushType.CSMD.getCode().equals(pushType)
+                    || EPushType.HHXX.getCode().equals(pushType)) {
+                this.toSendDxSms(data);
+            } else if (EPushType.JIGUANG.getCode().equals(pushType)) {
+                this.toSendJgSms(data);
+            } else if (EPushType.WEIXIN.getCode().equals(pushType)) {
+                this.toSendWxSms(data);
+            }
+        }
     }
 
     @Override
