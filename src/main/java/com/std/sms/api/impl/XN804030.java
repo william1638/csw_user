@@ -66,7 +66,7 @@ public class XN804030 extends AProcessor {
         req = JsonUtil.json2Bean(inputparams, XN804030Req.class);
         StringValidater.validateBlank(req.getFromSystemCode(),
             req.getChannelType(), req.getPushType(), req.getToSystemCode(),
-            req.getSmsType(), req.getSmsContent(), req.getUpdater());
+            req.getSmsType(), req.getUpdater());
         if (EChannelType.WECHAT.getCode().equals(req.getChannelType())
                 && EPushType.WEIXIN.getCode().equals(req.getPushType())) {
             if (null == req.getWxContent()) {
