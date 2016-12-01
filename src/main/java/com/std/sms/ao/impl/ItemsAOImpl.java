@@ -37,10 +37,9 @@ public class ItemsAOImpl implements IItemsAO {
     }
 
     @Override
-    public int dropItems(String code) {
-        if (!itemsBO.isItemsExist(code)) {
-            throw new BizException("xn0000", "办件员不存在");
-        }
+    public int dropItems(String code, String updater) {
+        Items items = this.getItems(code);
+        userBO.logoutUser(items.getUserId(), updater);
         return itemsBO.removeItems(code);
     }
 

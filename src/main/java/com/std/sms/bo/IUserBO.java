@@ -14,5 +14,23 @@ package com.std.sms.bo;
  * @history:
  */
 public interface IUserBO {
+    /**
+     * 代注册
+     * @param loginName
+     * @param updater
+     * @return 
+     * @create: 2016年12月1日 下午1:16:38 xieyj
+     * @history:
+     */
     public String addUser(String loginName, String updater);
+
+    /**
+     * 注销
+     * @param userId
+     * @param updater
+     * @return 
+     * @create: 2016年12月1日 下午1:16:32 xieyj
+     * @history:
+     */
+    public void logoutUser(String userId, String updater);
 }

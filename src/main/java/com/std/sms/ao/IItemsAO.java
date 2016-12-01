@@ -13,7 +13,7 @@ public interface IItemsAO {
 
     public String addItems(Items data);
 
-    public int dropItems(String code);
+    public int dropItems(String code, String updater);
 
     public int editItems(Items data);
 

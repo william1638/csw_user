@@ -23,13 +23,13 @@ public class XN804051 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        itemsAO.dropItems(req.getCode());
+        itemsAO.dropItems(req.getCode(), req.getUpdater());
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804051Req.class);
-        StringValidater.validateBlank(req.getCode());
+        StringValidater.validateBlank(req.getCode(), req.getUpdater());
     }
 }

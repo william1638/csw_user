@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.std.sms.bo.IUserBO;
 import com.std.sms.common.PropertiesUtil;
 import com.std.sms.dto.req.XN805042Req;
+import com.std.sms.dto.req.XN805052Req;
 import com.std.sms.dto.res.XN805042Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.http.BizConnecter;
@@ -39,5 +40,18 @@ public class UserBOImpl implements IUserBO {
             throw new BizException("XN000000", "办件员注册失败");
         }
         return res.getUserId();
+    }
+
+    /** 
+     * @see com.std.sms.bo.IUserBO#logoutUser(java.lang.String,  java.lang.String)
+     */
+    @Override
+    public void logoutUser(String userId, String updater) {
+        XN805052Req req = new XN805052Req();
+        req.setUserId(userId);
+        req.setToStatus("2");
+        req.setUpdater(updater);
+        BizConnecter.getBizData("805052", JsonUtils.object2Json(req),
+            Object.class);
     }
 }
