@@ -64,7 +64,7 @@ public class SystemChannelBOImpl extends PaginableBOImpl<SystemChannel>
     @Override
     public int refreshSystemChannel(Long id, String remark) {
         int count = 0;
-        if (id == null) {
+        if (id != null) {
             SystemChannel data = new SystemChannel();
             data.setId(id);
             data.setRemark(remark);

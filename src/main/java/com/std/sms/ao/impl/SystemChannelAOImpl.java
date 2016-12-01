@@ -31,6 +31,14 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
     }
 
     @Override
+    public void editSystemChannelRemark(Long id, String remark) {
+        if (!systemChannelBO.isSystemChannelExist(id)) {
+            throw new BizException("xn0000", "记录编号不存在");
+        }
+        systemChannelBO.refreshSystemChannel(id, remark);
+    }
+
+    @Override
     public void dropSystemChannel(Long id) {
         if (!systemChannelBO.isSystemChannelExist(id)) {
             throw new BizException("xn0000", "记录编号不存在");

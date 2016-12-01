@@ -47,6 +47,9 @@ public class SmsAOImpl implements ISmsAO {
     @Autowired
     private ITemplateBO templateBO;
 
+    @Autowired
+    private WeChatClientSend weChatClientSend;
+
     @Override
     public void toSendDxSms(Sms data) {
         String mobile = data.getToMobile();
@@ -176,10 +179,8 @@ public class SmsAOImpl implements ISmsAO {
             SystemChannel weChatSystemChannel = systemChannelBO
                 .getSystemChannelByCondition(data.getToSystemCode(),
                     EChannelType.WECHAT, EPushType.WEIXIN.getCode());
-            boolean result = WeChatClientSend.sendWeChatSingle(
-                data.getToSystemCode(), weChatSystemChannel.getPrivateKey1(),
-                weChatSystemChannel.getPrivateKey2(),
-                JsonUtil.Object2Json(content));
+            boolean result = weChatClientSend.sendWeChatSingle(
+                weChatSystemChannel, JsonUtil.Object2Json(content));
             if (result) {
                 status = ESmsStatus.SENT_YES.getCode();
             } else {

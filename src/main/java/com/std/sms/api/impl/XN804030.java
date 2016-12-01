@@ -26,7 +26,7 @@ import com.std.sms.exception.ParaException;
 import com.std.sms.spring.SpringContextHolder;
 
 /** 
- * 发送消息(不含公告)
+ * 发送消息
  * @author: xieyj 
  * @since: 2016年11月21日 下午5:42:18 
  * @history:
