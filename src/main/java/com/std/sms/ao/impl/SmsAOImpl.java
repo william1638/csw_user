@@ -29,6 +29,7 @@ import com.std.sms.exception.BizException;
 import com.std.sms.sent.jiguang.JPushClientSend;
 import com.std.sms.sent.sms.DxClientSend;
 import com.std.sms.sent.wechat.Template;
+import com.std.sms.sent.wechat.TemplateData;
 import com.std.sms.sent.wechat.WeChatClientSend;
 import com.std.sms.sent.wechat.WxTemplate;
 
@@ -176,6 +177,13 @@ public class SmsAOImpl implements ISmsAO {
             WxTemplate content = new WxTemplate(
                 PropertiesUtil.Config.TEMPLATE_ID, weChatId,
                 PropertiesUtil.Config.URL, data.getWxSmsContent());
+            Map<String, TemplateData> map = content.getData();
+            if (map != null) {
+                TemplateData templateData = map.get("keyword4");
+                if (null != templateData) {
+                    templateData.setValue(receiver.getMobile());
+                }
+            }
             SystemChannel weChatSystemChannel = systemChannelBO
                 .getSystemChannelByCondition(data.getToSystemCode(),
                     EChannelType.WECHAT, EPushType.WEIXIN.getCode());

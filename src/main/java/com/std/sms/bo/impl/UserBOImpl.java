@@ -51,6 +51,7 @@ public class UserBOImpl implements IUserBO {
         req.setUserId(userId);
         req.setToStatus("2");
         req.setUpdater(updater);
+        req.setRemark("办件员已删除");
         BizConnecter.getBizData("805052", JsonUtils.object2Json(req),
             Object.class);
     }
