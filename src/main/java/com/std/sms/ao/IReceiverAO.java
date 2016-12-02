@@ -24,6 +24,17 @@ public interface IReceiverAO {
      */
     public void importReceivers(String systemCode, List<Receiver> dataList);
 
+    /**
+     * 微信回调，填充wechatId
+     * @param systemCode
+     * @param openId
+     * @param mobile 
+     * @create: 2016年12月2日 下午4:49:37 xieyj
+     * @history:
+     */
+    public void importWxReceiver(String mobile, String systemCode,
+            String wechatId, String remark);
+
     public void addReceiver(Receiver data);
 
     public void dropReceiver(String mobile, String systemCode);

@@ -127,7 +127,7 @@ public class WeChatClientSend {
     }
 
     // 获取access_tokenId
-    private static String getAccessToken(String privateKey1, String privateKey2) {
+    public static String getAccessToken(String privateKey1, String privateKey2) {
         String accessToken = null;
         String postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
                 + privateKey1 + "&secret=" + privateKey2;
@@ -151,8 +151,23 @@ public class WeChatClientSend {
     }
 
     public static void main(String[] args) {
-        // new Senter().send("XN1001", "CSMD",
-        // "【雄牛科技】尊敬的用户,您的验证码是678987 ,请妥善保留",
-        // "15088750712");
+        String accessToken = getAccessToken("wxef7fda595f81f6d6",
+            "057815f636178d3a81c3b065f395a209");
+        String postUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="
+                + accessToken;
+        String result;
+        try {
+            result = new String(HttpsUtil.post(postUrl, "", "UTF-8"));
+            System.out.println("result:" + result);
+        } catch (KeyManagementException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

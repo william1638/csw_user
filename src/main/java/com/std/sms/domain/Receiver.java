@@ -89,4 +89,11 @@ public class Receiver extends ABaseDO {
         return remark;
     }
 
+    @Override
+    public String toString() {
+        return "Receiver [mobile=" + mobile + ", systemCode=" + systemCode
+                + ", name=" + name + ", level=" + level + ", wechatId="
+                + wechatId + ", jpushId=" + jpushId + ", remark=" + remark
+                + "]";
+    }
 }

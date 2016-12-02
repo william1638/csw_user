@@ -87,4 +87,49 @@ public class ReceiverBOImpl extends PaginableBOImpl<Receiver> implements
         }
         return data;
     }
+
+    @Override
+    public Receiver getReceiverNotError(String mobile, String systemCode) {
+        Receiver data = null;
+        if (StringUtils.isNotBlank(mobile)
+                && StringUtils.isNotBlank(systemCode)) {
+            Receiver condition = new Receiver();
+            condition.setMobile(mobile);
+            condition.setSystemCode(systemCode);
+            data = receiverDAO.select(condition);
+        }
+        return data;
+    }
+
+    @Override
+    public int refreshReceiverWechatId(String mobile, String systemCode,
+            String wechatId, String remark) {
+        int count = 0;
+        if (StringUtils.isNotBlank(mobile)
+                && StringUtils.isNotBlank(systemCode)) {
+            Receiver data = new Receiver();
+            data.setMobile(mobile);
+            data.setSystemCode(systemCode);
+            data.setWechatId(wechatId);
+            data.setRemark(remark);
+            count = receiverDAO.updateWechatId(data);
+        }
+        return count;
+    }
+
+    @Override
+    public int refreshReceiverJpushId(String mobile, String systemCode,
+            String jpushId, String remark) {
+        int count = 0;
+        if (StringUtils.isNotBlank(mobile)
+                && StringUtils.isNotBlank(systemCode)) {
+            Receiver data = new Receiver();
+            data.setMobile(mobile);
+            data.setSystemCode(systemCode);
+            data.setJpushId(jpushId);
+            data.setRemark(remark);
+            count = receiverDAO.updateJpushId(data);
+        }
+        return count;
+    }
 }

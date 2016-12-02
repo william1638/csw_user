@@ -82,6 +82,7 @@ public class SmsAOImpl implements ISmsAO {
                         } else {
                             status = ESmsStatus.SENT_NO.getCode();
                         }
+                        data.setToMobile(receiver.getMobile());
                         data.setStatus(status);
                         smsBO.saveSms(data);
                     }
@@ -141,17 +142,18 @@ public class SmsAOImpl implements ISmsAO {
     public void toSendWxSms(Sms data) {
         // 设置内容
         Template template = templateBO.getTemplate(data.getToSystemCode());
-        String smsContent = template.getContent();
-        for (Map.Entry<String, String> entry : data.getWxSmsContent()
-            .entrySet()) {
-            String key = entry.getKey();
-            smsContent = smsContent.replace("{{" + key + ".DATA}}",
-                entry.getValue());
-        }
-        data.setSmsContent(smsContent);
+        String smsContent = null;
         String mobile = data.getToMobile();
         String systemCode = data.getToSystemCode();
         if (StringUtils.isNotBlank(mobile)) {
+            smsContent = template.getContent();
+            for (Map.Entry<String, String> entry : data.getWxSmsContent()
+                .entrySet()) {
+                String key = entry.getKey();
+                smsContent = smsContent.replace("{{" + key + ".DATA}}",
+                    entry.getValue());
+            }
+            data.setSmsContent(smsContent);
             this.sendWeChatSingle(data);
         } else {
             Receiver condition = new Receiver();
@@ -160,6 +162,19 @@ public class SmsAOImpl implements ISmsAO {
                 .queryReceiverList(condition);
             if (CollectionUtils.isNotEmpty(receiverList)) {
                 for (Receiver receiver : receiverList) {
+                    smsContent = template.getContent();
+                    for (Map.Entry<String, String> entry : data
+                        .getWxSmsContent().entrySet()) {
+                        String key = entry.getKey();
+                        if (key.equals("keyword4")) {
+                            smsContent = smsContent.replace(
+                                "{{keyword4.DATA}}", receiver.getMobile());
+                        } else {
+                            smsContent = smsContent.replace("{{" + key
+                                    + ".DATA}}", entry.getValue());
+                        }
+                    }
+                    data.setSmsContent(smsContent);
                     data.setToMobile(receiver.getMobile());
                     this.sendWeChatSingle(data);
                 }
@@ -180,7 +195,8 @@ public class SmsAOImpl implements ISmsAO {
             Map<String, TemplateData> map = content.getData();
             if (map != null) {
                 TemplateData templateData = map.get("keyword4");
-                if (null != templateData) {
+                if (null != templateData
+                        && StringUtils.isBlank(templateData.getValue())) {
                     templateData.setValue(receiver.getMobile());
                 }
             }

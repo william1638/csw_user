@@ -15,7 +15,15 @@ public interface IReceiverBO extends IPaginableBO<Receiver> {
 
     public int refreshReceiver(Receiver data);
 
+    public int refreshReceiverWechatId(String mobile, String systemCode,
+            String wechatId, String remark);
+
+    public int refreshReceiverJpushId(String mobile, String systemCode,
+            String jpushId, String remark);
+
     public List<Receiver> queryReceiverList(Receiver condition);
 
     public Receiver getReceiver(String mobile, String systemCode);
+
+    public Receiver getReceiverNotError(String mobile, String systemCode);
 }

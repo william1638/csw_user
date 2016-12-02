@@ -52,4 +52,20 @@ public class ReceiverDAOImpl extends AMybatisTemplate implements IReceiverDAO {
     public int update(Receiver data) {
         return super.update(NAMESPACE.concat("update_receiver"), data);
     }
+
+    /** 
+     * @see com.std.sms.dao.IReceiverDAO#updateOpenID(com.std.sms.domain.Receiver)
+     */
+    @Override
+    public int updateWechatId(Receiver data) {
+        return super.update(NAMESPACE.concat("update_receiver_wechatId"), data);
+    }
+
+    /** 
+     * @see com.std.sms.dao.IReceiverDAO#updateJpushID(com.std.sms.domain.Receiver)
+     */
+    @Override
+    public int updateJpushId(Receiver data) {
+        return super.update(NAMESPACE.concat("update_receiver_jpushId"), data);
+    }
 }

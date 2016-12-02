@@ -47,5 +47,8 @@ public class PropertiesUtil {
         public static String BJ_ROLE_CODE = props.getProperty("BJ_ROLE_CODE");
 
         public static String USER_URL = props.getProperty("USER_URL");
+
+        public static String SYSTEM_CODE = props.getProperty("SYSTEM_CODE");
+
     }
 }

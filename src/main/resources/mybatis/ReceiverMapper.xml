@@ -89,5 +89,21 @@
 		,remark = #{remark}
 		WHERE mobile = #{mobile} AND system_code = #{systemCode}
 	</update>
+	
+	<update id="update_receiver_wechatId" parameterType="receiver">
+		UPDATE tstd_receiver
+		SET
+		wechat_id = #{wechatId}
+		,remark = #{remark}
+		WHERE mobile = #{mobile} AND system_code = #{systemCode}
+	</update>
+	
+	<update id="update_receiver_jpushId" parameterType="receiver">
+		UPDATE tstd_receiver
+		SET
+		jpush_id = #{jpushId}
+		,remark = #{remark}
+		WHERE mobile = #{mobile} AND system_code = #{systemCode}
+	</update>
 
 </mapper>

@@ -7,4 +7,9 @@ public interface IReceiverDAO extends IBaseDAO<Receiver> {
     String NAMESPACE = IReceiverDAO.class.getName().concat(".");
 
     public int update(Receiver data);
+
+    public int updateWechatId(Receiver data);
+
+    public int updateJpushId(Receiver data);
+
 }

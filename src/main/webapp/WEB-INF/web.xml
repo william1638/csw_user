@@ -100,4 +100,13 @@ version="2.5">
     <servlet-name>api</servlet-name>
     <url-pattern>/api</url-pattern>
   </servlet-mapping>
+  
+   <servlet>  
+    <servlet-name>wxPush</servlet-name>
+    <servlet-class>com.std.sms.WeChatPushServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>wxPush</servlet-name>
+    <url-pattern>/wxPush</url-pattern>
+  </servlet-mapping>
 </web-app>
