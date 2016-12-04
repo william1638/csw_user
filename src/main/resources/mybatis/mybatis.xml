@@ -12,7 +12,8 @@
 		<typeAlias alias="systemChannel" type="com.std.sms.domain.SystemChannel" />
 		<typeAlias alias="receiver" type="com.std.sms.domain.Receiver" />
 		<typeAlias alias="sms" type="com.std.sms.domain.Sms" />
-		
 		<typeAlias alias="items" type="com.std.sms.domain.Items" />
+		
+		<typeAlias alias="systemTemplate" type="com.std.sms.domain.SystemTemplate" />
 	</typeAliases>
 </configuration>	

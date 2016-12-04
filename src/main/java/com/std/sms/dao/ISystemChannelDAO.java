@@ -13,5 +13,5 @@ public interface ISystemChannelDAO extends IBaseDAO<SystemChannel> {
 
     public int update(SystemChannel data);
 
-    public int updateRemark(SystemChannel data);
+    public int updatePrivateKey3(SystemChannel data);
 }

@@ -11,7 +11,6 @@ import com.std.sms.bo.IReceiverBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Receiver;
 import com.std.sms.exception.BizException;
-import com.std.sms.util.PhoneUtil;
 
 @Service
 public class ReceiverAOImpl implements IReceiverAO {
@@ -48,22 +47,19 @@ public class ReceiverAOImpl implements IReceiverAO {
     @Override
     public void importWxReceiver(String mobile, String systemCode,
             String wechatId, String remark) {
-        if (PhoneUtil.isMobile(mobile)) {
-            Receiver receiver = receiverBO.getReceiverNotError(mobile,
-                systemCode);
-            if (receiver != null) {
-                if (!wechatId.equals(receiver.getWechatId())) {
-                    receiverBO.refreshReceiverWechatId(mobile, systemCode,
-                        wechatId, remark);
-                }
-            } else {
-                Receiver data = new Receiver();
-                data.setMobile(mobile);
-                data.setSystemCode(systemCode);
-                data.setWechatId(wechatId);
-                data.setRemark(remark);
-                receiverBO.saveReceiver(data);
+        Receiver receiver = receiverBO.getReceiverNotError(mobile, systemCode);
+        if (receiver != null) {
+            if (!wechatId.equals(receiver.getWechatId())) {
+                receiverBO.refreshReceiverWechatId(mobile, systemCode,
+                    wechatId, remark);
             }
+        } else {
+            Receiver data = new Receiver();
+            data.setMobile(mobile);
+            data.setSystemCode(systemCode);
+            data.setWechatId(wechatId);
+            data.setRemark(remark);
+            receiverBO.saveReceiver(data);
         }
     }
 

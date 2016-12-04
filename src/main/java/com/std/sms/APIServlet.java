@@ -1,5 +1,5 @@
 /**
-R * @Title APIServlet.java 
+ * @Title APIServlet.java 
  * @Package com.hsnet.pz.api 
  * @Description 
  * @author miyb  
@@ -21,9 +21,9 @@ import org.apache.log4j.Logger;
 import com.std.sms.proxy.DispatcherImpl;
 import com.std.sms.proxy.IDispatcher;
 
-/** 
- * @author: miyb 
- * @since: 2015-3-24 下午4:23:53 
+/**
+ * @author: xieyj 
+ * @since: 2016年12月4日 上午11:10:55 
  * @history:
  */
 public class APIServlet extends HttpServlet {
@@ -41,8 +41,8 @@ public class APIServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         logger.info("Successful Deployment");
         PrintWriter writer = response.getWriter();
-        writer.append("Version:1.0.0 \n");
-        writer.append("Description:five \n");
+        writer.append("Version:1.0.1 \n");
+        writer.append("Description:1st \n");
         writer.flush();
     }
 

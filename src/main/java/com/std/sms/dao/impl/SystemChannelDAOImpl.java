@@ -58,11 +58,11 @@ public class SystemChannelDAOImpl extends AMybatisTemplate implements
     }
 
     /** 
-     * @see com.std.sms.dao.ISystemChannelDAO#updateRemark(com.std.sms.domain.SystemChannel)
+     * @see com.std.sms.dao.ISystemChannelDAO#updatePrivateKey3(com.std.sms.domain.SystemChannel)
      */
     @Override
-    public int updateRemark(SystemChannel data) {
-        return super.update(NAMESPACE.concat("update_systemChannel_remark"),
-            data);
+    public int updatePrivateKey3(SystemChannel data) {
+        return super.update(
+            NAMESPACE.concat("update_systemChannel_privateKey3"), data);
     }
 }

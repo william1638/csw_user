@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.bo.base.PaginableBOImpl;
@@ -62,13 +63,14 @@ public class SystemChannelBOImpl extends PaginableBOImpl<SystemChannel>
      * @see com.std.sms.bo.ISystemChannelBO#refreshSystemChannel(java.lang.Long, java.lang.String)
      */
     @Override
-    public int refreshSystemChannel(Long id, String remark) {
+    @Transactional
+    public int refreshSystemChannel(Long id, String privateKey3) {
         int count = 0;
         if (id != null) {
             SystemChannel data = new SystemChannel();
             data.setId(id);
-            data.setRemark(remark);
-            systemChannelDAO.updateRemark(data);
+            data.setPrivateKey3(privateKey3);
+            systemChannelDAO.updatePrivateKey3(data);
         }
         return count;
     }

@@ -8,7 +8,6 @@
  */
 package com.std.sms.sent.wechat;
 
-import com.std.sms.common.PropertiesUtil;
 
 /** 
  * @author: haiqingzheng 
@@ -25,7 +24,6 @@ public class TemplateData {
 
     public TemplateData(String value) {
         this.value = value;
-        this.color = PropertiesUtil.Config.COLOR2;
     }
 
     public TemplateData(String value, String color) {

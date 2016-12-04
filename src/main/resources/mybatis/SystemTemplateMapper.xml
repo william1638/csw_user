@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.sms.dao.ISystemTemplateDAO">
+	<resultMap id="systemTemplate_DB_Result" type="systemTemplate">
+		<result column="id" property="id" />
+		<result column="system_code" property="systemCode" />
+		<result column="template_id" property="templateId" />
+		<result column="url" property="url" />
+		<result column="color1" property="color1" />
+		<result column="color2" property="color2" />
+		<result column="content" property="content" />
+		<result column="remark" property="remark" />
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id != '' ">
+				AND t.id = #{id}
+			</if>
+			<if test="systemCode != null and systemCode != '' ">
+				AND t.system_code = #{systemCode}
+			</if>
+			<if test="templateId != null and templateId != '' ">
+				AND t.template_id = #{templateId}
+			</if>
+		</trim>
+	</sql>
+	<select id="select_systemTemplate" parameterType="systemTemplate" resultMap="systemTemplate_DB_Result">
+		SELECT
+		t.id
+		,t.system_code
+		,t.template_id
+		,t.url
+		,t.color1
+		,t.color2
+		,t.content
+		,t.remark
+		FROM
+		tstd_system_template t
+		<include refid="where_condition" />
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
+
+	<select id="select_systemTemplate_count" parameterType="systemTemplate"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tstd_system_template t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_systemTemplate" parameterType="systemTemplate">
+		INSERT INTO
+		tstd_system_template(
+		system_code
+		,template_id
+		,url
+		,color1
+		,color2
+		,content
+		,remark
+		)
+		VALUES(
+		#{systemCode}
+		,#{templateId}
+		,#{url}
+		,#{color1}
+		,#{color2}
+		,#{content}
+		,#{remark}
+		)
+	</insert>
+	
+	<delete id="delete_systemTemplate" parameterType="systemTemplate">
+		DELETE FROM tstd_system_template
+		WHERE id = #{id}
+	</delete>
+
+	<update id="update_systemTemplate" parameterType="systemTemplate">
+		UPDATE tstd_system_template
+		SET
+		template_id = #{templateId}
+		,url = #{url}
+		,color1 = #{color1}
+		,color2 = #{color2}
+		,content = #{content}
+		,remark = #{remark}
+		WHERE id = #{id}
+	</update>
+</mapper>

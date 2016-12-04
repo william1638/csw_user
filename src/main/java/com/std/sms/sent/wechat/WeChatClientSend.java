@@ -1,10 +1,8 @@
 package com.std.sms.sent.wechat;
 
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.domain.SystemChannel;
+import com.std.sms.enums.EChannelType;
+import com.std.sms.enums.EPushType;
 import com.std.sms.util.HttpsUtil;
 
 /**
@@ -31,12 +31,8 @@ public class WeChatClientSend {
     @Autowired
     private ISystemChannelBO systemChannelBO;
 
-    public boolean sendWeChatSingle(SystemChannel systemChannel, String content) {
+    public boolean sendWeChatSingle(String accessToken, String content) {
         boolean result = false;
-        // Long id = systemChannel.getId();
-        String privateKey1 = systemChannel.getPrivateKey1();
-        String privateKey2 = systemChannel.getPrivateKey2();
-        String accessToken = getAccessToken(privateKey1, privateKey2);
         // 请求链接
         String prefixPostUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
         // 发送内容
@@ -66,10 +62,8 @@ public class WeChatClientSend {
     }
 
     // 获取模板
-    public static List<Template> getTemplateList(String privateKey1,
-            String privateKey2) {
+    public static List<Template> getTemplateList(String accessToken) {
         List<Template> result = null;
-        String accessToken = getAccessToken(privateKey1, privateKey2);
         // 发送对接
         String postUrl = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token="
                 + accessToken;
@@ -84,15 +78,8 @@ public class WeChatClientSend {
             }
             result = gson.fromJson(response, new TypeToken<List<Template>>() {
             }.getType());
-        } catch (KeyManagementException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("error:" + e.getMessage());
         }
         return result;
     }
@@ -106,28 +93,39 @@ public class WeChatClientSend {
                 JsonUtil.Object2Json(wxTemplate), "UTF-8"));
             weChatSendResult = JsonUtil.json2Bean(response,
                 WeChatSendResult.class);
-            if ("ok".equals(weChatSendResult.getErrmsg())) {
+            if ("0".equals(weChatSendResult.getErrcode())) {
                 logger.info("errcode:" + weChatSendResult.getErrcode()
                         + ";errmsg:" + weChatSendResult.getErrmsg());
             } else {
                 logger.error("errcode:" + weChatSendResult.getErrcode()
                         + ";errmsg:" + weChatSendResult.getErrmsg());
             }
-        } catch (KeyManagementException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("error:" + e.getMessage());
         }
         return weChatSendResult;
     }
 
-    // 获取access_tokenId
-    public static String getAccessToken(String privateKey1, String privateKey2) {
+    // 15分钟获取一次access_tokenId
+    public void doAccessTokenDaily() {
+        logger.info("*****************更新微信accessToken_begin*****************");
+        SystemChannel condition = new SystemChannel();
+        condition.setChannelType(EChannelType.WECHAT.getCode());
+        condition.setPushType(EPushType.WEIXIN.getCode());
+        List<SystemChannel> dataList = systemChannelBO
+            .querySystemChannelList(condition);
+        if (CollectionUtils.isNotEmpty(dataList)) {
+            for (SystemChannel data : dataList) {
+                String accessToken = getAccessToken(data.getPrivateKey1(),
+                    data.getPrivateKey2());
+                systemChannelBO.refreshSystemChannel(data.getId(), accessToken);
+            }
+        }
+        logger.info("*****************更新微信accessToken_end*****************");
+    }
+
+    protected static String getAccessToken(String privateKey1,
+            String privateKey2) {
         String accessToken = null;
         String postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
                 + privateKey1 + "&secret=" + privateKey2;
@@ -137,37 +135,19 @@ public class WeChatClientSend {
             TokenResponse tokenResponse = JsonUtil.json2Bean(response,
                 TokenResponse.class);
             accessToken = tokenResponse.getAccess_token();
-        } catch (KeyManagementException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("error:" + e.getMessage());
         }
         return accessToken;
     }
 
     public static void main(String[] args) {
-        String accessToken = getAccessToken("wxef7fda595f81f6d6",
-            "057815f636178d3a81c3b065f395a209");
-        String postUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="
-                + accessToken;
-        String result;
-        try {
-            result = new String(HttpsUtil.post(postUrl, "", "UTF-8"));
-            System.out.println("result:" + result);
-        } catch (KeyManagementException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // String key1 = "wxef7fda595f81f6d6";
+        // String key2 = "057815f636178d3a81c3b065f395a209";
+        // String token = getAccessToken(key1, key2);
+        // System.out.println(token);
+
+        List<Template> data = getTemplateList("7LJre2KTGfinjY3ply-SNDsmIBXkiT5gvsokN4rwbhcwPVKuKIODCpv1viXYqnlo4M9xJdVXH6Hr3uUQjn6OLgjl_SklQVhUa8Zhl68Up2flY5WwDdRggiOROVOY4HoFHANfABAXQD");
+        System.out.println(data.get(0).getTemplate_id());
     }
 }

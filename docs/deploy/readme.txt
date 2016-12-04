@@ -12,8 +12,16 @@
   scp -P57652 ./std-sms.war root@121.43.101.148:/home
   T6dh%$%$ss1
   
+  scp -P57652 ./std-sms.war root@120.26.222.73:/home
+  xnkj@151%
+  
 3，部署
   ssh root@121.43.101.148 -p 57652
+  
+  ssh root@120.26.222.73 -p 57652  
+  
+  cp /home/ /usr/local/java/jre1.7.0_80/lib/security
+  
   
   cd /home/wwwroot/cdhome/tomcat_std_base/webapps
   cp ./std-sms/WEB-INF/classes/application.properties .
@@ -48,6 +56,6 @@ http://120.55.113.192:8902/std-sms/api
   ../bin/shutdown.sh
   ../bin/startup.sh
   
-  http://121.43.101.148:6502/std-sms/api
+  http://120.26.222.73:6502/std-sms/api
 
 

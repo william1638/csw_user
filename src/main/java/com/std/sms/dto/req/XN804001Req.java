@@ -28,8 +28,63 @@ public class XN804001Req {
     // 秘钥3(选填)
     private String privateKey3;
 
+    // 秘钥4(选填)
+    private String privateKey4;
+
+    // 秘钥5(选填)
+    private String privateKey5;
+
+    // 回复语1(选填)
+    private String repayText1;
+
+    // 回复语2(选填)
+    private String repayText2;
+
+    // 回复语3(选填)
+    private String repayText3;
+
     // 备注(选填)
     private String remark;
+
+    public String getPrivateKey4() {
+        return privateKey4;
+    }
+
+    public void setPrivateKey4(String privateKey4) {
+        this.privateKey4 = privateKey4;
+    }
+
+    public String getPrivateKey5() {
+        return privateKey5;
+    }
+
+    public void setPrivateKey5(String privateKey5) {
+        this.privateKey5 = privateKey5;
+    }
+
+    public String getRepayText1() {
+        return repayText1;
+    }
+
+    public void setRepayText1(String repayText1) {
+        this.repayText1 = repayText1;
+    }
+
+    public String getRepayText2() {
+        return repayText2;
+    }
+
+    public void setRepayText2(String repayText2) {
+        this.repayText2 = repayText2;
+    }
+
+    public String getRepayText3() {
+        return repayText3;
+    }
+
+    public void setRepayText3(String repayText3) {
+        this.repayText3 = repayText3;
+    }
 
     public String getId() {
         return id;

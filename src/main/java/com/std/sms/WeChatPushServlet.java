@@ -1,22 +1,23 @@
 package com.std.sms;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.std.sms.ao.IReceiverAO;
-import com.std.sms.common.PropertiesUtil;
-import com.std.sms.sent.wechat.ReceiveXml;
-import com.std.sms.sent.wechat.XmlToDomain;
+import com.std.sms.sent.wechat.CallBackProcess;
+import com.std.sms.sent.wechat.message.MessageUtil;
 import com.std.sms.spring.SpringContextHolder;
+import com.std.sms.util.PhoneUtil;
 import com.std.sms.util.SignUtil;
 
 /**
@@ -30,6 +31,9 @@ public class WeChatPushServlet extends HttpServlet {
     private IReceiverAO receiverAO = SpringContextHolder
         .getBean(IReceiverAO.class);
 
+    private CallBackProcess callBackProcess = SpringContextHolder
+        .getBean(CallBackProcess.class);
+
     /** 
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
      */
@@ -42,14 +46,10 @@ public class WeChatPushServlet extends HttpServlet {
             HttpServletResponse response) throws ServletException, IOException {
         System.out
             .println("***************************验证签名begin***************************");
-        // 微信加密签名
-        String signature = request.getParameter("signature");
-        // 时间戳
-        String timestamp = request.getParameter("timestamp");
-        // 随机数
-        String nonce = request.getParameter("nonce");
-        // 随机字符串
-        String echostr = request.getParameter("echostr");
+        String signature = request.getParameter("signature");// 微信加密签名
+        String timestamp = request.getParameter("timestamp");// 时间戳
+        String nonce = request.getParameter("nonce"); // 随机数
+        String echostr = request.getParameter("echostr");// 随机字符串
         PrintWriter out = response.getWriter();
         // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
         if (SignUtil.checkSignature(signature, timestamp, nonce)) {
@@ -66,28 +66,54 @@ public class WeChatPushServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("*************请求开始*************");
+        String systemCode = request.getParameter("systemCode");
+        System.out.println("*************post请求开始*************");
+        // 时间戳
+        String timestamp = request.getParameter("timestamp");
+        // 随机数
+        String nonce = request.getParameter("nonce");
+        String respMsg = null;
         try {
-            // 解析请求xml报文
-            StringBuffer sb = new StringBuffer();
-            InputStreamReader isr = new InputStreamReader(
-                request.getInputStream(), "UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            String s = "";
-            while ((s = br.readLine()) != null) {
-                sb.append(s);
+            Map<String, String> requestMap = new HashMap<String, String>();
+            boolean isReplay = false;
+            String encryptType = request.getParameter("encrypt_type");
+            if (StringUtils.isNotBlank(systemCode)) {
+                if ("aes".equals(encryptType)) {
+                    requestMap = callBackProcess.parseCryptXml(request,
+                        timestamp, nonce, systemCode);
+                    if (MessageUtil.REQ_MESSAGE_TYPE_TEXT.equals(requestMap
+                        .get("MsgType"))) {
+                        String content = requestMap.get("Content");
+                        if (PhoneUtil.isMobile(content)) {
+                            receiverAO.importWxReceiver(content, systemCode,
+                                requestMap.get("FromUserName"), "接收微信消息");
+                            isReplay = true;
+                        }
+                    } else if (MessageUtil.REQ_MESSAGE_TYPE_EVENT
+                        .equals(requestMap.get("MsgType"))
+                            && MessageUtil.EVENT_TYPE_SUBSCRIBE
+                                .equals(requestMap.get("Event"))) {
+                        isReplay = true;
+                    }
+                }
             }
-            XmlToDomain xmlToDomain = new XmlToDomain();
-            ReceiveXml receiveXml = xmlToDomain.convertXml(sb.toString());
-            receiverAO.importWxReceiver(receiveXml.getContent(),
-                PropertiesUtil.Config.SYSTEM_CODE,
-                receiveXml.getFromUserName(), "接收微信消息");
+            if (isReplay) {
+                respMsg = callBackProcess.respRequest(systemCode, timestamp,
+                    nonce, requestMap);
+            } else {
+                respMsg = "";
+            }
+        } catch (Exception e) {
+            logger.error("**程序错误**:" + e.getMessage());
         } finally {
             PrintWriter out = response.getWriter();
-            out.print("success");
+            if (StringUtils.isNotBlank(respMsg)) {
+                out.print(respMsg);
+            } else {
+                out.print("success");
+            }
             out.close();
-            out = null;
         }
-        System.out.println("*************请求结束*************");
+        System.out.println("*************post请求完成*************");
     }
 }

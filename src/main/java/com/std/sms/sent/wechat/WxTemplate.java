@@ -31,14 +31,15 @@ public class WxTemplate {
     }
 
     public WxTemplate(String templateId, String toUser, String url,
-            Map<String, String> data) {
+            String color1, String color2, Map<String, String> data) {
         this.template_id = templateId;
         this.touser = toUser;
         this.url = url;
+        this.topcolor = color1;
         Map<String, TemplateData> dataMap = new HashMap<String, TemplateData>();
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String key = entry.getKey();
-            dataMap.put(key, new TemplateData(entry.getValue()));
+            dataMap.put(key, new TemplateData(entry.getValue(), color2));
         }
         this.data = dataMap;
     }

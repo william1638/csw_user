@@ -9,22 +9,22 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
     // 实体
-    private static String key = "items";
+    private static String key = "systemTemplate";
 
     // 实体名称
-    private static String keyName = "办件";
+    private static String keyName = "系统消息模板";
 
     // 包路径
     private static String packge = "com.std.sms.";
 
     // 表名
-    private static String dbname = "tstd_items";
+    private static String dbname = "tstd_system_template";
 
-    private static String[] DBwords = { "code", "real_name", "department",
-            "status", "content", "remark", "user_id", "system_code" };
+    private static String[] DBwords = { "id", "system_code", "template_id",
+            "url", "color1", "color2", "content", "remark" };
 
-    private static String[] DBwordsName = { "编号", "真实姓名", "审批部门", "状态", "办理事项",
-            "联系电话", "备注", "用户编号", "系统编号" };
+    private static String[] DBwordsName = { "序号", "系统编号", "模板编号", "URL",
+            "字体样式1", "字体样式2", "内容样式", "备注" };
 
     private static String[] DOwords = getDOwords();
 

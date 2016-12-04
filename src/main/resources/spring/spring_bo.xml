@@ -36,4 +36,8 @@
 	<bean id="itemsBO" class="com.std.sms.bo.impl.ItemsBOImpl">
 		<property name="paginableDAO" ref="itemsDAOImpl" />
 	</bean>
+	
+	<bean id="systemTemplateBO" class="com.std.sms.bo.impl.SystemTemplateBOImpl">
+		<property name="paginableDAO" ref="systemTemplateDAOImpl" />
+	</bean>
 </beans>

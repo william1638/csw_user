@@ -36,19 +36,14 @@ public class PropertiesUtil {
         public static String APNS_PRODUCTION = props
             .getProperty("APNS_PRODUCTION");
 
-        public static String TEMPLATE_ID = props.getProperty("TEMPLATE_ID");
-
-        public static String URL = props.getProperty("URL");
-
-        public static String COLOR1 = props.getProperty("COLOR1");
-
-        public static String COLOR2 = props.getProperty("COLOR2");
-
         public static String BJ_ROLE_CODE = props.getProperty("BJ_ROLE_CODE");
 
         public static String USER_URL = props.getProperty("USER_URL");
 
-        public static String SYSTEM_CODE = props.getProperty("SYSTEM_CODE");
-
+        // public static String FOLLOW_TEXT = props.getProperty("FOLLOW_TEXT");
+        //
+        // public static String REPAY_TEXT = props.getProperty("REPAY_TEXT");
+        //
+        // public static String OTHER_TEXT = props.getProperty("OTHER_TEXT");
     }
 }

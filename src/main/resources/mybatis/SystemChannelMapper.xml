@@ -9,9 +9,16 @@
 		<result column="push_type" property="pushType" />
 		<result column="status" property="status" />
 		<result column="push_system" property="pushSystem" />
+		
 		<result column="private_key1" property="privateKey1" />
 		<result column="private_key2" property="privateKey2" />
 		<result column="private_key3" property="privateKey3" />
+		<result column="private_key4" property="privateKey4" />
+		<result column="private_key5" property="privateKey5" />
+		
+		<result column="repay_text1" property="repayText1" />
+		<result column="repay_text2" property="repayText2" />
+		<result column="repay_text3" property="repayText3" />
 		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
@@ -44,6 +51,11 @@
 		,t.private_key1
 		,t.private_key2
 		,t.private_key3
+		,t.private_key4
+		,t.private_key5
+		,t.repay_text1
+		,t.repay_text2
+		,t.repay_text3
 		,t.remark
 		FROM
 		tstd_system_channel t
@@ -72,6 +84,11 @@
 		,private_key1
 		,private_key2
 		,private_key3
+		,private_key4
+		,private_key5
+		,repay_text1
+		,repay_text2
+		,repay_text3
 		,remark
 		)
 		VALUES(
@@ -83,6 +100,11 @@
 		,#{privateKey1}
 		,#{privateKey2}
 		,#{privateKey3}
+		,#{privateKey4}
+		,#{privateKey5}
+		,#{repayText1}
+		,#{repayText2}
+		,#{repayText3}
 		,#{remark}
 		)
 	</insert>
@@ -103,14 +125,19 @@
 		,private_key1 = #{privateKey1}
 		,private_key2 = #{privateKey2}
 		,private_key3 = #{privateKey3}
+		<!-- ,private_key4 = #{privateKey4}
+		,private_key5 = #{privateKey5}
+		,repay_text1 = #{repayText1}
+		,repay_text2 = #{repayText2}
+		,repay_text3 = #{repayText3} -->
 		,remark = #{remark}
 		WHERE id = #{id}
 	</update>
 	
-	<update id="update_systemChannel_remark" parameterType="systemChannel">
+	<update id="update_systemChannel_privateKey3" parameterType="systemChannel">
 		UPDATE tstd_system_channel
 		SET
-		remark = #{remark}
+		private_key3 = #{privateKey3}
 		WHERE id = #{id}
 	</update>
 </mapper>
