@@ -86,7 +86,9 @@ public class WxTemplate {
 
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
+        return "WxTemplate [template_id=" + template_id + ", touser=" + touser
+                + ", url=" + url + ", topcolor=" + topcolor + ", data=" + data
+                + "]";
     }
+
 }

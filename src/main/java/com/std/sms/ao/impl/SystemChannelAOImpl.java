@@ -2,6 +2,9 @@ package com.std.sms.ao.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +12,21 @@ import com.std.sms.ao.ISystemChannelAO;
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.SystemChannel;
+import com.std.sms.enums.EChannelType;
+import com.std.sms.enums.EPushType;
 import com.std.sms.exception.BizException;
+import com.std.sms.sent.wechat.WeChatClientSend;
 
 @Service
 public class SystemChannelAOImpl implements ISystemChannelAO {
+    protected static final Logger logger = LoggerFactory
+        .getLogger(WeChatClientSend.class);
 
     @Autowired
     private ISystemChannelBO systemChannelBO;
+
+    @Autowired
+    private WeChatClientSend weChatClientSend;
 
     @Override
     public void addSystemChannel(SystemChannel data) {
@@ -60,5 +71,23 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
     @Override
     public SystemChannel getSystemChannel(Long id) {
         return systemChannelBO.getSystemChannel(id);
+    }
+
+    @Override
+    public void doAccessTokenDaily() {
+        logger.info("*****************更新微信accessToken_begin*****************");
+        SystemChannel condition = new SystemChannel();
+        condition.setChannelType(EChannelType.WECHAT.getCode());
+        condition.setPushType(EPushType.WEIXIN.getCode());
+        List<SystemChannel> dataList = systemChannelBO
+            .querySystemChannelList(condition);
+        if (CollectionUtils.isNotEmpty(dataList)) {
+            for (SystemChannel data : dataList) {
+                String accessToken = weChatClientSend.getAccessToken(
+                    data.getPrivateKey1(), data.getPrivateKey2());
+                systemChannelBO.refreshSystemChannel(data.getId(), accessToken);
+            }
+        }
+        logger.info("*****************更新微信accessToken_end*****************");
     }
 }

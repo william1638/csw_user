@@ -2,7 +2,6 @@ package com.std.sms.sent.wechat;
 
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.common.JsonUtil;
-import com.std.sms.domain.SystemChannel;
-import com.std.sms.enums.EChannelType;
-import com.std.sms.enums.EPushType;
 import com.std.sms.util.HttpsUtil;
 
 /**
@@ -101,31 +97,13 @@ public class WeChatClientSend {
                         + ";errmsg:" + weChatSendResult.getErrmsg());
             }
         } catch (Exception e) {
-            logger.error("error:" + e.getMessage());
+            System.out.println(wxTemplate.toString());
+            logger.error("error:" + e.getMessage() + "&postUrl:" + postUrl);
         }
         return weChatSendResult;
     }
 
-    // 15分钟获取一次access_tokenId
-    public void doAccessTokenDaily() {
-        logger.info("*****************更新微信accessToken_begin*****************");
-        SystemChannel condition = new SystemChannel();
-        condition.setChannelType(EChannelType.WECHAT.getCode());
-        condition.setPushType(EPushType.WEIXIN.getCode());
-        List<SystemChannel> dataList = systemChannelBO
-            .querySystemChannelList(condition);
-        if (CollectionUtils.isNotEmpty(dataList)) {
-            for (SystemChannel data : dataList) {
-                String accessToken = getAccessToken(data.getPrivateKey1(),
-                    data.getPrivateKey2());
-                systemChannelBO.refreshSystemChannel(data.getId(), accessToken);
-            }
-        }
-        logger.info("*****************更新微信accessToken_end*****************");
-    }
-
-    protected static String getAccessToken(String privateKey1,
-            String privateKey2) {
+    public String getAccessToken(String privateKey1, String privateKey2) {
         String accessToken = null;
         String postUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
                 + privateKey1 + "&secret=" + privateKey2;

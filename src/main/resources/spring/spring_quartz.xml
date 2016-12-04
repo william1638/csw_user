@@ -38,7 +38,7 @@
 	
 	<bean id="accessTokenTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
        <property name="jobDetail" ref="doAccessTokenDaily"/>  
-       <property name="cronExpression" value="0 0/10 * * * ?"/><!-- 每隔10分钟 -->
+       <property name="cronExpression" value="0 0 0/1 * * ?"/><!--0 0 0/1 * * ? 每隔1小时 -->
 	</bean>
 	
 	<bean id="poolJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
@@ -54,7 +54,7 @@
 	</bean>
 	
 	<bean id="doAccessTokenDaily" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">   
-	        <property name="targetObject" ref="weChatClientSend"/>  
+	        <property name="targetObject" ref="systemChannelAOImpl"/>  
 	        <property name="targetMethod" value="doAccessTokenDaily"/>  
 	        <property name="concurrent" value="true"/> <!--  是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程   -->
 	</bean>

@@ -22,4 +22,6 @@ public interface ISystemChannelAO {
     public List<SystemChannel> querySystemChannelList(SystemChannel condition);
 
     public SystemChannel getSystemChannel(Long id);
+
+    public void doAccessTokenDaily();
 }
