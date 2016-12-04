@@ -141,13 +141,36 @@ public class WeChatClientSend {
         return accessToken;
     }
 
+    public String getNickname(String accessToken, String weChatId) {
+        String nickname = null;
+        String postUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="
+                + accessToken + "&openid=" + weChatId + "&lang=zh_CN";
+        // 发送微信请求
+        String response = null;
+        try {
+            response = new String(HttpsUtil.post(postUrl, "", "UTF-8"));
+            UserDetail userDetail = JsonUtil.json2Bean(response,
+                UserDetail.class);
+            nickname = userDetail.getNickname();
+        } catch (Exception e) {
+            logger.error("error:" + e.getMessage());
+        }
+        return nickname;
+    }
+
     public static void main(String[] args) {
         // String key1 = "wxef7fda595f81f6d6";
         // String key2 = "057815f636178d3a81c3b065f395a209";
         // String token = getAccessToken(key1, key2);
         // System.out.println(token);
 
-        List<Template> data = getTemplateList("7LJre2KTGfinjY3ply-SNDsmIBXkiT5gvsokN4rwbhcwPVKuKIODCpv1viXYqnlo4M9xJdVXH6Hr3uUQjn6OLgjl_SklQVhUa8Zhl68Up2flY5WwDdRggiOROVOY4HoFHANfABAXQD");
-        System.out.println(data.get(0).getTemplate_id());
+        // List<Template> data =
+        // getTemplateList("7LJre2KTGfinjY3ply-SNDsmIBXkiT5gvsokN4rwbhcwPVKuKIODCpv1viXYqnlo4M9xJdVXH6Hr3uUQjn6OLgjl_SklQVhUa8Zhl68Up2flY5WwDdRggiOROVOY4HoFHANfABAXQD");
+        // System.out.println(data.get(0).getTemplate_id());
+        // System.out
+        // .println(getNickname(
+        // "Pr_PzpVcdlg76Lw8huKbSEuRqeXCj-NHpxnJYakZuY9KwW9iZe3RwALnAAsBGuNAExCyBWkVuDa4HW0yYYR_Xsfs92_cBWHivPmY7R2D1mBh_lDcnyek6lkRnpQT7dwxTDPiAEADNZ",
+        // "omRftwR8qrXwfM-9tZbQ4aEu8jYk"));
     }
+
 }

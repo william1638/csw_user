@@ -93,7 +93,8 @@
 	<update id="update_receiver_wechatId" parameterType="receiver">
 		UPDATE tstd_receiver
 		SET
-		wechat_id = #{wechatId}
+		name = #{name}
+		,wechat_id = #{wechatId}
 		,remark = #{remark}
 		WHERE mobile = #{mobile} AND system_code = #{systemCode}
 	</update>

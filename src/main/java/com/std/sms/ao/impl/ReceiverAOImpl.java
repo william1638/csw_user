@@ -8,15 +8,26 @@ import org.springframework.stereotype.Service;
 
 import com.std.sms.ao.IReceiverAO;
 import com.std.sms.bo.IReceiverBO;
+import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Receiver;
+import com.std.sms.domain.SystemChannel;
+import com.std.sms.enums.EChannelType;
+import com.std.sms.enums.EPushType;
 import com.std.sms.exception.BizException;
+import com.std.sms.sent.wechat.WeChatClientSend;
 
 @Service
 public class ReceiverAOImpl implements IReceiverAO {
 
     @Autowired
     private IReceiverBO receiverBO;
+
+    @Autowired
+    private ISystemChannelBO systemChannelBO;
+
+    @Autowired
+    private WeChatClientSend weChatClientSend;
 
     /** 
      * @see com.std.sms.ao.IReceiverAO#synchReceivers()
@@ -48,15 +59,22 @@ public class ReceiverAOImpl implements IReceiverAO {
     public void importWxReceiver(String mobile, String systemCode,
             String wechatId, String remark) {
         Receiver receiver = receiverBO.getReceiverNotError(mobile, systemCode);
+        // 获取用户名
+        SystemChannel systemChannel = systemChannelBO
+            .getSystemChannelByCondition(systemCode, EChannelType.WECHAT,
+                EPushType.WEIXIN.getCode());
+        String nickname = weChatClientSend.getNickname(
+            systemChannel.getPrivateKey3(), wechatId);
         if (receiver != null) {
             if (!wechatId.equals(receiver.getWechatId())) {
                 receiverBO.refreshReceiverWechatId(mobile, systemCode,
-                    wechatId, remark);
+                    nickname, wechatId, remark);
             }
         } else {
             Receiver data = new Receiver();
             data.setMobile(mobile);
             data.setSystemCode(systemCode);
+            data.setName(nickname);
             data.setWechatId(wechatId);
             data.setRemark(remark);
             receiverBO.saveReceiver(data);

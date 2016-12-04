@@ -103,13 +103,14 @@ public class ReceiverBOImpl extends PaginableBOImpl<Receiver> implements
 
     @Override
     public int refreshReceiverWechatId(String mobile, String systemCode,
-            String wechatId, String remark) {
+            String name, String wechatId, String remark) {
         int count = 0;
         if (StringUtils.isNotBlank(mobile)
                 && StringUtils.isNotBlank(systemCode)) {
             Receiver data = new Receiver();
             data.setMobile(mobile);
             data.setSystemCode(systemCode);
+            data.setName(name);
             data.setWechatId(wechatId);
             data.setRemark(remark);
             count = receiverDAO.updateWechatId(data);
