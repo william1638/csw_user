@@ -136,6 +136,18 @@ public class WeChatClientSend {
         return nickname;
     }
 
+    public String getOpenIdList(String accessToken) {
+        String openIds = null;
+        String postUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token="
+                + accessToken;
+        try {
+            openIds = new String(HttpsUtil.post(postUrl, "", "UTF-8"));
+        } catch (Exception e) {
+            logger.error("error:" + e.getMessage());
+        }
+        return openIds;
+    }
+
     public static void main(String[] args) {
         // String key1 = "wxef7fda595f81f6d6";
         // String key2 = "057815f636178d3a81c3b065f395a209";

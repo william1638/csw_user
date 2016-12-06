@@ -18,11 +18,6 @@
 3，部署
   ssh root@121.43.101.148 -p 57652
   
-  ssh root@120.26.222.73 -p 57652  
-  
-  cp /home/ /usr/local/java/jre1.7.0_80/lib/security
-  
-  
   cd /home/wwwroot/cdhome/tomcat_std_base/webapps
   cp ./std-sms/WEB-INF/classes/application.properties .
   cp ./std-sms/WEB-INF/classes/config.properties .
@@ -56,6 +51,6 @@ http://120.55.113.192:8902/std-sms/api
   ../bin/shutdown.sh
   ../bin/startup.sh
   
-  http://120.26.222.73:6502/std-sms/api
+  http://121.43.101.148:6502/std-sms/api
 
 
