@@ -17,3 +17,16 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_userid_2', '162', 'userid');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_2', 'hh8071', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
+
+/*
+-- Query: SELECT * FROM push_std_sms.tstd_system_channel
+LIMIT 0, 50000
+
+-- Date: 2016-11-30 14:06
+*/
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('1','1','12','1','','162','hh8070','ahh8070','城市网');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('1','2','21','1','','e614d2a82d038160f707f1a8','22d4796873b7f002537f30b6','','');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`private_key4`,`private_key5`,`repay_text1`,`repay_text2`,`repay_text3`,`remark`) VALUES ('1','3','31','1','','wxef7fda595f81f6d6','057815f636178d3a81c3b065f395a209',NULL,'cswXm','dt8XIq63Xk1VOsoc59cQfXUjU2x2Gvndrh2yTxTQ7yb','请输入手机号，当前案件办完后小蜜将通知您过来领取。','谢谢您的配合，小蜜会尽快通知您办件结果。',NULL,'');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('1','4','41','1','','','','','');
+
+INSERT INTO `tstd_system_template` (`system_code`,`template_id`,`url`,`color1`,`color2`,`content`,`remark`) VALUES ('1','xotLTdJvA0JhXZH506v9TGPyDmQVK2eN1ZnJsvdo6mI','http://cswapp.hichengdai.com','#FF0000','#173177','',NULL);

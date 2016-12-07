@@ -170,7 +170,28 @@ CREATE TABLE `tstd_system_channel` (
   `push_system` varchar(255) DEFAULT NULL COMMENT '渠道给系统的代号',
   `private_key1` varchar(255) DEFAULT NULL COMMENT '秘钥1',
   `private_key2` varchar(255) DEFAULT NULL COMMENT '秘钥2',
-  `private_key3` varchar(255) DEFAULT NULL COMMENT '秘钥3',
+  `private_key3` varchar(1024) DEFAULT NULL COMMENT '秘钥3(微信token定时存储)',
+  `private_key4` varchar(255) DEFAULT NULL COMMENT '微信token',
+  `private_key5` varchar(255) DEFAULT NULL COMMENT '微信aceKey',
+  `repay_text1` varchar(255) DEFAULT NULL COMMENT '微信关注语',
+  `repay_text2` varchar(255) DEFAULT NULL COMMENT '微信文本回复语',
+  `repay_text3` varchar(255) DEFAULT NULL COMMENT '其他默认回复',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tstd_system_template`
+-- ----------------------------
+DROP TABLE IF EXISTS `tstd_system_template`;
+CREATE TABLE `tstd_system_template` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT,
+  `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
+  `template_id` varchar(255) DEFAULT NULL COMMENT '模板编号',
+  `url` varchar(255) DEFAULT NULL COMMENT 'url',
+  `color1` varchar(255) DEFAULT NULL COMMENT '字体样式一',
+  `color2` varchar(255) DEFAULT NULL COMMENT '字体样式二',
+  `content` text COMMENT '模板内容',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
