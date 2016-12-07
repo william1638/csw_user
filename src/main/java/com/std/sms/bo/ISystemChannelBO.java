@@ -10,6 +10,9 @@ public interface ISystemChannelBO extends IPaginableBO<SystemChannel> {
 
     public boolean isSystemChannelExist(Long id);
 
+    public boolean isSystemChannelExist(String systemCode, String channelType,
+            String pushType, Long id);
+
     public void saveSystemChannel(SystemChannel data);
 
     public int removeSystemChannel(Long id);

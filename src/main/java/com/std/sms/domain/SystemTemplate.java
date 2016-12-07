@@ -18,19 +18,31 @@ public class SystemTemplate extends ABaseDO {
     // 系统编号
     private String systemCode;
 
+    // 渠道大类(0 全渠道 1短信 2 APP 3 微信 4 公告)
+    private String channelType;
+
+    // 渠道小类(11 创世漫道 12 汇禾 21 极光推送 31 微信 41 公告)
+    private String pushType;
+
     // 模板编号
     private String templateId;
+
+    // 标题
+    private String title;
 
     // URL
     private String url;
 
     // 字体样式1
-    private String color1;
+    private String key1;
 
     // 字体样式2
-    private String color2;
+    private String key2;
 
-    // 内容样式
+    // 字体样式3
+    private String key3;
+
+    // 内容模板
     private String content;
 
     // 备注
@@ -68,20 +80,44 @@ public class SystemTemplate extends ABaseDO {
         return url;
     }
 
-    public void setColor1(String color1) {
-        this.color1 = color1;
+    public String getChannelType() {
+        return channelType;
     }
 
-    public String getColor1() {
-        return color1;
+    public void setChannelType(String channelType) {
+        this.channelType = channelType;
     }
 
-    public void setColor2(String color2) {
-        this.color2 = color2;
+    public String getPushType() {
+        return pushType;
     }
 
-    public String getColor2() {
-        return color2;
+    public void setPushType(String pushType) {
+        this.pushType = pushType;
+    }
+
+    public String getKey1() {
+        return key1;
+    }
+
+    public void setKey1(String key1) {
+        this.key1 = key1;
+    }
+
+    public String getKey2() {
+        return key2;
+    }
+
+    public void setKey2(String key2) {
+        this.key2 = key2;
+    }
+
+    public String getKey3() {
+        return key3;
+    }
+
+    public void setKey3(String key3) {
+        this.key3 = key3;
     }
 
     public void setContent(String content) {
@@ -98,5 +134,13 @@ public class SystemTemplate extends ABaseDO {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

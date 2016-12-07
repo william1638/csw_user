@@ -8,7 +8,11 @@
 		<result column="channel_type" property="channelType" />
 		<result column="push_type" property="pushType" />
 		<result column="to_system_code" property="toSystemCode" />
+		<result column="to_kind" property="toKind" />
 		<result column="to_mobile" property="toMobile" />
+		<result column="name" property="name" />
+		<result column="wechat_id" property="wechatId" />
+		<result column="jpush_id" property="jpushId" />
 		<result column="sms_type" property="smsType" />
 		<result column="sms_title" property="smsTitle" />
 		<result column="sms_content" property="smsContent" />
@@ -37,6 +41,9 @@
 			<if test="toSystemCode != null and toSystemCode != '' ">
 				AND t.to_system_code = #{toSystemCode}
 			</if>
+			<if test="toKind != null and toKind != '' ">
+				AND t.to_kind = #{toKind}
+			</if>
 			<if test="toMobile != null and toMobile != '' ">
 				AND t.to_mobile = #{toMobile}
 			</if>
@@ -55,7 +62,11 @@
 		,t.channel_type
 		,t.push_type
 		,t.to_system_code
+		,t.to_kind
 		,t.to_mobile
+		,tr.name
+		,tr.wechat_id
+		,tr.jpush_id
 		,t.sms_type
 		,t.sms_title
 		,t.sms_content
@@ -67,7 +78,7 @@
 		,t.update_datetime
 		,t.remark
 		FROM
-		tstd_sms t
+		tstd_sms t left join tstd_receiver tr on (t.to_system_code = tr.system_code and t.to_mobile = tr.mobile)
 		<include refid="where_condition" />
 		<trim prefix="ORDER BY ">
 			<if test="order != null and order != '' ">
@@ -78,7 +89,7 @@
 
 	<select id="select_sms_count" parameterType="sms"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tstd_sms t
+		SELECT count(1) FROM tstd_sms t left join tstd_receiver tr on (t.to_system_code = tr.system_code and t.to_mobile = tr.mobile)
 		<include refid="where_condition" />
 	</select>
 
@@ -89,6 +100,7 @@
 		,channel_type
 		,push_type
 		,to_system_code
+		,to_kind
 		,to_mobile
 		,sms_type
 		,sms_title
@@ -106,6 +118,7 @@
 		,#{channelType}
 		,#{pushType}
 		,#{toSystemCode}
+		,#{toKind}
 		,#{toMobile}
 		,#{smsType}
 		,#{smsTitle}
@@ -124,6 +137,7 @@
 		UPDATE tstd_sms
 		SET
 		sms_type = #{smsType}
+		,to_kind =#{toKind}
 		,sms_title = #{smsTitle}
 		,sms_content = #{smsContent}
 		,pushed_datetime = #{pushedDatetime}

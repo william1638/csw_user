@@ -13,6 +13,9 @@ public class XN804035Req {
     // 消息类型(必填)（1 即时发 2定时发）
     private String smsType;
 
+    // to分组(1 C端，2 B端，3 平台)(必填)
+    private String toKind;
+
     // 消息标题(必填)
     private String smsTitle;
 
@@ -84,4 +87,11 @@ public class XN804035Req {
         this.remark = remark;
     }
 
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 }

@@ -28,6 +28,9 @@ public class SystemTemplateBOImpl extends PaginableBOImpl<SystemTemplate>
     @Autowired
     private ISystemChannelDAO systemChannelDAO;
 
+    @Autowired
+    private WeChatClientSend weChatClientSend;
+
     @Override
     public boolean isSystemTemplateExist(Long id) {
         SystemTemplate condition = new SystemTemplate();
@@ -93,7 +96,7 @@ public class SystemTemplateBOImpl extends PaginableBOImpl<SystemTemplate>
         condition.setChannelType(EChannelType.WECHAT.getCode());
         condition.setPushType(EPushType.WEIXIN.getCode());
         SystemChannel systemChannel = systemChannelDAO.select(condition);
-        List<Template> list = WeChatClientSend.getTemplateList(systemChannel
+        List<Template> list = weChatClientSend.getTemplateList(systemChannel
             .getPrivateKey3());
         SystemTemplate systemTemplate = getSystemTemplate(systemCode);
         Template data = null;

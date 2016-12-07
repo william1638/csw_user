@@ -58,7 +58,7 @@ public class WeChatClientSend {
     }
 
     // 获取模板
-    public static List<Template> getTemplateList(String accessToken) {
+    public List<Template> getTemplateList(String accessToken) {
         List<Template> result = null;
         // 发送对接
         String postUrl = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token="
@@ -162,5 +162,4 @@ public class WeChatClientSend {
         // "Pr_PzpVcdlg76Lw8huKbSEuRqeXCj-NHpxnJYakZuY9KwW9iZe3RwALnAAsBGuNAExCyBWkVuDa4HW0yYYR_Xsfs92_cBWHivPmY7R2D1mBh_lDcnyek6lkRnpQT7dwxTDPiAEADNZ",
         // "omRftwR8qrXwfM-9tZbQ4aEu8jYk"));
     }
-
 }

@@ -30,8 +30,20 @@ public class Sms extends ABaseDO {
     // to系统编号
     private String toSystemCode;
 
+    // to分组(1 C端，2 B端，3 平台)
+    private String toKind;
+
     // to手机号
     private String toMobile;
+
+    // 名称
+    private String name;
+
+    // 微信ID
+    private String wechatId;
+
+    // 推送ID
+    private String jpushId;
 
     // 消息类型（1 即时发 2定时发）
     private String smsType;
@@ -67,6 +79,14 @@ public class Sms extends ABaseDO {
 
     // 消息内容
     private Map<String, String> wxSmsContent;
+
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 
     public Map<String, String> getWxSmsContent() {
         return wxSmsContent;
@@ -202,5 +222,29 @@ public class Sms extends ABaseDO {
 
     public String getRemark() {
         return remark;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWechatId() {
+        return wechatId;
+    }
+
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId;
+    }
+
+    public String getJpushId() {
+        return jpushId;
+    }
+
+    public void setJpushId(String jpushId) {
+        this.jpushId = jpushId;
     }
 }

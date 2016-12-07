@@ -31,14 +31,8 @@ public class XN804000Req {
     // 秘钥5(选填)
     private String privateKey5;
 
-    // 回复语1(选填)
-    private String repayText1;
-
-    // 回复语2(选填)
-    private String repayText2;
-
-    // 回复语3(选填)
-    private String repayText3;
+    // 秘钥6(选填)
+    private String privateKey6;
 
     // 备注(选填)
     private String remark;
@@ -57,30 +51,6 @@ public class XN804000Req {
 
     public void setPrivateKey5(String privateKey5) {
         this.privateKey5 = privateKey5;
-    }
-
-    public String getRepayText1() {
-        return repayText1;
-    }
-
-    public void setRepayText1(String repayText1) {
-        this.repayText1 = repayText1;
-    }
-
-    public String getRepayText2() {
-        return repayText2;
-    }
-
-    public void setRepayText2(String repayText2) {
-        this.repayText2 = repayText2;
-    }
-
-    public String getRepayText3() {
-        return repayText3;
-    }
-
-    public void setRepayText3(String repayText3) {
-        this.repayText3 = repayText3;
     }
 
     public String getSystemCode() {
@@ -145,6 +115,14 @@ public class XN804000Req {
 
     public void setPrivateKey3(String privateKey3) {
         this.privateKey3 = privateKey3;
+    }
+
+    public String getPrivateKey6() {
+        return privateKey6;
+    }
+
+    public void setPrivateKey6(String privateKey6) {
+        this.privateKey6 = privateKey6;
     }
 
     public String getRemark() {

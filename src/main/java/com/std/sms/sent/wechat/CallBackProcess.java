@@ -86,7 +86,7 @@ public class CallBackProcess {
         String respMessage = null;
         try {
             // 默认返回的文本消息内容
-            String respContent = systemChannel.getRepayText3();
+            String respContent = null;
             // 回复文本
             TextMessage textMessage = new TextMessage();
             textMessage.setToUserName(requestMap.get("FromUserName"));
@@ -96,7 +96,7 @@ public class CallBackProcess {
             textMessage.setFuncFlag(0);
             String msgType = requestMap.get("MsgType");
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-                respContent = systemChannel.getRepayText2();
+                respContent = systemChannel.getPrivateKey6();
             }
             // // 图片消息
             // else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -120,7 +120,7 @@ public class CallBackProcess {
                 String eventType = requestMap.get("Event");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    respContent = systemChannel.getRepayText1();
+                    respContent = systemChannel.getRemark();
                 }
                 // 取消订阅
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {

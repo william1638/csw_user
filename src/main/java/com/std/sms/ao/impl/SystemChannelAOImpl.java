@@ -30,6 +30,10 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
 
     @Override
     public void addSystemChannel(SystemChannel data) {
+        if (systemChannelBO.isSystemChannelExist(data.getSystemCode(),
+            data.getChannelType(), data.getPushType(), null)) {
+            throw new BizException("xn0000", "该系统渠道已存在");
+        }
         systemChannelBO.saveSystemChannel(data);
     }
 
@@ -37,6 +41,10 @@ public class SystemChannelAOImpl implements ISystemChannelAO {
     public void editSystemChannel(SystemChannel data) {
         if (!systemChannelBO.isSystemChannelExist(data.getId())) {
             throw new BizException("xn0000", "记录编号不存在");
+        }
+        if (systemChannelBO.isSystemChannelExist(data.getSystemCode(),
+            data.getChannelType(), data.getPushType(), data.getId())) {
+            throw new BizException("xn0000", "该系统渠道已存在");
         }
         systemChannelBO.refreshSystemChannel(data);
     }

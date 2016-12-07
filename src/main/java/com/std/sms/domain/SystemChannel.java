@@ -45,14 +45,8 @@ public class SystemChannel extends ABaseDO {
     // 秘钥5
     private String privateKey5;
 
-    // 回复文本1
-    private String repayText1;
-
-    // 回复文本2
-    private String repayText2;
-
-    // 回复文本3
-    private String repayText3;
+    // 秘钥6
+    private String privateKey6;
 
     // 备注
     private String remark;
@@ -153,27 +147,11 @@ public class SystemChannel extends ABaseDO {
         this.privateKey5 = privateKey5;
     }
 
-    public String getRepayText1() {
-        return repayText1;
+    public String getPrivateKey6() {
+        return privateKey6;
     }
 
-    public void setRepayText1(String repayText1) {
-        this.repayText1 = repayText1;
-    }
-
-    public String getRepayText2() {
-        return repayText2;
-    }
-
-    public void setRepayText2(String repayText2) {
-        this.repayText2 = repayText2;
-    }
-
-    public String getRepayText3() {
-        return repayText3;
-    }
-
-    public void setRepayText3(String repayText3) {
-        this.repayText3 = repayText3;
+    public void setPrivateKey6(String privateKey6) {
+        this.privateKey6 = privateKey6;
     }
 }

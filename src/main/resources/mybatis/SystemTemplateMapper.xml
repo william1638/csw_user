@@ -5,10 +5,14 @@
 	<resultMap id="systemTemplate_DB_Result" type="systemTemplate">
 		<result column="id" property="id" />
 		<result column="system_code" property="systemCode" />
+		<result column="channel_type" property="channelType" />
+		<result column="push_type" property="pushType" />
 		<result column="template_id" property="templateId" />
+		<result column="title" property="title" />
 		<result column="url" property="url" />
-		<result column="color1" property="color1" />
-		<result column="color2" property="color2" />
+		<result column="key1" property="key1" />
+		<result column="key2" property="key2" />
+		<result column="key3" property="key3" />
 		<result column="content" property="content" />
 		<result column="remark" property="remark" />
 	</resultMap>
@@ -20,6 +24,12 @@
 			<if test="systemCode != null and systemCode != '' ">
 				AND t.system_code = #{systemCode}
 			</if>
+			<if test="channelType != null and channelType != '' ">
+				AND t.channel_type= #{channelType}
+			</if>
+			<if test="pushType != null and pushType != '' ">
+				AND t.push_type = #{pushType}
+			</if>
 			<if test="templateId != null and templateId != '' ">
 				AND t.template_id = #{templateId}
 			</if>
@@ -29,10 +39,14 @@
 		SELECT
 		t.id
 		,t.system_code
+		,t.channel_type
+		,t.push_type
 		,t.template_id
+		,t.title
 		,t.url
-		,t.color1
-		,t.color2
+		,t.key1
+		,t.key2
+		,t.key3
 		,t.content
 		,t.remark
 		FROM
@@ -55,19 +69,27 @@
 		INSERT INTO
 		tstd_system_template(
 		system_code
+		,channel_type
+		,push_type
 		,template_id
+		,title
 		,url
-		,color1
-		,color2
+		,key1
+		,key2
+		,key3
 		,content
 		,remark
 		)
 		VALUES(
 		#{systemCode}
+		,#{channelType}
+		,#{pushType}
 		,#{templateId}
+		,#{title}
 		,#{url}
-		,#{color1}
-		,#{color2}
+		,#{key1}
+		,#{key2}
+		,#{key3}
 		,#{content}
 		,#{remark}
 		)
@@ -82,9 +104,11 @@
 		UPDATE tstd_system_template
 		SET
 		template_id = #{templateId}
+		,title = #{title}
 		,url = #{url}
-		,color1 = #{color1}
-		,color2 = #{color2}
+		,key1 = #{key1}
+		,key2 = #{key2}
+		,key3 = #{key3}
 		,content = #{content}
 		,remark = #{remark}
 		WHERE id = #{id}

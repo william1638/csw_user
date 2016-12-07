@@ -32,6 +32,7 @@ public class XN804035 extends AProcessor {
         Sms data = new Sms();
         data.setId(StringValidater.toLong(req.getId()));
         data.setSmsType(req.getSmsType());
+        data.setToKind(req.getToKind());
         data.setSmsTitle(req.getSmsTitle());
         data.setSmsContent(req.getSmsContent());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),

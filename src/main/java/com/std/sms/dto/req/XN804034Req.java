@@ -13,6 +13,9 @@ public class XN804034Req {
     // to系统编号(必填)
     private String toSystemCode;
 
+    // to分组(1 C端，2 B端，3 平台)(必填)
+    private String toKind;
+
     // 消息类型(必填)（1 即时发 2定时发）
     private String smsType;
 
@@ -30,6 +33,14 @@ public class XN804034Req {
 
     // 备注(选填)
     private String remark;
+
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 
     public String getSmsType() {
         return smsType;

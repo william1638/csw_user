@@ -37,9 +37,7 @@ public class XN804001 extends AProcessor {
         data.setPrivateKey3(req.getPrivateKey3());
         data.setPrivateKey4(req.getPrivateKey4());
         data.setPrivateKey5(req.getPrivateKey5());
-        data.setRepayText1(req.getRepayText1());
-        data.setRepayText2(req.getRepayText2());
-        data.setRepayText3(req.getRepayText3());
+        data.setPrivateKey6(req.getPrivateKey6());
         data.setRemark(req.getRemark());
         systemChannelAO.editSystemChannel(data);
         return new BooleanRes(true);

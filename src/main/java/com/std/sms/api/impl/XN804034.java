@@ -36,6 +36,7 @@ public class XN804034 extends AProcessor {
         data.setChannelType(EChannelType.NOTICE.getCode());
         data.setPushType(EPushType.NOTICE.getCode());
         data.setToSystemCode(req.getToSystemCode());
+        data.setToKind(req.getToKind());
         data.setSmsType(req.getSmsType());
         data.setSmsTitle(req.getSmsTitle());
         data.setSmsContent(req.getSmsContent());

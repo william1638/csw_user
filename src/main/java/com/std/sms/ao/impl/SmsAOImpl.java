@@ -198,8 +198,8 @@ public class SmsAOImpl implements ISmsAO {
         String weChatId = receiver.getWechatId();
         if (StringUtils.isNotBlank(weChatId)) {
             WxTemplate content = new WxTemplate(systemTemplate.getTemplateId(),
-                weChatId, systemTemplate.getUrl(), systemTemplate.getColor1(),
-                systemTemplate.getColor2(), data.getWxSmsContent());
+                weChatId, systemTemplate.getUrl(), systemTemplate.getKey1(),
+                systemTemplate.getKey2(), data.getWxSmsContent());
             Map<String, TemplateData> map = content.getData();
             if (map != null) {
                 TemplateData templateData = map.get("keyword4");

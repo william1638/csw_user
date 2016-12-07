@@ -187,10 +187,14 @@ DROP TABLE IF EXISTS `tstd_system_template`;
 CREATE TABLE `tstd_system_template` (
   `id` bigint(32) NOT NULL AUTO_INCREMENT,
   `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
+  `channel_type` varchar(32) DEFAULT NULL COMMENT '渠道类型',
+  `push_type` varchar(32) DEFAULT NULL COMMENT '推送类型',
   `template_id` varchar(255) DEFAULT NULL COMMENT '模板编号',
   `url` varchar(255) DEFAULT NULL COMMENT 'url',
-  `color1` varchar(255) DEFAULT NULL COMMENT '字体样式一',
-  `color2` varchar(255) DEFAULT NULL COMMENT '字体样式二',
+  `key1` varchar(255) DEFAULT NULL COMMENT '样式一',
+  `key2` varchar(255) DEFAULT NULL COMMENT '样式二',
+  `key3` varchar(255) DEFAULT NULL COMMENT '样式三',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `content` text COMMENT '模板内容',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)

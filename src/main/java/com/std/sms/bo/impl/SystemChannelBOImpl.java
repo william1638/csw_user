@@ -33,6 +33,24 @@ public class SystemChannelBOImpl extends PaginableBOImpl<SystemChannel>
     }
 
     @Override
+    public boolean isSystemChannelExist(String systemCode, String channelType,
+            String pushType, Long id) {
+        boolean result = false;
+        SystemChannel condition = new SystemChannel();
+        condition.setSystemCode(systemCode);
+        condition.setChannelType(channelType);
+        condition.setPushType(pushType);
+        List<SystemChannel> list = systemChannelDAO.selectList(condition);
+        if (CollectionUtils.isNotEmpty(list)) {
+            SystemChannel data = list.get(0);
+            if (id == null || !id.equals(data.getId())) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    @Override
     public void saveSystemChannel(SystemChannel data) {
         if (data != null) {
             systemChannelDAO.insert(data);
