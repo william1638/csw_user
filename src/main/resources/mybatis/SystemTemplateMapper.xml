@@ -103,7 +103,10 @@
 	<update id="update_systemTemplate" parameterType="systemTemplate">
 		UPDATE tstd_system_template
 		SET
-		template_id = #{templateId}
+		system_code = #{systemCode}
+		,channel_type = #{channelType}
+		,push_type = #{pushType}
+		,template_id = #{templateId}
 		,title = #{title}
 		,url = #{url}
 		,key1 = #{key1}

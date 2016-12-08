@@ -18,24 +18,24 @@ public class SystemTemplateAOImpl implements ISystemTemplateAO {
     private ISystemTemplateBO systemTemplateBO;
 
     @Override
-    public String addSystemTemplate(SystemTemplate data) {
-        return systemTemplateBO.saveSystemTemplate(data);
+    public void addSystemTemplate(SystemTemplate data) {
+        systemTemplateBO.saveSystemTemplate(data);
     }
 
     @Override
-    public int editSystemTemplate(SystemTemplate data) {
+    public void editSystemTemplate(SystemTemplate data) {
         if (!systemTemplateBO.isSystemTemplateExist(data.getId())) {
             throw new BizException("xn0000", "记录编号不存在");
         }
-        return systemTemplateBO.refreshSystemTemplate(data);
+        systemTemplateBO.refreshSystemTemplate(data);
     }
 
     @Override
-    public int dropSystemTemplate(Long id) {
+    public void dropSystemTemplate(Long id) {
         if (!systemTemplateBO.isSystemTemplateExist(id)) {
             throw new BizException("xn0000", "记录编号不存在");
         }
-        return systemTemplateBO.removeSystemTemplate(id);
+        systemTemplateBO.removeSystemTemplate(id);
     }
 
     @Override

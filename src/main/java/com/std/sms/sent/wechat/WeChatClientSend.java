@@ -149,13 +149,12 @@ public class WeChatClientSend {
     }
 
     public static void main(String[] args) {
-        // String key1 = "wxef7fda595f81f6d6";
-        // String key2 = "057815f636178d3a81c3b065f395a209";
+        // String key1 = "wx8bc03dd744895352";
+        // String key2 = "44ebf0ef908dc54656573625a579ea82";
         // String token = getAccessToken(key1, key2);
         // System.out.println(token);
-
-        // List<Template> data =
-        // getTemplateList("7LJre2KTGfinjY3ply-SNDsmIBXkiT5gvsokN4rwbhcwPVKuKIODCpv1viXYqnlo4M9xJdVXH6Hr3uUQjn6OLgjl_SklQVhUa8Zhl68Up2flY5WwDdRggiOROVOY4HoFHANfABAXQD");
+        //
+        // List<Template> data = getTemplateList(token);
         // System.out.println(data.get(0).getTemplate_id());
         // System.out
         // .println(getNickname(

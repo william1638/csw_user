@@ -8,11 +8,11 @@ import com.std.sms.domain.SystemTemplate;
 public interface ISystemTemplateAO {
     static final String DEFAULT_ORDER_COLUMN = "id";
 
-    public String addSystemTemplate(SystemTemplate data);
+    public void addSystemTemplate(SystemTemplate data);
 
-    public int dropSystemTemplate(Long id);
+    public void dropSystemTemplate(Long id);
 
-    public int editSystemTemplate(SystemTemplate data);
+    public void editSystemTemplate(SystemTemplate data);
 
     public Paginable<SystemTemplate> querySystemTemplatePage(int start,
             int limit, SystemTemplate condition);
