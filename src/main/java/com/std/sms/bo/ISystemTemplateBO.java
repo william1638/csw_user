@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.std.sms.bo.base.IPaginableBO;
 import com.std.sms.domain.SystemTemplate;
-import com.std.sms.sent.wechat.Template;
 
 /**
  * @author: xieyj 
@@ -25,7 +24,8 @@ public interface ISystemTemplateBO extends IPaginableBO<SystemTemplate> {
 
     public SystemTemplate getSystemTemplate(Long id);
 
-    public Template getSystemTemplateByCondition(String systemCode);
+    public SystemTemplate getSystemTemplateByCondition(String systemCode,
+            String channelType, String pushType, String templateId);
 
     public SystemTemplate getSystemTemplate(String systemCode);
 }

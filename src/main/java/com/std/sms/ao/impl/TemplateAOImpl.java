@@ -22,6 +22,7 @@ public class TemplateAOImpl implements ITemplateAO {
     @Override
     public Template getTemplate(String systemCode) {
         // return templateBO.getTemplate(systemCode);
-        return systemTemplateBO.getSystemTemplateByCondition(systemCode);
+        // return systemTemplateBO.getSystemTemplateByCondition(systemCode);
+        return null;
     }
 }

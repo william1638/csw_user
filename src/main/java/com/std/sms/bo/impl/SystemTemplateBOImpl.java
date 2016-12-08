@@ -10,12 +10,8 @@ import com.std.sms.bo.ISystemTemplateBO;
 import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISystemChannelDAO;
 import com.std.sms.dao.ISystemTemplateDAO;
-import com.std.sms.domain.SystemChannel;
 import com.std.sms.domain.SystemTemplate;
-import com.std.sms.enums.EChannelType;
-import com.std.sms.enums.EPushType;
 import com.std.sms.exception.BizException;
-import com.std.sms.sent.wechat.Template;
 import com.std.sms.sent.wechat.WeChatClientSend;
 
 @Component
@@ -90,22 +86,36 @@ public class SystemTemplateBOImpl extends PaginableBOImpl<SystemTemplate>
     }
 
     @Override
-    public Template getSystemTemplateByCondition(String systemCode) {
-        SystemChannel condition = new SystemChannel();
+    public SystemTemplate getSystemTemplateByCondition(String systemCode,
+            String channelType, String pushType, String templateId) {
+        // SystemChannel condition = new SystemChannel();
+        // condition.setSystemCode(systemCode);
+        // condition.setChannelType(EChannelType.WECHAT.getCode());
+        // condition.setPushType(EPushType.WEIXIN.getCode());
+        // SystemChannel systemChannel = systemChannelDAO.select(condition);
+        // List<Template> list = weChatClientSend.getTemplateList(systemChannel
+        // .getPrivateKey3());
+        // SystemTemplate systemTemplate = getSystemTemplate(systemCode);
+        // Template data = null;
+        // for (Template template : list) {
+        // if (systemTemplate.getTemplateId()
+        // .equals(template.getTemplate_id())) {
+        // data = template;
+        // break;
+        // }
+        // }
+        SystemTemplate data = null;
+        SystemTemplate condition = new SystemTemplate();
         condition.setSystemCode(systemCode);
-        condition.setChannelType(EChannelType.WECHAT.getCode());
-        condition.setPushType(EPushType.WEIXIN.getCode());
-        SystemChannel systemChannel = systemChannelDAO.select(condition);
-        List<Template> list = weChatClientSend.getTemplateList(systemChannel
-            .getPrivateKey3());
-        SystemTemplate systemTemplate = getSystemTemplate(systemCode);
-        Template data = null;
-        for (Template template : list) {
-            if (systemTemplate.getTemplateId()
-                .equals(template.getTemplate_id())) {
-                data = template;
-                break;
-            }
+        condition.setChannelType(channelType);
+        condition.setPushType(pushType);
+        condition.setTemplateId(templateId);
+        List<SystemTemplate> list = systemTemplateDAO.selectList(condition);
+        if (CollectionUtils.isNotEmpty(list)) {
+            data = list.get(0);
+        }
+        if (data == null) {
+            throw new BizException("xn0000", "系统模板不存在");
         }
         return data;
     }

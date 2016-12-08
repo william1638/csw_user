@@ -29,7 +29,6 @@ import com.std.sms.enums.ESmsType;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.jiguang.JPushClientSend;
 import com.std.sms.sent.sms.DxClientSend;
-import com.std.sms.sent.wechat.Template;
 import com.std.sms.sent.wechat.TemplateData;
 import com.std.sms.sent.wechat.WeChatClientSend;
 import com.std.sms.sent.wechat.WxTemplate;
@@ -144,15 +143,15 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public void toSendWxSms(Sms data) {
-        // 设置内容
-        // Template template = templateBO.getTemplate(data.getToSystemCode());
-        Template template = systemTemplateBO.getSystemTemplateByCondition(data
-            .getToSystemCode());
+        SystemTemplate systemTemplate = systemTemplateBO
+            .getSystemTemplateByCondition(data.getToSystemCode(),
+                EChannelType.WECHAT.getCode(), EPushType.WEIXIN.getCode(),
+                data.getTemplateId());
         String smsContent = null;
         String mobile = data.getToMobile();
         String systemCode = data.getToSystemCode();
         if (StringUtils.isNotBlank(mobile)) {
-            smsContent = template.getContent();
+            smsContent = systemTemplate.getContent();
             for (Map.Entry<String, String> entry : data.getWxSmsContent()
                 .entrySet()) {
                 String key = entry.getKey();
@@ -168,7 +167,7 @@ public class SmsAOImpl implements ISmsAO {
                 .queryReceiverList(condition);
             if (CollectionUtils.isNotEmpty(receiverList)) {
                 for (Receiver receiver : receiverList) {
-                    smsContent = template.getContent();
+                    smsContent = systemTemplate.getContent();
                     for (Map.Entry<String, String> entry : data
                         .getWxSmsContent().entrySet()) {
                         String key = entry.getKey();
@@ -190,15 +189,16 @@ public class SmsAOImpl implements ISmsAO {
 
     @Transactional
     private void sendWeChatSingle(Sms data) {
-        SystemTemplate systemTemplate = systemTemplateBO.getSystemTemplate(data
-            .getToSystemCode());
+        SystemTemplate systemTemplate = systemTemplateBO
+            .getSystemTemplateByCondition(data.getToSystemCode(),
+                data.getChannelType(), data.getPushType(), data.getTemplateId());
         String status = ESmsStatus.TOSEND.getCode();
         Receiver receiver = receiverBO.getReceiver(data.getToMobile(),
             data.getToSystemCode());
         String weChatId = receiver.getWechatId();
         if (StringUtils.isNotBlank(weChatId)) {
-            WxTemplate content = new WxTemplate(systemTemplate.getTemplateId(),
-                weChatId, systemTemplate.getUrl(), systemTemplate.getKey1(),
+            WxTemplate content = new WxTemplate(data.getTemplateId(), weChatId,
+                systemTemplate.getUrl(), systemTemplate.getKey1(),
                 systemTemplate.getKey2(), data.getWxSmsContent());
             Map<String, TemplateData> map = content.getData();
             if (map != null) {

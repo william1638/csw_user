@@ -50,6 +50,7 @@ public class XN804030 extends AProcessor {
         if (EChannelType.WECHAT.getCode().equals(req.getChannelType())
                 && EPushType.WEIXIN.getCode().equals(req.getPushType())) {
             data.setWxSmsContent(req.getWxContent());
+            data.setTemplateId(req.getTemplateId());
         } else {
             data.setSmsContent(req.getSmsContent());
         }
@@ -71,6 +72,9 @@ public class XN804030 extends AProcessor {
                 && EPushType.WEIXIN.getCode().equals(req.getPushType())) {
             if (null == req.getWxContent()) {
                 throw new BizException("xn702000", "微信内容不能为空");
+            }
+            if (StringUtils.isBlank(req.getTemplateId())) {
+                throw new BizException("xn702000", "模板编号不能为空");
             }
         } else {
             StringValidater.validateBlank(req.getSmsContent());

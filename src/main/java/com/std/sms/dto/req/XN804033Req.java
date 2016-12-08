@@ -24,6 +24,9 @@ public class XN804033Req {
     // 消息内容(必填)
     private Map<String, String> smsContent;
 
+    // 模板编号(选填)
+    private String templateId;
+
     // 拟发送时间(选填，定时发必填)
     private String topushDatetime;
 
@@ -32,6 +35,14 @@ public class XN804033Req {
 
     // 备注(选填)
     private String remark;
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
 
     public String getUpdater() {
         return updater;

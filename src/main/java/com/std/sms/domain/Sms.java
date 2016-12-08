@@ -80,6 +80,17 @@ public class Sms extends ABaseDO {
     // 消息内容
     private Map<String, String> wxSmsContent;
 
+    // 模板编号
+    private String templateId;
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
+
     public String getToKind() {
         return toKind;
     }

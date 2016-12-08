@@ -45,6 +45,17 @@ public class XN804030Req {
     // 微信消息内容(选填)
     private Map<String, String> wxContent;
 
+    // 模板编号(选填)
+    private String templateId;
+
+    public String getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
+
     public String getUpdater() {
         return updater;
     }

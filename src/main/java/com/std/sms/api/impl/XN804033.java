@@ -38,6 +38,7 @@ public class XN804033 extends AProcessor {
         data.setToMobile(req.getToMobile());
         data.setSmsType(req.getSmsType());
         data.setWxSmsContent(req.getSmsContent());
+        data.setTemplateId(req.getTemplateId());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),
             false));
         data.setUpdater(req.getUpdater());
