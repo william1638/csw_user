@@ -20,13 +20,15 @@ public class ReceiverBOImpl extends PaginableBOImpl<Receiver> implements
     private IReceiverDAO receiverDAO;
 
     @Override
-    public boolean isExistReceiver(String mobile, String systemCode) {
+    public boolean isExistReceiver(String mobile, String systemCode,
+            String level) {
         boolean result = false;
         if (StringUtils.isNotBlank(mobile)
                 && StringUtils.isNotBlank(systemCode)) {
             Receiver condition = new Receiver();
             condition.setMobile(mobile);
             condition.setSystemCode(systemCode);
+            condition.setLevel(level);
             Receiver data = receiverDAO.select(condition);
             if (data != null) {
                 result = true;

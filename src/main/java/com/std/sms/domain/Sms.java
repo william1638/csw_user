@@ -36,15 +36,6 @@ public class Sms extends ABaseDO {
     // to手机号
     private String toMobile;
 
-    // 名称
-    private String name;
-
-    // 微信ID
-    private String wechatId;
-
-    // 推送ID
-    private String jpushId;
-
     // 消息类型（1 即时发 2定时发）
     private String smsType;
 
@@ -76,6 +67,14 @@ public class Sms extends ABaseDO {
     private String remark;
 
     // ****************db properties ***********************
+    // 名称
+    private String name;
+
+    // 微信ID
+    private String wechatId;
+
+    // 推送ID
+    private String jpushId;
 
     // 消息内容
     private Map<String, String> wxSmsContent;

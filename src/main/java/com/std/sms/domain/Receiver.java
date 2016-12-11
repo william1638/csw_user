@@ -21,7 +21,7 @@ public class Receiver extends ABaseDO {
     // 姓名
     private String name;
 
-    // 等级
+    // 分类等级
     private String level;
 
     // 微信ID

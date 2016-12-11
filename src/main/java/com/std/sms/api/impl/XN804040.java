@@ -31,13 +31,15 @@ public class XN804040 extends AProcessor {
         condition.setPushType(req.getPushType());
         condition.setToSystemCode(req.getToSystemCode());
         condition.setToMobile(req.getToMobile());
+
+        condition.setName(req.getName());
         condition.setSmsType(req.getSmsType());
         condition.setStatus(req.getStatus());
-
         String column = req.getOrderColumn();
         if (StringUtils.isBlank(column)) {
             column = ISmsAO.DEFAULT_ORDER_COLUMN;
         }
+
         condition.setOrder(column, req.getOrderDir());
         int start = Integer.valueOf(req.getStart());
         int limit = Integer.valueOf(req.getLimit());

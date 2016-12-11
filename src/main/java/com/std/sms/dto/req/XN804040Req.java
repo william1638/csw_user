@@ -21,11 +21,22 @@ public class XN804040Req extends APageReq {
     // to手机号(选填)
     private String toMobile;
 
+    // 名称(选填)
+    private String name;
+
     // 消息类型（1 即时发 2定时发）(选填)
     private String smsType;
 
     // 状态（0 未发送，1 已发送） (选填)
     private String status;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getFromSystemCode() {
         return fromSystemCode;

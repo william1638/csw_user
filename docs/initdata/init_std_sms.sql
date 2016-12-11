@@ -18,6 +18,14 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_2', 'hh8071', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
 
+INSERT INTO `tjc_company` VALUES ('CG1005', '菜狗', '菜狗商城');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_userid_1', '158', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_account_1', 'hh8066', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_password_1', 'a123456', 'password');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_userid_2', '158', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_account_2', 'hh8066', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_password_2', 'a123456', 'password');
+
 /*
 -- Query: SELECT * FROM push_std_sms.tstd_system_channel
 LIMIT 0, 50000

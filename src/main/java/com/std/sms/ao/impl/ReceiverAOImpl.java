@@ -44,9 +44,10 @@ public class ReceiverAOImpl implements IReceiverAO {
         for (Receiver data : dataList) {
             data.setSystemCode(systemCode);
             if (StringUtils.isNotBlank(data.getMobile())
-                    && StringUtils.isNotBlank(data.getName())) {
+                    && StringUtils.isNotBlank(data.getName())
+                    && StringUtils.isNotBlank(data.getLevel())) {
                 boolean result = receiverBO.isExistReceiver(data.getMobile(),
-                    data.getSystemCode());
+                    data.getSystemCode(), data.getLevel());
                 if (result) {
                     continue;
                 }
@@ -84,7 +85,7 @@ public class ReceiverAOImpl implements IReceiverAO {
     @Override
     public void addReceiver(Receiver data) {
         boolean result = receiverBO.isExistReceiver(data.getMobile(),
-            data.getSystemCode());
+            data.getSystemCode(), null);
         if (result) {
             throw new BizException("xn702002", "接收者已存在");
         }
