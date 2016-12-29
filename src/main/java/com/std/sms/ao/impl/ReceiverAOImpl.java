@@ -44,10 +44,9 @@ public class ReceiverAOImpl implements IReceiverAO {
         for (Receiver data : dataList) {
             data.setSystemCode(systemCode);
             if (StringUtils.isNotBlank(data.getMobile())
-                    && StringUtils.isNotBlank(data.getName())
-                    && StringUtils.isNotBlank(data.getLevel())) {
+                    && StringUtils.isNotBlank(data.getName())) {
                 boolean result = receiverBO.isExistReceiver(data.getMobile(),
-                    data.getSystemCode(), data.getLevel());
+                    data.getSystemCode(), null);
                 if (result) {
                     continue;
                 }
@@ -59,7 +58,10 @@ public class ReceiverAOImpl implements IReceiverAO {
     @Override
     public void importWxReceiver(String mobile, String systemCode,
             String wechatId, String remark) {
-        Receiver receiver = receiverBO.getReceiverNotError(mobile, systemCode);
+        Receiver receiver = receiverBO.getReceiverByWechatId(wechatId,
+            systemCode);
+        // Receiver receiver = receiverBO.getReceiverNotError(mobile,
+        // systemCode);
         // 获取用户名
         SystemChannel systemChannel = systemChannelBO
             .getSystemChannelByCondition(systemCode, EChannelType.WECHAT,
@@ -67,10 +69,8 @@ public class ReceiverAOImpl implements IReceiverAO {
         String nickname = weChatClientSend.getNickname(
             systemChannel.getPrivateKey3(), wechatId);
         if (receiver != null) {
-            if (!wechatId.equals(receiver.getWechatId())) {
-                receiverBO.refreshReceiverWechatId(mobile, systemCode,
-                    nickname, wechatId, remark);
-            }
+            receiverBO.refreshReceiverWechatId(receiver.getMobile(),
+                systemCode, nickname, wechatId, remark);
         } else {
             Receiver data = new Receiver();
             data.setMobile(mobile);

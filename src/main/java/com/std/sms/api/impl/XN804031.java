@@ -35,6 +35,7 @@ public class XN804031 extends AProcessor {
         data.setPushType(req.getPushType());
         data.setToSystemCode(req.getToSystemCode());
         data.setToMobile(req.getToMobile());
+        data.setToKind(req.getToKind());
         data.setSmsType(req.getSmsType());
         data.setSmsContent(req.getSmsContent());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),

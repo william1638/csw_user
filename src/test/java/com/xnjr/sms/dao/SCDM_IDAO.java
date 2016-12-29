@@ -9,22 +9,25 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
     // 实体
-    private static String key = "systemTemplate";
+    private static String key = "jour";
 
     // 实体名称
-    private static String keyName = "系统消息模板";
+    private static String keyName = "核心流水";
 
     // 包路径
-    private static String packge = "com.std.sms.";
+    private static String packge = "com.std.account.";
 
     // 表名
-    private static String dbname = "tstd_system_template";
+    private static String dbname = "tstd_jour";
 
-    private static String[] DBwords = { "id", "system_code", "template_id",
-            "url", "color1", "color2", "content", "remark" };
+    private static String[] DBwords = { "code", "user_id", "real_name",
+            "account_number", "channel_type", "channel_order", "biz_type",
+            "biz_note", "trans_amount", "pre_amount", "post_amount", "status",
+            "create_datetime", "rollback_user", "rollback_datetime",
+            "work_date", "check_user", "check_datetime", "adjust_user",
+            "adjust_datetime", "remark", "system_code" };
 
-    private static String[] DBwordsName = { "序号", "系统编号", "模板编号", "URL",
-            "字体样式1", "字体样式2", "内容样式", "备注" };
+    private static String[] DBwordsName = null;
 
     private static String[] DOwords = getDOwords();
 
@@ -33,7 +36,8 @@ public class SCDM_IDAO {
 
     public static void main(String[] args) {
 
-        File DOMAINfile = new File("/Users/xieyj/Desktop/temp", Key + ".java");
+        File DOMAINfile = new File("/Users/xieyj/Desktop/temp" + "", Key
+                + ".java");
 
         File Mapperfile = new File("/Users/xieyj/Desktop/temp", Key
                 + "Mapper.xml");
@@ -189,7 +193,9 @@ public class SCDM_IDAO {
                 + "private static final long serialVersionUID = 1L;" + "\n\n";
         String str2 = "";
         for (int i = 0; i < DOwords.length; i++) {
-            str2 += "\t// " + DBwordsName[i] + "\n\t";
+            if (DBwordsName != null) {
+                str2 += "\t// " + DBwordsName[i] + "\n\t";
+            }
             str2 += "private String " + DOwords[i] + ";\n\n";
         }
         for (int i = 0; i < DOwords.length; i++) {

@@ -40,4 +40,8 @@
 	<bean id="systemTemplateBO" class="com.std.sms.bo.impl.SystemTemplateBOImpl">
 		<property name="paginableDAO" ref="systemTemplateDAOImpl" />
 	</bean>
+	
+	<bean id="sysDictBO" class="com.std.sms.bo.impl.SYSDictBOImpl">
+		<property name="paginableDAO" ref="sysDictDAOImpl"/>
+	</bean>	
 </beans>

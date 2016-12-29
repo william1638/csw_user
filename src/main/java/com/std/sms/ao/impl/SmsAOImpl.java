@@ -56,39 +56,30 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public void toSendDxSms(Sms data) {
-        String mobile = data.getToMobile();
         String systemCode = data.getToSystemCode();
+        String toKind = data.getToKind();
+        String mobile = data.getToMobile();
         String content = data.getSmsContent();
         String status = ESmsStatus.TOSEND.getCode();
         if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
-            if (StringUtils.isNotBlank(mobile)) {
-                boolean result = this.sendSms(systemCode, mobile, content,
-                    data.getPushType());
-                if (result) {
-                    status = ESmsStatus.SENT_YES.getCode();
-                } else {
-                    status = ESmsStatus.SENT_NO.getCode();
-                }
-                data.setStatus(status);
-                smsBO.saveSms(data);
-            } else {
-                Receiver condition = new Receiver();
-                condition.setSystemCode(systemCode);
-                List<Receiver> receiverList = receiverBO
-                    .queryReceiverList(condition);
-                if (CollectionUtils.isNotEmpty(receiverList)) {
-                    for (Receiver receiver : receiverList) {
-                        boolean result = sendSms(systemCode,
-                            receiver.getMobile(), content, data.getPushType());
-                        if (result) {
-                            status = ESmsStatus.SENT_YES.getCode();
-                        } else {
-                            status = ESmsStatus.SENT_NO.getCode();
-                        }
-                        data.setToMobile(receiver.getMobile());
-                        data.setStatus(status);
-                        smsBO.saveSms(data);
+            Receiver condition = new Receiver();
+            condition.setSystemCode(systemCode);
+            condition.setLevel(toKind);
+            condition.setMobile(mobile);
+            List<Receiver> receiverList = receiverBO
+                .queryReceiverList(condition);
+            if (CollectionUtils.isNotEmpty(receiverList)) {
+                for (Receiver receiver : receiverList) {
+                    boolean result = sendSms(systemCode, receiver.getMobile(),
+                        content, data.getPushType());
+                    if (result) {
+                        status = ESmsStatus.SENT_YES.getCode();
+                    } else {
+                        status = ESmsStatus.SENT_NO.getCode();
                     }
+                    data.setToMobile(receiver.getMobile());
+                    data.setStatus(status);
+                    smsBO.saveSms(data);
                 }
             }
         }
@@ -163,6 +154,7 @@ public class SmsAOImpl implements ISmsAO {
         } else {
             Receiver condition = new Receiver();
             condition.setSystemCode(systemCode);
+            condition.setLevel(data.getToKind());
             List<Receiver> receiverList = receiverBO
                 .queryReceiverList(condition);
             if (CollectionUtils.isNotEmpty(receiverList)) {
