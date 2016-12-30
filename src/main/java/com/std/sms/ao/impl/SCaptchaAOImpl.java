@@ -90,7 +90,10 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
 
     public String changeContent(String companyCode, String content) {
         Company data = companyBO.queryCompany(companyCode);
-        String result = "【" + data.getPrefix() + "】" + content;
+        String result = content;
+        if (data != null && null != data.getPrefix()) {
+            result = "【" + data.getPrefix() + "】" + result;
+        }
         return result;
     }
 

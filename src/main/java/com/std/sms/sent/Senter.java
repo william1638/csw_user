@@ -10,6 +10,7 @@ import com.std.sms.ao.IConfigureAO;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.csmd.CsmdWebServiceClient;
 import com.std.sms.sent.hhxx.SmsClientSend;
+import com.std.sms.sent.sykj.SYSmsClientSend;
 
 /**
  * 发短信 返回信息详见文档。
@@ -30,6 +31,8 @@ public class Senter {
             sendByCSMD(companyCode, channel, content, mobileNumber);
         } else if (str[1].equalsIgnoreCase("HHXX")) {
             sendByHHXX(companyCode, channel, content, mobileNumber);
+        } else if (str[1].equalsIgnoreCase("SYKJ")) {
+            sendBySYKJ(companyCode, channel, content, mobileNumber);
         } else {
             throw new BizException("xn709901", "短信配置信息，channel未定义");
         }
@@ -70,6 +73,35 @@ public class Senter {
             }
         } catch (Exception e) {
             throw new BizException("xn709901", "汇禾信息发送短信未知错误");
+        }
+    }
+
+    private void sendBySYKJ(String companyCode, String channel, String content,
+            String mobileNumber) throws BizException {
+        String product = null;
+        String account = null;
+        String password = null;
+        String[] str = channel.split("-");
+        product = configureAO.doGetConfigure(companyCode, str[1],
+            "sykj_product").getValue();
+        account = configureAO.doGetConfigure(companyCode, str[1],
+            "sykj_account").getValue();
+        password = configureAO.doGetConfigure(companyCode, str[1],
+            "sykj_password").getValue();
+        if (product == null || account == null || password == null) {
+            throw new BizException("xn709901",
+                "短信发送失败，product或account或password未定义");
+        }
+        try {
+            String url = "http://send.18sms.com/msg/HttpBatchSendSM";
+            String res = SYSmsClientSend.sendSms(url, product, account,
+                password, mobileNumber, content);
+            // 发送短信，如果是以负号开头就是发送失败。
+            if (!res.contains(",0")) {
+                throw new BizException("xn709901", "短信发送失败，错误代码：" + res);
+            }
+        } catch (Exception e) {
+            throw new BizException("xn709901", "示远科技短信发送未知错误");
         }
     }
 

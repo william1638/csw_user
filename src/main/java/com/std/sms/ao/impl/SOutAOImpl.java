@@ -1,5 +1,6 @@
 package com.std.sms.ao.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,10 @@ public class SOutAOImpl implements ISOutAO {
 
     public String changeContent(String companyCode, String content) {
         Company data = companyBO.queryCompany(companyCode);
-        String result = content + "【" + data.getPrefix() + "】";
+        String result = content;
+        if (StringUtils.isNotBlank(data.getPrefix())) {
+            result = result + "【" + data.getPrefix() + "】";
+        }
         return result;
     }
 
