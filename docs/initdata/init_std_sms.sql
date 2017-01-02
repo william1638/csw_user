@@ -26,6 +26,11 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_account_2', 'hh8066', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_password_2', 'a123456', 'password');
 
+INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('QLQQ1006','骑来骑去',NULL);
+INSERT INTO `tjc_configure` (`id`,`company_code`,`channel`,`k`,`v`,`remark`) VALUES (27,'QLQQ1006','SYKJ','sykj_product','60894573','sykj_product');
+INSERT INTO `tjc_configure` (`id`,`company_code`,`channel`,`k`,`v`,`remark`) VALUES (28,'QLQQ1006','SYKJ','sykj_account','001107','sykj_account');
+INSERT INTO `tjc_configure` (`id`,`company_code`,`channel`,`k`,`v`,`remark`) VALUES (29,'QLQQ1006','SYKJ','sykj_password','a7zyPAN3','sykj_password');
+
 /*
 -- Query: SELECT * FROM push_std_sms.tstd_system_channel
 LIMIT 0, 50000
