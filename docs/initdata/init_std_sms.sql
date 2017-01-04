@@ -31,7 +31,7 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('QLQQ1006','SYKJ','sykj_account','001107','sykj_account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('QLQQ1006','SYKJ','sykj_password','a7zyPAN3','sykj_password');
 
-INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('ZHP1007','正汇钱包',NULL);
+INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('ZHP1007','正汇科技','正汇科技');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('ZHP1007','Z253','z253_account','N1315527','z253_account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('ZHP1007','Z253','z253_password','Ps7f18ea','z253_password');
 /*
