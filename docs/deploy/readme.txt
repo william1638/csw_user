@@ -34,7 +34,7 @@
   
 4,起停tomcat_develop_account
 
-http://120.55.113.192:8902/std-sms/api
+http://121.43.101.148:6207/std-sms/api
 
  --------------------push-sms
   cd /home/wwwroot/push-sms/tomcat_std_sms/webapps

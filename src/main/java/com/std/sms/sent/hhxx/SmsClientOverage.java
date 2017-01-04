@@ -2,6 +2,8 @@ package com.std.sms.sent.hhxx;
 
 import java.net.URLEncoder;
 
+import com.std.sms.common.SmsClientAccessTool;
+
 /**
  * <p>
  * <date>2012-03-01</date><br/>

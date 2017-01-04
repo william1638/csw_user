@@ -10,6 +10,7 @@ import com.std.sms.ao.IConfigureAO;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.csmd.CsmdWebServiceClient;
 import com.std.sms.sent.hhxx.SmsClientSend;
+import com.std.sms.sent.s253.Sms253ClientSend;
 import com.std.sms.sent.sykj.SYSmsClientSend;
 
 /**
@@ -28,11 +29,13 @@ public class Senter {
             String content) throws BizException {
         String[] str = channel.split("-");
         if (str[1].equalsIgnoreCase("CSMD")) {
-            sendByCSMD(companyCode, channel, content, mobileNumber);
+            this.sendByCSMD(companyCode, channel, content, mobileNumber);
         } else if (str[1].equalsIgnoreCase("HHXX")) {
-            sendByHHXX(companyCode, channel, content, mobileNumber);
+            this.sendByHHXX(companyCode, channel, content, mobileNumber);
         } else if (str[1].equalsIgnoreCase("SYKJ")) {
-            sendBySYKJ(companyCode, channel, content, mobileNumber);
+            this.sendBySYKJ(companyCode, channel, content, mobileNumber);
+        } else if (str[1].equalsIgnoreCase("Z253")) {
+            this.sendBy253(companyCode, channel, content, mobileNumber);
         } else {
             throw new BizException("xn709901", "短信配置信息，channel未定义");
         }
@@ -102,6 +105,31 @@ public class Senter {
             }
         } catch (Exception e) {
             throw new BizException("xn709901", "示远科技短信发送未知错误");
+        }
+    }
+
+    private void sendBy253(String companyCode, String channel, String content,
+            String mobileNumber) throws BizException {
+        String account = null;
+        String password = null;
+        String[] str = channel.split("-");
+        account = configureAO.doGetConfigure(companyCode, str[1],
+            "z253_account").getValue();
+        password = configureAO.doGetConfigure(companyCode, str[1],
+            "z253_password").getValue();
+        if (account == null || password == null) {
+            throw new BizException("xn709901", "短信发送失败，account或password未定义");
+        }
+        try {
+            String url = "http://222.73.117.169/msg/HttpBatchSendSM";
+            String res = Sms253ClientSend.sendSms(url, account, password,
+                mobileNumber, content);
+            // 发送短信，如果是以负号开头就是发送失败。
+            if (!res.contains(",0")) {
+                throw new BizException("xn709901", "短信发送失败，错误代码：" + res);
+            }
+        } catch (Exception e) {
+            throw new BizException("xn709901", "253平台短信发送未知错误");
         }
     }
 

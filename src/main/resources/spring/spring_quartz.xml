@@ -20,8 +20,8 @@
            <list>
               <ref bean="poolTrigger"/> 
               <ref bean="dayReportTrigger"/> 
-              <ref bean="accessTokenTrigger"/> 
-           </list>  
+<!--               <ref bean="accessTokenTrigger"/> 
+ -->           </list>  
        </property>  
        <property name="autoStartup" value="true"/>  
     </bean> 
