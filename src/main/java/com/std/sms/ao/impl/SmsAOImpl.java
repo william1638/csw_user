@@ -54,6 +54,9 @@ public class SmsAOImpl implements ISmsAO {
     @Autowired
     private WeChatClientSend weChatClientSend;
 
+    @Autowired
+    private DxClientSend dxClientSend;
+
     @Override
     public void toSendDxSms(Sms data) {
         String systemCode = data.getToSystemCode();
@@ -92,10 +95,10 @@ public class SmsAOImpl implements ISmsAO {
             systemCode, EChannelType.SMS, pushType);
         content = "【" + smsSc.getRemark() + "】" + content;
         if (EPushType.CSMD.getCode().equals(pushType)) {
-            result = DxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
+            result = dxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
                 smsSc.getPrivateKey2(), mobile, content);
         } else if (EPushType.HHXX.getCode().equals(pushType)) {
-            result = DxClientSend
+            result = dxClientSend
                 .sendByHHXX(smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
                     smsSc.getPrivateKey3(), mobile, content);
         }

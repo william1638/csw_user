@@ -9,23 +9,19 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
     // 实体
-    private static String key = "jour";
+    private static String key = "hzbYy";
 
     // 实体名称
-    private static String keyName = "核心流水";
+    private static String keyName = "汇赚宝摇一摇";
 
     // 包路径
-    private static String packge = "com.std.account.";
+    private static String packge = "com.std.mall.";
 
     // 表名
-    private static String dbname = "tstd_jour";
+    private static String dbname = "tact_hzb_yy";
 
-    private static String[] DBwords = { "code", "user_id", "real_name",
-            "account_number", "channel_type", "channel_order", "biz_type",
-            "biz_note", "trans_amount", "pre_amount", "post_amount", "status",
-            "create_datetime", "rollback_user", "rollback_datetime",
-            "work_date", "check_user", "check_datetime", "adjust_user",
-            "adjust_datetime", "remark", "system_code" };
+    private static String[] DBwords = { "code", "hzb_hold_id", "type",
+            "quantity", "user_id", "device_no", "create_datetime" };
 
     private static String[] DBwordsName = null;
 
