@@ -3,6 +3,8 @@ package com.std.sms.sent;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,8 @@ import com.std.sms.sent.sykj.SYSmsClientSend;
  */
 @Component
 public class Senter {
+    protected static final Logger logger = LoggerFactory
+        .getLogger(Senter.class);
 
     @Autowired
     private IConfigureAO configureAO;
@@ -129,6 +133,7 @@ public class Senter {
                 throw new BizException("xn709901", "短信发送失败，错误代码：" + res);
             }
         } catch (Exception e) {
+            logger.error("253短信错误", e.getMessage());
             throw new BizException("xn709901", "253平台短信发送未知错误");
         }
     }

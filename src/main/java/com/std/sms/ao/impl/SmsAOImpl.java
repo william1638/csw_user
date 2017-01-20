@@ -84,6 +84,17 @@ public class SmsAOImpl implements ISmsAO {
                     data.setStatus(status);
                     smsBO.saveSms(data);
                 }
+            } else {
+                boolean result = sendSms(systemCode, data.getToMobile(),
+                    content, data.getPushType());
+                if (result) {
+                    status = ESmsStatus.SENT_YES.getCode();
+                } else {
+                    status = ESmsStatus.SENT_NO.getCode();
+                }
+                data.setToMobile(data.getToMobile());
+                data.setStatus(status);
+                smsBO.saveSms(data);
             }
         }
     }
@@ -101,6 +112,9 @@ public class SmsAOImpl implements ISmsAO {
             result = dxClientSend
                 .sendByHHXX(smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
                     smsSc.getPrivateKey3(), mobile, content);
+        } else if (EPushType.Z253.getCode().equals(pushType)) {
+            result = dxClientSend.sendBy253(smsSc.getPrivateKey1(),
+                smsSc.getPrivateKey2(), mobile, content);
         }
         return result;
     }

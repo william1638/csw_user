@@ -9,7 +9,7 @@
  Target Server Version : 50545
  File Encoding         : utf-8
 
- Date: 11/29/2016 23:05:43 PM
+ Date: 01/20/2017 16:50:35 PM
 */
 
 SET NAMES utf8;
@@ -143,6 +143,7 @@ CREATE TABLE `tstd_sms` (
   `channel_type` varchar(32) DEFAULT NULL COMMENT '渠道大类',
   `push_type` varchar(32) DEFAULT NULL COMMENT '渠道小类',
   `to_system_code` varchar(32) DEFAULT NULL COMMENT 'to公司编号',
+  `to_kind` varchar(32) DEFAULT NULL COMMENT '分组',
   `to_mobile` varchar(32) DEFAULT NULL COMMENT 'to手机号',
   `sms_type` varchar(32) DEFAULT NULL COMMENT '消息类型（即时发,定时发）',
   `sms_title` varchar(255) DEFAULT NULL COMMENT '消息标题（可为空）',
@@ -168,15 +169,13 @@ CREATE TABLE `tstd_system_channel` (
   `push_type` varchar(32) DEFAULT NULL COMMENT '渠道小类',
   `status` varchar(32) DEFAULT NULL COMMENT '状态（启用/不启用）',
   `push_system` varchar(255) DEFAULT NULL COMMENT '渠道给系统的代号',
-  `private_key1` varchar(255) DEFAULT NULL COMMENT '秘钥1',
-  `private_key2` varchar(255) DEFAULT NULL COMMENT '秘钥2',
-  `private_key3` varchar(1024) DEFAULT NULL COMMENT '秘钥3(微信token定时存储)',
+  `private_key1` varchar(255) DEFAULT NULL COMMENT '秘钥1(账号)',
+  `private_key2` varchar(255) DEFAULT NULL COMMENT '秘钥2(密码)',
+  `private_key3` varchar(1024) DEFAULT NULL COMMENT '秘钥3(其他，比如uid，product和微信token定时存储)',
   `private_key4` varchar(255) DEFAULT NULL COMMENT '微信token',
   `private_key5` varchar(255) DEFAULT NULL COMMENT '微信aceKey',
-  `repay_text1` varchar(255) DEFAULT NULL COMMENT '微信关注语',
-  `repay_text2` varchar(255) DEFAULT NULL COMMENT '微信文本回复语',
-  `repay_text3` varchar(255) DEFAULT NULL COMMENT '其他默认回复',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `private_key6` varchar(255) DEFAULT NULL COMMENT '微信关注语',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注(短信前缀)',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -196,6 +195,20 @@ CREATE TABLE `tstd_system_template` (
   `key3` varchar(255) DEFAULT NULL COMMENT '样式三',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `content` text COMMENT '模板内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tsys_dict`
+-- ----------------------------
+DROP TABLE IF EXISTS `tsys_dict`;
+CREATE TABLE `tsys_dict` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号（自增长）',
+  `type` char(1) DEFAULT NULL COMMENT '类型（第一层/第二层）',
+  `parent_key` varchar(32) DEFAULT NULL COMMENT '父key',
+  `dkey` varchar(32) DEFAULT NULL COMMENT 'key',
+  `dvalue` varchar(255) DEFAULT NULL COMMENT '值',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

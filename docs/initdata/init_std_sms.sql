@@ -40,6 +40,8 @@ LIMIT 0, 50000
 
 -- Date: 2016-11-30 14:06
 */
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CZH000001','1','14','1','','N1315527','Ps7f18ea','','正汇科技');
+
 INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('1','1','12','1','','162','hh8070','ahh8070','城市网');
 INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('1','2','21','1','','e614d2a82d038160f707f1a8','22d4796873b7f002537f30b6','','');
 INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`private_key4`,`private_key5`,`repay_text1`,`repay_text2`,`repay_text3`,`remark`) VALUES ('1','3','31','1','','wxef7fda595f81f6d6','057815f636178d3a81c3b065f395a209',NULL,'cswXm','dt8XIq63Xk1VOsoc59cQfXUjU2x2Gvndrh2yTxTQ7yb','请输入手机号，当前案件办完后小蜜将通知您过来领取。','谢谢您的配合，小蜜会尽快通知您办件结果。',NULL,'');

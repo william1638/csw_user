@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.std.sms.ao.ISCaptchaAO;
 import com.std.sms.bo.ICompanyBO;
@@ -29,6 +30,7 @@ public class SCaptchaAOImpl implements ISCaptchaAO {
     ISCaptchaBO sCaptchaBO;
 
     @Override
+    @Transactional
     public String doSend(String channel, String mobile, String bizType) {
         String[] str = channel.split("-");
         String captcha = RandomUtil.generate4();
