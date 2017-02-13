@@ -18,6 +18,16 @@ public interface IPoolBO extends IPaginableBO<Pool> {
             String sendDatetime);
 
     /** 
+     * 将待发短信放入待发池
+     * @param data
+     * @return 
+     * @create: 2016年7月7日 下午7:54:03 zuixian
+     * @history: 
+     */
+    public String savePool(String channel, String mobile, String content,
+            String sendDatetime, String companyCode, String systemCode);
+
+    /** 
      * 从待发池中删除已发送的短信
      * @param data
      * @return 

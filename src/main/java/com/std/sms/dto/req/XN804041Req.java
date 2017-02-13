@@ -13,6 +13,9 @@ public class XN804041Req {
     // to系统编号(选填)
     private String toSystemCode;
 
+    // to类型(选填)
+    private String toKind;
+
     // to手机号(选填)
     private String toMobile;
 
@@ -21,6 +24,14 @@ public class XN804041Req {
 
     // 状态（0 未发送，1 已发送） (选填)
     private String status;
+
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 
     public String getFromSystemCode() {
         return fromSystemCode;

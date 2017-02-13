@@ -4,21 +4,19 @@
 <mapper namespace="com.std.sms.dao.ISOutDAO">
 	<resultMap id="sOut_DB_Result" type="sOut">
 		<result column="code" property="code" />
-		<result column="company_code" property="companyCode" />
 		<result column="channel" property="channel" />
 		<result column="mobile" property="mobile" />
 		<result column="content" property="content" />
 		<result column="error_code" property="errorCode" />
 		<result column="error_info" property="errorInfo" />
 		<result column="send_datetime" property="sendDatetime" />
+		<result column="company_code" property="companyCode" />
+		<result column="system_code" property="systemCode" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
-			</if>
-			<if test="companyCode != null and companyCode != '' ">
-				AND t.company_code = #{companyCode}
 			</if>
 			<if test="channel != null and channel != '' ">
 				AND t.channel = #{channel}
@@ -38,6 +36,12 @@
 			<if test="sendDatetimeEnd != null and sendDatetimeEnd != '' ">
 				<![CDATA[AND t.send_datetime <= #{sendDatetimeEnd}]]>
 			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="systemCode != null and systemCode != '' ">
+				AND t.system_code = #{systemCode}
+			</if>
 		</trim>
 	</sql>
 	
@@ -45,13 +49,14 @@
 		resultMap="sOut_DB_Result">
 		SELECT
 		code
-		,company_code
 		,channel
 		,mobile
 		,content
 		,error_code
 		,error_info
 		,send_datetime
+		,company_code
+		,system_code
 		FROM
 		tjc_sms_out t
 		<include refid="where_condition" />
@@ -72,24 +77,25 @@
 		INSERT INTO
 		tjc_sms_out(
 		code
-		,company_code
 		,channel
 		,mobile
 		,content
 		,error_code
 		,error_info
 		,send_datetime
+		,company_code
+		,system_code
 		)
 		VALUES(
 		#{code}
-		,#{companyCode}
 		,#{channel}
 		,#{mobile}
 		,#{content}
 		,#{errorCode}
 		,#{errorInfo}
 		,#{sendDatetime}
+		,#{companyCode}
+		,#{systemCode}
 		)
 	</insert>
-
 </mapper>

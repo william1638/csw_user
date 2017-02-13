@@ -6,19 +6,17 @@
 		<result column="code" property="code" />
 		<result column="captcha" property="captcha" />
 		<result column="biz_type" property="bizType" />
-		<result column="company_code" property="companyCode" />
 		<result column="mobile" property="mobile" />
 		<result column="send_datetime" property="sendDatetime" />
 		<result column="invalid_datetime" property="invalidDatetime" />
 		<result column="check_datetime" property="checkDatetime" />
+		<result column="company_code" property="companyCode" />
+		<result column="system_code" property="systemCode" />
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
 			<if test="code != null and code != '' ">
 				AND t.code = #{code}
-			</if>
-			<if test="companyCode != null and companyCode != '' ">
-				AND t.company_code = #{companyCode}
 			</if>
 			<if test="mobile != null and mobile != '' ">
 				AND t.mobile = #{mobile}
@@ -29,6 +27,12 @@
 			<if test="bizType != null and bizType != '' ">
 				AND t.biz_type = #{bizType}
 			</if>
+			<if test="companyCode != null and companyCode != '' ">
+				AND t.company_code = #{companyCode}
+			</if>
+			<if test="systemCode != null and systemCode != '' ">
+				AND t.system_code = #{systemCode}
+			</if>
 		</trim>
 	</sql>
 	
@@ -38,12 +42,13 @@
 		code
 		,captcha
 		,biz_type
-		,company_code
 		,mobile
 		,status
 		,send_datetime
 		,invalid_datetime
 		,check_datetime
+		,company_code
+		,system_code
 		FROM
 		tjc_sms_captcha t
 		<include refid="where_condition" />
@@ -61,22 +66,24 @@
 		,captcha
 		,biz_type
 		,status
-		,company_code
 		,mobile
 		,send_datetime
 		,invalid_datetime
 		,check_datetime
+		,company_code
+		,system_code
 		)
 		VALUES(
 		#{code}
 		,#{captcha}
 		,#{bizType}
 		,#{status}
-		,#{companyCode}
 		,#{mobile}
 		,#{sendDatetime}
 		,#{invalidDatetime}
 		,#{checkDatetime}
+		,#{companyCode}
+		,#{systemCode}
 		)
 	</insert>
 	

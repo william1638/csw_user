@@ -24,6 +24,9 @@ public class SOut extends ABaseDO {
     // 编号
     private String code;
 
+    // 系统编号
+    private String systemCode;
+
     // 公司编号
     private String companyCode;
 
@@ -123,5 +126,13 @@ public class SOut extends ABaseDO {
 
     public void setSendDatetimeEnd(Date sendDatetimeEnd) {
         this.sendDatetimeEnd = sendDatetimeEnd;
+    }
+
+    public String getSystemCode() {
+        return systemCode;
+    }
+
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
     }
 }

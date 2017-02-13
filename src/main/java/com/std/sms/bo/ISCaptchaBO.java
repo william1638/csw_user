@@ -13,7 +13,22 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
     public String savaSCaptcha(String channel, String mobile, String captcha,
             String bizType);
 
-    /** 
+    /**
+     * 保存验证码
+     * @param mobile
+     * @param channel
+     * @param captcha
+     * @param bizType
+     * @param companyCode
+     * @param systemCode
+     * @return 
+     * @create: 2017年2月2日 上午10:46:38 xieyj
+     * @history:
+     */
+    public String savaSCaptcha(String mobile, String captcha, String bizType,
+            String companyCode, String systemCode);
+
+    /**
      * 获取验证码
      * @param data 
      * @create: 2016年7月10日 下午2:11:48 zuixian
@@ -30,6 +45,19 @@ public interface ISCaptchaBO extends IPaginableBO<SCaptcha> {
      */
     public SCaptcha getSCaptchaByCM(String companyCode, String mobile,
             String bizType);
+
+    /**
+     * 通过系统编号，手机号与公司编号获取验证码
+     * @param systemCode
+     * @param companyCode
+     * @param mobile
+     * @param bizType
+     * @return 
+     * @create: 2017年2月13日 下午12:56:05 xieyj
+     * @history:
+     */
+    public SCaptcha getSCaptchaByCM(String systemCode, String companyCode,
+            String mobile, String bizType);
 
     /** 
      * 更新验证码信息

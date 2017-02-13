@@ -18,6 +18,9 @@ public class XN804040Req extends APageReq {
     // to系统编号(选填)
     private String toSystemCode;
 
+    // to类型(选填)
+    private String toKind;
+
     // to手机号(选填)
     private String toMobile;
 
@@ -29,6 +32,14 @@ public class XN804040Req extends APageReq {
 
     // 状态（0 未发送，1 已发送） (选填)
     private String status;
+
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 
     public String getName() {
         return name;

@@ -30,6 +30,7 @@ public class XN804040 extends AProcessor {
         condition.setChannelType(req.getChannelType());
         condition.setPushType(req.getPushType());
         condition.setToSystemCode(req.getToSystemCode());
+        condition.setToKind(req.getToKind());
         condition.setToMobile(req.getToMobile());
 
         condition.setName(req.getName());

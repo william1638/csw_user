@@ -33,17 +33,17 @@ public class PropertiesUtil {
     }
 
     public static final class Config {
+        // 极光环境
         public static String APNS_PRODUCTION = props
             .getProperty("APNS_PRODUCTION");
 
+        // 办件员角色
         public static String BJ_ROLE_CODE = props.getProperty("BJ_ROLE_CODE");
 
+        // 用户链接
         public static String USER_URL = props.getProperty("USER_URL");
 
-        // public static String FOLLOW_TEXT = props.getProperty("FOLLOW_TEXT");
-        //
-        // public static String REPAY_TEXT = props.getProperty("REPAY_TEXT");
-        //
-        // public static String OTHER_TEXT = props.getProperty("OTHER_TEXT");
+        // 验证码有效时间设置
+        public static String VALID_MINUTE = props.getProperty("VALID_MINUTE");
     }
 }

@@ -22,48 +22,47 @@ import com.std.sms.sent.sykj.SYSmsClientSend;
  * 
  */
 @Component
-public class Senter {
+public class SystemCodeSenter {
     protected static final Logger logger = LoggerFactory
-        .getLogger(Senter.class);
+        .getLogger(SystemCodeSenter.class);
 
     @Autowired
     private IConfigureBO configureBO;
 
-    public void send(String companyCode, String channel, String mobileNumber,
-            String content) throws BizException {
-        String[] str = channel.split("-");
-        if (str[1].equalsIgnoreCase("CSMD")) {
+    public void send(String companyCode, String type, String channel,
+            String mobileNumber, String content) throws BizException {
+        if (channel.equalsIgnoreCase("CSMD")) {
             this.sendByCSMD(companyCode, channel, content, mobileNumber);
-        } else if (str[1].equalsIgnoreCase("HHXX")) {
-            this.sendByHHXX(companyCode, channel, content, mobileNumber);
-        } else if (str[1].equalsIgnoreCase("SYKJ")) {
+        } else if (channel.equalsIgnoreCase("HHXX")) {
+            this.sendByHHXX(companyCode, type, channel, content, mobileNumber);
+        } else if (channel.equalsIgnoreCase("SYKJ")) {
             this.sendBySYKJ(companyCode, channel, content, mobileNumber);
-        } else if (str[1].equalsIgnoreCase("Z253")) {
+        } else if (channel.equalsIgnoreCase("Z253")) {
             this.sendBy253(companyCode, channel, content, mobileNumber);
         } else {
             throw new BizException("xn709901", "短信配置信息，channel未定义");
         }
     }
 
-    private void sendByHHXX(String companyCode, String channel, String content,
-            String mobileNumber) throws BizException {
+    private void sendByHHXX(String companyCode, String type, String channel,
+            String content, String mobileNumber) throws BizException {
         String userid = null;
         String account = null;
         String password = null;
-        String[] str = channel.split("-");
-        if (str[2].equalsIgnoreCase("K") || str[2].equalsIgnoreCase("D")) {
-            userid = configureBO.doGetConfigure(companyCode, str[1],
+        if (type.equalsIgnoreCase("K") || type.equalsIgnoreCase("D")
+                || type == null) {
+            userid = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_userid_1").getValue();
-            account = configureBO.doGetConfigure(companyCode, str[1],
+            account = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_account_1").getValue();
-            password = configureBO.doGetConfigure(companyCode, str[1],
+            password = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_password_1").getValue();
-        } else {
-            userid = configureBO.doGetConfigure(companyCode, str[1],
+        } else if (type.equalsIgnoreCase("M")) {
+            userid = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_userid_2").getValue();
-            account = configureBO.doGetConfigure(companyCode, str[1],
+            account = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_account_2").getValue();
-            password = configureBO.doGetConfigure(companyCode, str[1],
+            password = configureBO.doGetConfigure(companyCode, channel,
                 "hhxx_password_2").getValue();
         }
         if (userid == null || account == null || password == null) {
@@ -88,12 +87,11 @@ public class Senter {
         String product = null;
         String account = null;
         String password = null;
-        String[] str = channel.split("-");
-        product = configureBO.doGetConfigure(companyCode, str[1],
+        product = configureBO.doGetConfigure(companyCode, channel,
             "sykj_product").getValue();
-        account = configureBO.doGetConfigure(companyCode, str[1],
+        account = configureBO.doGetConfigure(companyCode, channel,
             "sykj_account").getValue();
-        password = configureBO.doGetConfigure(companyCode, str[1],
+        password = configureBO.doGetConfigure(companyCode, channel,
             "sykj_password").getValue();
         if (product == null || account == null || password == null) {
             throw new BizException("xn709901",
@@ -116,10 +114,9 @@ public class Senter {
             String mobileNumber) throws BizException {
         String account = null;
         String password = null;
-        String[] str = channel.split("-");
-        account = configureBO.doGetConfigure(companyCode, str[1],
+        account = configureBO.doGetConfigure(companyCode, channel,
             "z253_account").getValue();
-        password = configureBO.doGetConfigure(companyCode, str[1],
+        password = configureBO.doGetConfigure(companyCode, channel,
             "z253_password").getValue();
         if (account == null || password == null) {
             throw new BizException("xn709901", "短信发送失败，account或password未定义");
@@ -140,12 +137,9 @@ public class Senter {
 
     private void sendByCSMD(String companyCode, String channel, String content,
             String mobileNumber) throws BizException {
-        // String sn = props.getProperty("csmd_sn");
-        // String pwd = props.getProperty("csmd_password");
-        String[] str = channel.split("-");
-        String sn = configureBO.doGetConfigure(companyCode, str[1], "csmd_sn")
+        String sn = configureBO.doGetConfigure(companyCode, channel, "csmd_sn")
             .getValue();
-        String pwd = configureBO.doGetConfigure(companyCode, str[1],
+        String pwd = configureBO.doGetConfigure(companyCode, channel,
             "csmd_password").getValue();
         if (sn == null || pwd == null) {
             throw new BizException("xn709901", "短信发送失败，sn或password未定义");

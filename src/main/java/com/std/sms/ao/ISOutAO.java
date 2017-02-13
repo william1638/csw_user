@@ -19,6 +19,22 @@ public interface ISOutAO {
     public String doSend(String channel, String mobile, String content,
             String sendDatetime);
 
+    /**
+     * 发送短信(平台级)
+     * @param type
+     * @param mobile
+     * @param content
+     * @param sendDatetime
+     * @param companyCode
+     * @param systemCode
+     * @return 
+     * @create: 2017年2月13日 下午1:09:02 xieyj
+     * @history:
+     */
+    public String doSendBySystemCode(String type, String mobile,
+            String content, String sendDatetime, String companyCode,
+            String systemCode);
+
     /** 
      * 执行保存已发短信
      * @param moible

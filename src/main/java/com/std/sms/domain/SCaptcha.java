@@ -25,9 +25,6 @@ public class SCaptcha extends ABaseDO {
     // 验证码
     private String captcha;
 
-    // 公司编号
-    private String companyCode;
-
     // 手机号
     private String mobile;
 
@@ -42,6 +39,20 @@ public class SCaptcha extends ABaseDO {
 
     // 发送时间
     private Date checkDatetime;
+
+    // 公司编号
+    private String companyCode;
+
+    // 系统编号
+    private String systemCode;
+
+    public String getSystemCode() {
+        return systemCode;
+    }
+
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
+    }
 
     public String getCode() {
         return code;

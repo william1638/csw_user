@@ -68,6 +68,7 @@ CREATE TABLE `tjc_sms_captcha` (
   `invalid_datetime` datetime DEFAULT NULL COMMENT '失效时间',
   `check_datetime` datetime DEFAULT NULL COMMENT '验证时间',
   `company_code` varchar(32) DEFAULT NULL COMMENT '所属公司',
+  `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -76,14 +77,15 @@ CREATE TABLE `tjc_sms_captcha` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tjc_sms_out`;
 CREATE TABLE `tjc_sms_out` (
-  `code` varchar(32) NOT NULL COMMENT '已发短信编号',
-  `company_code` varchar(32) DEFAULT NULL COMMENT '公司编号',
-  `channel` varchar(255) DEFAULT NULL COMMENT '通道',
+  `code` varchar(32) NOT NULL COMMENT '编号',
   `mobile` varchar(16) DEFAULT NULL COMMENT '手机号',
+  `channel` varchar(255) DEFAULT NULL COMMENT '通道',
   `content` varchar(255) DEFAULT NULL COMMENT '发送内容',
   `error_code` varchar(2) DEFAULT NULL COMMENT '错误编号',
   `error_info` varchar(255) DEFAULT NULL COMMENT '错误信息',
   `send_datetime` datetime DEFAULT NULL COMMENT '发送时间',
+  `company_code` varchar(32) DEFAULT NULL COMMENT '公司编号',
+  `system_code` varchar(32) DEFAULT NULL COMMENT '系统编号',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

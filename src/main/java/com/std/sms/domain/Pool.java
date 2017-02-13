@@ -14,9 +14,6 @@ public class Pool extends ABaseDO {
     // 编号
     private String code;
 
-    // 公司编号
-    private String companyCode;
-
     // 短信服务商
     private String channel;
 
@@ -29,20 +26,15 @@ public class Pool extends ABaseDO {
     // 什么时间发送
     private Date toSendDatetime;
 
+    // 公司编号
+    private String companyCode;
+
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getCompanyCode() {
-        return companyCode;
-    }
-
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode;
     }
 
     public String getMobile() {
@@ -76,4 +68,13 @@ public class Pool extends ABaseDO {
     public void setToSendDatetime(Date toSendDatetime) {
         this.toSendDatetime = toSendDatetime;
     }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
 }
