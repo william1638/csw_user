@@ -45,5 +45,14 @@ public class PropertiesUtil {
 
         // 验证码有效时间设置
         public static String VALID_MINUTE = props.getProperty("VALID_MINUTE");
+
+        public static String CSMD_URL = props.getProperty("CSMD_URL");
+
+        public static String HHXX_URL = props.getProperty("HHXX_URL");
+
+        public static String SYKJ_URL = props.getProperty("SYKJ_URL");
+
+        public static String Z253_URL = props.getProperty("Z253_URL");
+
     }
 }

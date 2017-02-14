@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.IConfigureBO;
+import com.std.sms.common.PropertiesUtil;
 import com.std.sms.exception.BizException;
 import com.std.sms.sent.csmd.CsmdWebServiceClient;
 import com.std.sms.sent.hhxx.SmsClientSend;
@@ -71,7 +72,8 @@ public class Senter {
                 "短信发送失败，userid或account或password未定义");
         }
         try {
-            String url = "http://118.145.18.144:5888/sms.aspx";
+            String url = PropertiesUtil.Config.HHXX_URL;
+            // "http://118.145.18.144:5888/sms.aspx";
             String res = SmsClientSend.sendSms(url, userid, account, password,
                 mobileNumber, content);
             // 发送短信，如果是以负号开头就是发送失败。
@@ -100,7 +102,8 @@ public class Senter {
                 "短信发送失败，product或account或password未定义");
         }
         try {
-            String url = "http://send.18sms.com/msg/HttpBatchSendSM";
+            String url = PropertiesUtil.Config.SYKJ_URL;
+            // "http://send.18sms.com/msg/HttpBatchSendSM";
             String res = SYSmsClientSend.sendSms(url, product, account,
                 password, mobileNumber, content);
             // 发送短信，如果是以负号开头就是发送失败。
@@ -125,7 +128,8 @@ public class Senter {
             throw new BizException("xn709901", "短信发送失败，account或password未定义");
         }
         try {
-            String url = "http://222.73.117.169/msg/HttpBatchSendSM";
+            String url = PropertiesUtil.Config.Z253_URL;
+            // "http://222.73.117.169/msg/HttpBatchSendSM";
             String res = Sms253ClientSend.sendSms(url, account, password,
                 mobileNumber, content);
             // 发送短信，如果是以负号开头就是发送失败。

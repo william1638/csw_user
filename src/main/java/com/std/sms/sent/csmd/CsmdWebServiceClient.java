@@ -14,6 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.std.sms.common.PropertiesUtil;
+
 /**
  * 创世漫道--对接类
  * @author: myb858 
@@ -32,7 +34,7 @@ public class CsmdWebServiceClient {
     // 如果您的系统是utf-8，收到的短信可能是乱码，请参考第102，295行
     // 可以根据您的需要自行解析下面的地址
     // http://sdk2.zucp.net:8060/webservice.asmx?wsdl
-    private String serviceURL = "http://sdk2.zucp.net:8060/webservice.asmx";
+    private String serviceURL = PropertiesUtil.Config.CSMD_URL;// "http://sdk2.zucp.net:8060/webservice.asmx";
 
     private String sn = "";// 序列号
 

@@ -16,10 +16,10 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES 
 
 INSERT INTO `tjc_company` VALUES ('CSW1004', '温州城市网', '城市网');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_userid_1', '162', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_1', 'hh8071', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_1', 'hh8070', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_password_1', 'ahh8070', 'password');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_userid_2', '162', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_2', 'hh8071', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_2', 'hh8070', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
 
 INSERT INTO `tjc_company` VALUES ('CG1005', '菜狗', '菜狗商城');
