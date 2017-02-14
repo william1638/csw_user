@@ -2,6 +2,10 @@ INSERT INTO `tjc_company` VALUES ('GJ1002', '个金投资有限公司', '个金�
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
 
+INSERT INTO `tjc_company` VALUES ('CD-CLW000005', '来来旺旺', '个金所');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CLW000005', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CLW000005', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
+
 INSERT INTO `tjc_company` VALUES ('SYJ1003', '生意家', '生意家');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('SYJ1003', 'HHXX', 'hhxx_userid_1', '48', 'userid');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('SYJ1003', 'HHXX', 'hhxx_account_1', 'hh8004', 'account');
@@ -34,6 +38,13 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('ZHP1007','正汇科技','正汇科技');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('ZHP1007','Z253','z253_account','N1315527','z253_account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('ZHP1007','Z253','z253_password','Ps7f18ea','z253_password');
+
+DELETE from tjc_company where code = 'CD-CZH000001';
+DELETE from tjc_configure where company_code = 'CD-CZH000001'
+INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('CD-CZH000001','正汇科技','正汇科技');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CZH000001','Z253','z253_account','N1315527','z253_account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CZH000001','Z253','z253_password','Ps7f18ea','z253_password');
+
 /*
 -- Query: SELECT * FROM push_std_sms.tstd_system_channel
 LIMIT 0, 50000
