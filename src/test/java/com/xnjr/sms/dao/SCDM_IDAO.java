@@ -8,22 +8,29 @@ import java.io.IOException;
 import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
+
+    private static String author = "haiqingzheng";
+
     // 实体
-    private static String key = "hzbYy";
+    private static String key = "Blacklist";
 
     // 实体名称
-    private static String keyName = "汇赚宝摇一摇";
+    private static String keyName = "黑名单";
 
     // 包路径
-    private static String packge = "com.std.mall.";
+    private static String packge = "com.std.user.";
 
     // 表名
-    private static String dbname = "tact_hzb_yy";
+    private static String path = "/Users/haiqingzheng/Desktop/temp";
 
-    private static String[] DBwords = { "code", "hzb_hold_id", "type",
-            "quantity", "user_id", "device_no", "create_datetime" };
+    private static String dbname = "tstd_blacklist";
 
-    private static String[] DBwordsName = null;
+    private static String[] DBwords = { "id", "user_id", "type", "status",
+            "create_datetime", "updater", "update_datetime", "remark",
+            "system_code" };
+
+    private static String[] DBwordsName = { "ID主键", "用户编号", "拉黑类型",
+            "状态 0-已删除 1-已生效", "拉黑时间", "更新人", "更新时间", "备注", "系统编号" };
 
     private static String[] DOwords = getDOwords();
 
@@ -32,29 +39,21 @@ public class SCDM_IDAO {
 
     public static void main(String[] args) {
 
-        File DOMAINfile = new File("/Users/xieyj/Desktop/temp" + "", Key
-                + ".java");
+        File DOMAINfile = new File(path, Key + ".java");
 
-        File Mapperfile = new File("/Users/xieyj/Desktop/temp", Key
-                + "Mapper.xml");
+        File Mapperfile = new File(path, Key + "Mapper.xml");
 
-        File IDAOfile = new File("/Users/xieyj/Desktop/temp", "I" + Key
-                + "DAO.java");
+        File IDAOfile = new File(path, "I" + Key + "DAO.java");
 
-        File DAOImplfile = new File("/Users/xieyj/Desktop/temp", Key
-                + "DAOImpl.java");
+        File DAOImplfile = new File(path, Key + "DAOImpl.java");
 
-        File IBOfile = new File("/Users/xieyj/Desktop/temp", "I" + Key
-                + "BO.java");
+        File IBOfile = new File(path, "I" + Key + "BO.java");
 
-        File BOImplfile = new File("/Users/xieyj/Desktop/temp", Key
-                + "BOImpl.java");
+        File BOImplfile = new File(path, Key + "BOImpl.java");
 
-        File IAOfile = new File("/Users/xieyj/Desktop/temp", "I" + Key
-                + "AO.java");
+        File IAOfile = new File(path, "I" + Key + "AO.java");
 
-        File AOImplfile = new File("/Users/xieyj/Desktop/temp", Key
-                + "AOImpl.java");
+        File AOImplfile = new File(path, Key + "AOImpl.java");
         try {
             DOMAINfile.createNewFile();
 
@@ -182,7 +181,7 @@ public class SCDM_IDAO {
         String str = "";
         String str1 = "package " + packge + "domain;\n\n" + "import " + packge
                 + "dao.base.ABaseDO;\n\n" + "/**" + "\n* " + keyName
-                + "\n* @author: xieyj " + "\n* @since: "
+                + "\n* @author: " + author + "\n* @since: "
                 + DateUtil.getToday(DateUtil.DATA_TIME_PATTERN_7) + ""
                 + "\n* @history:\n*/" + "\n" + "public class " + Key
                 + " extends ABaseDO {" + "\n\n\t"
@@ -299,7 +298,7 @@ public class SCDM_IDAO {
     private static String getIDAO() {
         String str = "package " + packge + "dao;\n\n" + "import " + packge
                 + "dao.base.IBaseDAO;\n" + "import " + packge + "domain." + Key
-                + ";\n\n" + "//dao层 \n" + "public interface I" + Key
+                + ";\n\n" + "public interface I" + Key
                 + "DAO extends IBaseDAO<" + Key + "> {" + "\n\t"
                 + "String NAMESPACE = I" + Key
                 + "DAO.class.getName().concat(\".\");" + "\n" + "}";
@@ -312,9 +311,8 @@ public class SCDM_IDAO {
                 + "import org.springframework.stereotype.Repository;\n\n"
                 + "import " + packge + "dao.I" + Key + "DAO;\n" + "import "
                 + packge + "dao.base.support.AMybatisTemplate;\n" + "import "
-                + packge + "domain." + Key + ";\n\n\n\n"
-                + "//CHECK ��鲢��ע�� \n" + "@Repository(\"" + key
-                + "DAOImpl\")\n" + "public class " + Key
+                + packge + "domain." + Key + ";\n\n\n\n" + "@Repository(\""
+                + key + "DAOImpl\")\n" + "public class " + Key
                 + "DAOImpl extends AMybatisTemplate implements I" + Key
                 + "DAO {\n\n\n\t" + "@Override\n\tpublic int insert(" + Key
                 + " data) {\n\t\t"
@@ -346,15 +344,15 @@ public class SCDM_IDAO {
         String str = "package " + packge + "bo;\n\n"
                 + "import java.util.List;\n\n" + "import " + packge
                 + "bo.base.IPaginableBO;\n" + "import " + packge + "domain."
-                + Key + ";\n\n\n\n" + "//CHECK ��鲢��ע�� \n"
-                + "public interface I" + Key + "BO extends IPaginableBO<" + Key
-                + "> {\n\n\n\t" + "public boolean is" + Key
-                + "Exist(String code);\n\n\n\t" + "public String save" + Key
-                + "(" + Key + " data);\n\n\n\t" + "public int remove" + Key
-                + "(String code);\n\n\n\t" + "public int refresh" + Key + "("
-                + Key + " data);\n\n\n\t" + "public List<" + Key + "> query"
-                + Key + "List(" + Key + " condition);\n\n\n\t" + "public "
-                + Key + " get" + Key + "(String code);\n\n\n}";
+                + Key + ";\n\n\n\n" + "public interface I" + Key
+                + "BO extends IPaginableBO<" + Key + "> {\n\n\n\t"
+                + "public boolean is" + Key + "Exist(String code);\n\n\n\t"
+                + "public String save" + Key + "(" + Key + " data);\n\n\n\t"
+                + "public int remove" + Key + "(String code);\n\n\n\t"
+                + "public int refresh" + Key + "(" + Key + " data);\n\n\n\t"
+                + "public List<" + Key + "> query" + Key + "List(" + Key
+                + " condition);\n\n\n\t" + "public " + Key + " get" + Key
+                + "(String code);\n\n\n}";
         return str;
     }
 
@@ -394,7 +392,7 @@ public class SCDM_IDAO {
                 + "import "
                 + packge
                 + "exception.BizException;\n\n\n\n"
-                + "//CHECK ��鲢��ע�� \n@Component\n"
+                + "\n@Component\n"
                 + "public class "
                 + Key
                 + "BOImpl extends PaginableBOImpl<"
@@ -468,15 +466,11 @@ public class SCDM_IDAO {
                 + ""
                 + Key
                 + " data = null;\n\t\tif (StringUtils.isNotBlank(code)) {\n\t\t\t"
-                + ""
-                + Key
-                + " condition = new "
-                + Key
-                + "();\n\t\t\tcondition.setCode(code);\n\t\t\t"
-                + "data = "
+                + "" + Key + " condition = new " + Key
+                + "();\n\t\t\tcondition.setCode(code);\n\t\t\t" + "data = "
                 + key
                 + "DAO.select(condition);\n\t\t\tif (data == null) {\n\t\t\t\t"
-                + "throw new BizException(\"xn0000\", \"�� ��Ų�����\");\n\t\t\t"
+                + "throw new BizException(\"xn0000\", \"记录不存在\");\n\t\t\t"
                 + "}\n\t\t}\n\t\treturn data;\n\t}\n}";
         return str;
     }
@@ -494,7 +488,6 @@ public class SCDM_IDAO {
                 + "domain."
                 + Key
                 + ";\n\n\n\n"
-                + "//CHECK ��鲢��ע�� \n@Component\n"
                 + "public interface I"
                 + Key
                 + "AO {\n\t"
@@ -521,12 +514,11 @@ public class SCDM_IDAO {
                 + packge + "bo.I" + Key + "BO;\n" + "import " + packge
                 + "bo.base.Paginable;\n" + "import " + packge + "domain." + Key
                 + ";\n" + "import " + packge
-                + "exception.BizException;\n\n\n\n"
-                + "//CHECK ��鲢��ע�� \n@Service\n" + "public class " + Key
-                + "AOImpl implements I" + Key + "AO {\n\n\t"
-                + "@Autowired\n\tprivate I" + Key + "BO " + key + "BO;\n\n\t"
-                + "@Override\n\tpublic String add" + Key + "(" + Key
-                + " data) {\n\t\t" + "return " + key + "BO.save" + Key
+                + "exception.BizException;\n\n\n\n" + "\n@Service\n"
+                + "public class " + Key + "AOImpl implements I" + Key
+                + "AO {\n\n\t" + "@Autowired\n\tprivate I" + Key + "BO " + key
+                + "BO;\n\n\t" + "@Override\n\tpublic String add" + Key + "("
+                + Key + " data) {\n\t\t" + "return " + key + "BO.save" + Key
                 + "(data);\n\t}\n\n\t" + "@Override\n\tpublic int edit" + Key
                 + "(" + Key + " data) {\n\t\t" + "if (!" + key + "BO.is" + Key
                 + "Exist(data.getCode())) {\n\t\t\t"
