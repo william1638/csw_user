@@ -2,6 +2,7 @@ package com.std.sms.bo.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -99,6 +100,22 @@ public class ReceiverBOImpl extends PaginableBOImpl<Receiver> implements
             condition.setMobile(mobile);
             condition.setSystemCode(systemCode);
             data = receiverDAO.select(condition);
+        }
+        return data;
+    }
+
+    @Override
+    public Receiver getReceiverByWechatId(String wechatId, String systemCode) {
+        Receiver data = null;
+        if (StringUtils.isNotBlank(wechatId)
+                && StringUtils.isNotBlank(systemCode)) {
+            Receiver condition = new Receiver();
+            condition.setWechatId(wechatId);
+            condition.setSystemCode(systemCode);
+            List<Receiver> dataList = receiverDAO.selectList(condition);
+            if (CollectionUtils.isNotEmpty(dataList)) {
+                data = dataList.get(0);
+            }
         }
         return data;
     }

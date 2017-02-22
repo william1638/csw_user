@@ -44,6 +44,7 @@ public class XN804030 extends AProcessor {
         data.setPushType(req.getPushType());
         data.setToSystemCode(req.getToSystemCode());
         data.setToMobile(req.getToMobile());
+        data.setToKind(req.getToKind());
         data.setSmsType(req.getSmsType());
         data.setSmsTitle(req.getSmsTitle());
         data.setSmsContent(req.getSmsContent());

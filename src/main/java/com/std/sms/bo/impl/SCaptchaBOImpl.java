@@ -34,9 +34,27 @@ public class SCaptchaBOImpl extends PaginableBOImpl<SCaptcha> implements
         data.setStatus(ESmsStatus.SENT_YES.getCode());
         Date now = new Date();
         data.setSendDatetime(now);
-        data.setInvalidDatetime(DateUtil.getRelativeDate(now, 600));// 60秒后失效
+        data.setInvalidDatetime(DateUtil.getRelativeDate(now, 600));// 10分钟后失效
         sCaptchaDAO.insert(data);
         return data.getCode();
+    }
+
+    public String savaSCaptcha(String mobile, String captcha, String bizType,
+            String companyCode, String systemCode) {
+        String code = OrderNoGenerater.generateM("SC");
+        SCaptcha data = new SCaptcha();
+        data.setCode(code);
+        data.setMobile(mobile);
+        data.setBizType(bizType);
+        data.setCaptcha(captcha);
+        data.setStatus(ESmsStatus.SENT_YES.getCode());
+        Date now = new Date();
+        data.setSendDatetime(now);
+        data.setInvalidDatetime(DateUtil.getRelativeDate(now, 600));// 10分钟后失效
+        data.setCompanyCode(companyCode);
+        data.setSystemCode(systemCode);
+        sCaptchaDAO.insert(data);
+        return code;
     }
 
     @Override
@@ -66,4 +84,22 @@ public class SCaptchaBOImpl extends PaginableBOImpl<SCaptcha> implements
         }
         return data;
     }
+
+    @Override
+    public SCaptcha getSCaptchaByCM(String systemCode, String companyCode,
+            String mobile, String bizType) {
+        SCaptcha data = null;
+        SCaptcha condition = new SCaptcha();
+        condition.setSystemCode(systemCode);
+        condition.setCompanyCode(companyCode);
+        condition.setMobile(mobile);
+        condition.setBizType(bizType);
+        condition.setStatus(ESmsStatus.SENT_YES.getCode());
+        List<SCaptcha> list = sCaptchaDAO.selectList(condition);
+        if (list != null && list.size() > 0) {
+            data = list.get(list.size() - 1);
+        }
+        return data;
+    }
+
 }

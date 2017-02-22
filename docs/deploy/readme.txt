@@ -9,14 +9,14 @@
 
 部署步骤：
 1，将包导出到/home目录下，包上传至目录上。
-  scp -P57652 ./std-sms.war root@121.43.101.148:/home
+  scp -P22 ./std-sms.war root@121.43.101.148:/home
   T6dh%$%$ss1
   
   scp -P57652 ./std-sms.war root@120.26.222.73:/home
   xnkj@151%
   
 3，部署
-  ssh root@121.43.101.148 -p 57652
+  ssh root@121.43.101.148 -p 22
   
   cd /home/wwwroot/cdhome/tomcat_std_base/webapps
   cp ./std-sms/WEB-INF/classes/application.properties .
@@ -34,7 +34,7 @@
   
 4,起停tomcat_develop_account
 
-http://120.55.113.192:8902/std-sms/api
+http://121.43.101.148:6207/std-sms/api
 
  --------------------push-sms
   cd /home/wwwroot/push-sms/tomcat_std_sms/webapps

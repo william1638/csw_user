@@ -20,7 +20,7 @@ public class ConfigServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         PropertiesUtil.init("/config.properties");
-        systemChannelAO.doAccessTokenDaily();
+        // systemChannelAO.doAccessTokenDaily();
     }
 
 }

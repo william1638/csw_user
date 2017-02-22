@@ -27,6 +27,7 @@ public class XN804041 extends AProcessor {
         condition.setChannelType(req.getChannelType());
         condition.setPushType(req.getPushType());
         condition.setToSystemCode(req.getToSystemCode());
+        condition.setToKind(req.getToKind());
         condition.setToMobile(req.getToMobile());
         condition.setSmsType(req.getSmsType());
         condition.setStatus(req.getStatus());

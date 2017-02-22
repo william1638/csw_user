@@ -15,8 +15,8 @@ package com.std.sms.enums;
  */
 public enum EBizType {
     REGISTER("1", "平台主账户-注册"), FINDLOGINPWD("2", "平台主账户-找回登陆密码"), RESETLOGINPWD(
-            "3", "平台主账户-重置登陆密码"), SETTRADEPWD("4", "平台主账户-设置交易密码"), FINDTRADEPWD(
-            "5", "平台主账户-找回交易密码"), RESETTRADEPWD("6", "平台主账户-重置交易密码"), CHANGEMOBILE(
+            "3", "平台主账户-重置登陆密码"), SETTRADEPWD("4", "平台主账户-设置支付密码"), FINDTRADEPWD(
+            "5", "平台主账户-找回支付密码"), RESETTRADEPWD("6", "平台主账户-重置支付密码"), CHANGEMOBILE(
             "7", "平台主账户-修改手机号码")
 
     , ChargeWithdraw("20", "平台主账户-充值取现"), Charge("21", "平台主账户-充值"), Charge_Yes(

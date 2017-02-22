@@ -54,42 +54,47 @@ public class SmsAOImpl implements ISmsAO {
     @Autowired
     private WeChatClientSend weChatClientSend;
 
+    @Autowired
+    private DxClientSend dxClientSend;
+
     @Override
     public void toSendDxSms(Sms data) {
-        String mobile = data.getToMobile();
         String systemCode = data.getToSystemCode();
+        String toKind = data.getToKind();
+        String mobile = data.getToMobile();
         String content = data.getSmsContent();
         String status = ESmsStatus.TOSEND.getCode();
         if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
-            if (StringUtils.isNotBlank(mobile)) {
-                boolean result = this.sendSms(systemCode, mobile, content,
-                    data.getPushType());
+            Receiver condition = new Receiver();
+            condition.setSystemCode(systemCode);
+            condition.setLevel(toKind);
+            condition.setMobile(mobile);
+            List<Receiver> receiverList = receiverBO
+                .queryReceiverList(condition);
+            if (CollectionUtils.isNotEmpty(receiverList)) {
+                for (Receiver receiver : receiverList) {
+                    boolean result = sendSms(systemCode, receiver.getMobile(),
+                        content, data.getPushType());
+                    if (result) {
+                        status = ESmsStatus.SENT_YES.getCode();
+                    } else {
+                        status = ESmsStatus.SENT_NO.getCode();
+                    }
+                    data.setToMobile(receiver.getMobile());
+                    data.setStatus(status);
+                    smsBO.saveSms(data);
+                }
+            } else {
+                boolean result = sendSms(systemCode, data.getToMobile(),
+                    content, data.getPushType());
                 if (result) {
                     status = ESmsStatus.SENT_YES.getCode();
                 } else {
                     status = ESmsStatus.SENT_NO.getCode();
                 }
+                data.setToMobile(data.getToMobile());
                 data.setStatus(status);
                 smsBO.saveSms(data);
-            } else {
-                Receiver condition = new Receiver();
-                condition.setSystemCode(systemCode);
-                List<Receiver> receiverList = receiverBO
-                    .queryReceiverList(condition);
-                if (CollectionUtils.isNotEmpty(receiverList)) {
-                    for (Receiver receiver : receiverList) {
-                        boolean result = sendSms(systemCode,
-                            receiver.getMobile(), content, data.getPushType());
-                        if (result) {
-                            status = ESmsStatus.SENT_YES.getCode();
-                        } else {
-                            status = ESmsStatus.SENT_NO.getCode();
-                        }
-                        data.setToMobile(receiver.getMobile());
-                        data.setStatus(status);
-                        smsBO.saveSms(data);
-                    }
-                }
             }
         }
     }
@@ -101,12 +106,15 @@ public class SmsAOImpl implements ISmsAO {
             systemCode, EChannelType.SMS, pushType);
         content = "【" + smsSc.getRemark() + "】" + content;
         if (EPushType.CSMD.getCode().equals(pushType)) {
-            result = DxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
+            result = dxClientSend.sendByCSMD(smsSc.getPrivateKey1(),
                 smsSc.getPrivateKey2(), mobile, content);
         } else if (EPushType.HHXX.getCode().equals(pushType)) {
-            result = DxClientSend
+            result = dxClientSend
                 .sendByHHXX(smsSc.getPrivateKey1(), smsSc.getPrivateKey2(),
                     smsSc.getPrivateKey3(), mobile, content);
+        } else if (EPushType.Z253.getCode().equals(pushType)) {
+            result = dxClientSend.sendBy253(smsSc.getPrivateKey1(),
+                smsSc.getPrivateKey2(), mobile, content);
         }
         return result;
     }
@@ -163,6 +171,7 @@ public class SmsAOImpl implements ISmsAO {
         } else {
             Receiver condition = new Receiver();
             condition.setSystemCode(systemCode);
+            condition.setLevel(data.getToKind());
             List<Receiver> receiverList = receiverBO
                 .queryReceiverList(condition);
             if (CollectionUtils.isNotEmpty(receiverList)) {

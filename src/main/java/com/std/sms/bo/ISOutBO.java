@@ -16,6 +16,20 @@ public interface ISOutBO extends IPaginableBO<SOut> {
      */
     public String saveSOut(String channel, String mobile, String content);
 
+    /**
+     * 保存已发送的短信
+     * @param channel
+     * @param mobile
+     * @param content
+     * @param companyCode
+     * @param systemCode
+     * @return 
+     * @create: 2017年2月13日 下午1:06:41 xieyj
+     * @history:
+     */
+    public String saveSOut(String channel, String mobile, String content,
+            String companyCode, String systemCode);
+
     /** 
      * 查询已发短信列表
      * @param data

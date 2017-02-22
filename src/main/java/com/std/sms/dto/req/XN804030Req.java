@@ -24,6 +24,9 @@ public class XN804030Req {
     // to手机号(选填)
     private String toMobile;
 
+    // 类别
+    private String toKind;
+
     // 消息类型(必填)（1 即时发 2定时发）
     private String smsType;
 
@@ -47,6 +50,14 @@ public class XN804030Req {
 
     // 模板编号(选填)
     private String templateId;
+
+    public String getToKind() {
+        return toKind;
+    }
+
+    public void setToKind(String toKind) {
+        this.toKind = toKind;
+    }
 
     public String getTemplateId() {
         return templateId;

@@ -37,14 +37,13 @@ public class ConfigureDAOImpl extends AMybatisTemplate implements IConfigureDAO 
 
     @Override
     public List<Configure> selectList(Configure condition) {
-        // TODO Auto-generated method stub
-        return null;
+        return super.selectList(NAMESPACE.concat("select_configure"),
+            condition, Configure.class);
     }
 
     @Override
     public List<Configure> selectList(Configure condition, int start, int count) {
-        // TODO Auto-generated method stub
-        return null;
+        return super.selectList(NAMESPACE.concat("select_configure"), start,
+            count, condition, Configure.class);
     }
-
 }

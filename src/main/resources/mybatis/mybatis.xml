@@ -15,5 +15,6 @@
 		<typeAlias alias="items" type="com.std.sms.domain.Items" />
 		
 		<typeAlias alias="systemTemplate" type="com.std.sms.domain.SystemTemplate" />
+		<typeAlias alias="sysDict" type="com.std.sms.domain.SYSDict" />
 	</typeAliases>
 </configuration>	

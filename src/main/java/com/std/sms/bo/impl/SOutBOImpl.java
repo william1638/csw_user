@@ -37,6 +37,25 @@ public class SOutBOImpl extends PaginableBOImpl<SOut> implements ISOutBO {
     }
 
     @Override
+    public String saveSOut(String channel, String mobile, String content,
+            String companyCode, String systemCode) {
+        SOut data = new SOut();
+        data.setCode(OrderNoGenerater.generateM("SO"));
+        data.setSystemCode(systemCode);
+        data.setMobile(mobile);
+        data.setContent(content);
+        data.setChannel(channel);
+        Date now = new Date();
+        data.setSendDatetime(now);
+        data.setErrorCode(ESmsStatus.SENT_YES.getCode());
+        data.setErrorInfo(ESmsStatus.SENT_YES.getValue());
+        data.setCompanyCode(companyCode);
+        data.setSystemCode(systemCode);
+        sOutDAO.insert(data);
+        return data.getCode();
+    }
+
+    @Override
     public List<SOut> querySOutList(SOut data) {
         return sOutDAO.selectList(data);
     }

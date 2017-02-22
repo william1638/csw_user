@@ -9,7 +9,6 @@ import com.std.sms.common.DateUtil;
 
 public class SCDM_IDAO {
 
-    // 实体
     private static String author = "haiqingzheng";
 
     // 实体
@@ -24,7 +23,6 @@ public class SCDM_IDAO {
     // 表名
     private static String path = "/Users/haiqingzheng/Desktop/temp";
 
-    // 表名
     private static String dbname = "tstd_blacklist";
 
     private static String[] DBwords = { "id", "user_id", "type", "status",
@@ -190,7 +188,9 @@ public class SCDM_IDAO {
                 + "private static final long serialVersionUID = 1L;" + "\n\n";
         String str2 = "";
         for (int i = 0; i < DOwords.length; i++) {
-            str2 += "\t// " + DBwordsName[i] + "\n\t";
+            if (DBwordsName != null) {
+                str2 += "\t// " + DBwordsName[i] + "\n\t";
+            }
             str2 += "private String " + DOwords[i] + ";\n\n";
         }
         for (int i = 0; i < DOwords.length; i++) {

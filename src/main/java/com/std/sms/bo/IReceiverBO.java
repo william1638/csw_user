@@ -27,4 +27,6 @@ public interface IReceiverBO extends IPaginableBO<Receiver> {
     public Receiver getReceiver(String mobile, String systemCode);
 
     public Receiver getReceiverNotError(String mobile, String systemCode);
+
+    public Receiver getReceiverByWechatId(String wechatId, String systemCode);
 }
