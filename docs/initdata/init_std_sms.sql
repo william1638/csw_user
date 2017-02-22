@@ -1,10 +1,11 @@
-INSERT INTO `tjc_company` VALUES ('GJ1002', '个金投资有限公司', '个金所');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
-
 INSERT INTO `tjc_company` VALUES ('CD-CLW000005', '来来旺旺', '个金所');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CLW000005', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CLW000005', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CLW000005','1','11','1','','SDK-JDH-010-00046','df9f0e__','','正汇科技');
+
+INSERT INTO `tjc_company` VALUES ('GJ1002', '个金投资有限公司', '个金所');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
 
 INSERT INTO `tjc_company` VALUES ('SYJ1003', '生意家', '生意家');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('SYJ1003', 'HHXX', 'hhxx_userid_1', '48', 'userid');
