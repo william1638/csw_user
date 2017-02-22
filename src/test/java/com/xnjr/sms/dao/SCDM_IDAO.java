@@ -12,7 +12,7 @@ public class SCDM_IDAO {
     private static String author = "haiqingzheng";
 
     // 实体
-    private static String key = "Blacklist";
+    private static String key = "blacklist";
 
     // 实体名称
     private static String keyName = "黑名单";
