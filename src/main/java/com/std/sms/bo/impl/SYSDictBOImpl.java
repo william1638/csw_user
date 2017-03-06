@@ -10,6 +10,7 @@ package com.std.sms.bo.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,8 @@ import com.std.sms.bo.ISYSDictBO;
 import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISYSDictDAO;
 import com.std.sms.domain.SYSDict;
+import com.std.sms.enums.EDictType;
+import com.std.sms.exception.BizException;
 
 /** 
  * @author: haiqingzheng 
@@ -29,52 +32,47 @@ public class SYSDictBOImpl extends PaginableBOImpl<SYSDict> implements
     @Autowired
     private ISYSDictDAO sysDictDAO;
 
-    /** 
-     * @see com.xnjr.mall.bo.ISYSDictBO#saveSYSDict(com.xnjr.mall.domain.SYSDict)
-     */
     @Override
-    public Long saveSYSDict(SYSDict data) {
-        Long id = null;
-        if (data != null) {
-            sysDictDAO.insert(data);
-            id = data.getId();
+    public Long saveSYSDict(String type, String parentKey, String key,
+            String value, String remark) {
+        SYSDict sysDict = new SYSDict();
+        sysDict.setType(type);
+        if (EDictType.SECOND.getCode().equals(type)) {
+            sysDict.setParentKey(parentKey);
+        } else {
+            sysDict.setParentKey(null);
         }
-        return id;
+        sysDict.setDkey(key);
+        sysDict.setDvalue(value);
+        sysDict.setRemark(remark);
+        sysDictDAO.insert(sysDict);
+        return sysDict.getId();
     }
 
-    /** 
-     * @see com.xnjr.mall.bo.ISYSDictBO#removeSYSDict(java.lang.Long)
-     */
     @Override
-    public int removeSYSDict(Long id) {
-        int count = 0;
-        if (id != null) {
+    public void removeSYSDict(Long id) {
+        if (id > 0) {
             SYSDict data = new SYSDict();
             data.setId(id);
-            count = sysDictDAO.delete(data);
+            sysDictDAO.delete(data);
         }
-        return count;
     }
 
-    /** 
-     * @see com.xnjr.mall.bo.ISYSDictBO#refreshSYSDict(com.xnjr.mall.domain.SYSDict)
-     */
     @Override
-    public int refreshSYSDict(SYSDict data) {
-        int count = 0;
-        if (data != null) {
-            count = sysDictDAO.update(data);
+    public void refreshSYSDict(Long id, String value, String remark) {
+        if (id > 0) {
+            SYSDict data = new SYSDict();
+            data.setId(id);
+            data.setDvalue(value);
+            data.setRemark(remark);
+            sysDictDAO.update(data);
         }
-        return count;
     }
 
-    /** 
-     * @see com.xnjr.mall.bo.ISYSDictBO#getSYSDict(java.lang.Long)
-     */
     @Override
     public SYSDict getSYSDict(Long id) {
         SYSDict sysDict = null;
-        if (id != null) {
+        if (id > 0) {
             SYSDict data = new SYSDict();
             data.setId(id);
             sysDict = sysDictDAO.select(data);
@@ -82,12 +80,40 @@ public class SYSDictBOImpl extends PaginableBOImpl<SYSDict> implements
         return sysDict;
     }
 
-    /** 
-     * @see com.xnjr.mall.bo.ISYSDictBO#querySYSDictList(com.xnjr.mall.domain.SYSDict)
-     */
     @Override
     public List<SYSDict> querySYSDictList(SYSDict condition) {
         return sysDictDAO.selectList(condition);
+    }
+
+    @Override
+    public void checkFirstKey(String key) {
+        if (StringUtils.isBlank(key)) {
+            throw new BizException("xn000000", "key不能为空");
+        }
+        SYSDict condition = new SYSDict();
+        condition.setDkey(key);
+        condition.setType(EDictType.FIRST.getCode());
+        if (getTotalCount(condition) > 0) {
+            throw new BizException("xn000000", "第一层key不能为重复");
+        }
+    }
+
+    @Override
+    public void checkSecondKey(String parentKey, String key) {
+        if (StringUtils.isBlank(parentKey)) {
+            throw new BizException("xn000000", "parentKey不能为空");
+        }
+        if (StringUtils.isBlank(key)) {
+            throw new BizException("xn000000", "key不能为空");
+        }
+        SYSDict condition = new SYSDict();
+        condition.setParentKey(parentKey);
+        condition.setDkey(key);
+        condition.setType(EDictType.SECOND.getCode());
+        if (getTotalCount(condition) > 0) {
+            throw new BizException("xn000000", "当前<" + parentKey
+                    + ">节点下，key不能为重复");
+        }
     }
 
 }
