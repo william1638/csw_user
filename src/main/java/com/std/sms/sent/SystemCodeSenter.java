@@ -94,9 +94,8 @@ public class SystemCodeSenter {
             "sykj_account").getValue();
         password = configureBO.doGetConfigure(companyCode, channel,
             "sykj_password").getValue();
-        if (product == null || account == null || password == null) {
-            throw new BizException("xn709901",
-                "短信发送失败，product或account或password未定义");
+        if (account == null || password == null) {
+            throw new BizException("xn709901", "短信发送失败，account或password未定义");
         }
         try {
             String url = PropertiesUtil.Config.SYKJ_URL;// "http://send.18sms.com/msg/HttpBatchSendSM";
@@ -104,10 +103,11 @@ public class SystemCodeSenter {
                 password, mobileNumber, content);
             // 发送短信，如果是以负号开头就是发送失败。
             if (!res.contains(",0")) {
-                throw new BizException("xn709901", "短信发送失败，错误代码：" + res);
+                throw new BizException("xn709901", "错误代码:" + res);
             }
         } catch (Exception e) {
-            throw new BizException("xn709901", "示远科技短信发送未知错误");
+            throw new BizException("xn709901", "示远科技短信发送错误，报错原因:"
+                    + e.getMessage());
         }
     }
 
