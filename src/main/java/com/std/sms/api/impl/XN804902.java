@@ -30,9 +30,6 @@ public class XN804902 extends AProcessor {
 
     private XN804902Req req = null;
 
-    /** 
-     * @see com.xnjr.mall.api.IProcessor#doBusiness()
-     */
     @Override
     public Object doBusiness() throws BizException {
         sysDictAO.editSYSDict(StringValidater.toLong(req.getId()),
@@ -40,9 +37,6 @@ public class XN804902 extends AProcessor {
         return new BooleanRes(true);
     }
 
-    /** 
-     * @see com.xnjr.mall.api.IProcessor#doCheck(java.lang.String)
-     */
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN804902Req.class);

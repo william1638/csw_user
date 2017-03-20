@@ -4,6 +4,7 @@
 <mapper namespace="com.std.sms.dao.ISYSDictDAO">
 	<resultMap id="sysDict_DB_Result" type="sysDict">
 		<result column="id" property="id" />
+		
 		<result column="type" property="type" />
 		<result column="parent_key" property="parentKey" />
 		<result column="dkey" property="dkey" />

@@ -24,9 +24,9 @@ public interface ISYSDictAO {
     public Long addSYSDict(String type, String parentKey, String key,
             String value, String remark);
 
-    public int dropSYSDict(Long id);
+    public void dropSYSDict(Long id);
 
-    public int editSYSDict(Long id, String value, String remark);
+    public void editSYSDict(Long id, String value, String remark);
 
     public Paginable<SYSDict> querySYSDictPage(int start, int limit,
             SYSDict condition);

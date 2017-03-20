@@ -35,9 +35,9 @@ public class XN804900 extends AProcessor {
      */
     @Override
     public Object doBusiness() throws BizException {
-        return new PKIdRes(
-            sysDictAO.addSYSDict(req.getType(), req.getParentKey(),
-                req.getDkey(), req.getDvalue(), req.getRemark()));
+        Long id = sysDictAO.addSYSDict(req.getType(), req.getParentKey(),
+            req.getDkey(), req.getDvalue(), req.getRemark());
+        return new PKIdRes(id);
     }
 
     /** 
