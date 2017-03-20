@@ -12,7 +12,7 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES 
 INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CGD000006','1','11','1','','SDK-JDH-010-00046','df9f0e__','','个金所');
 
 INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('CD-CLW000005','来来旺旺',NULL);
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_product','4186886','sykj_product');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_product','','sykj_product');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_account','08bost','sykj_account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_password','RsKwOV68','sykj_password');
 INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CLW000005','1','13','1','','4186886','08bost','RsKwOV68',NULL);
