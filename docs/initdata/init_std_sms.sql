@@ -23,7 +23,7 @@ INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('CD-CLW000005','来�
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_product','','sykj_product');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_account','08bost','sykj_account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CLW000005','SYKJ','sykj_password','RsKwOV68','sykj_password');
-INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CLW000005','1','13','1','','4186886','08bost','RsKwOV68',NULL);
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CLW000005','1','13','1','','','08bost','RsKwOV68',NULL);
 
 INSERT INTO `tjc_company` VALUES ('GJ1002', '个金投资有限公司', '个金所');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('GJ1002', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
@@ -44,14 +44,16 @@ INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES (
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_userid_2', '162', 'userid');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_account_2', 'hh8070', 'account');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CSW1004', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CCSW000008','1','12','1','','162','hh8070','ahh8070','城市网');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CCSW000008','2','21','1','','e614d2a82d038160f707f1a8','22d4796873b7f002537f30b6','','');
 
-INSERT INTO `tjc_company` VALUES ('CG1005', '菜狗', '菜狗商城');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_userid_1', '158', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_account_1', 'hh8066', 'account');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_password_1', 'a123456', 'password');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_userid_2', '158', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_account_2', 'hh8066', 'account');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CG1005', 'HHXX', 'hhxx_password_2', 'a123456', 'password');
+INSERT INTO `tjc_company` VALUES ('CD-CCG000007', '菜狗', '菜狗商城');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_userid_1', '158', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_account_1', 'hh8066', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_password_1', 'a123456', 'password');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_userid_2', '158', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_account_2', 'hh8066', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCG000007', 'HHXX', 'hhxx_password_2', 'a123456', 'password');
 
 INSERT INTO `tjc_company` (`code`,`name`,`prefix`) VALUES ('QLQQ1006','骑来骑去',NULL);
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('QLQQ1006','SYKJ','sykj_product','60894573','sykj_product');
