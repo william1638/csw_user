@@ -35,6 +35,7 @@ public class XN804040 extends AProcessor {
 
         condition.setName(req.getName());
         condition.setSmsType(req.getSmsType());
+        condition.setSmsTitle(req.getSmsTitle());
         condition.setStatus(req.getStatus());
         String column = req.getOrderColumn();
         if (StringUtils.isBlank(column)) {

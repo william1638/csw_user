@@ -50,6 +50,9 @@
 			<if test="smsType != null and smsType != '' ">
 				AND t.sms_type = #{smsType}
 			</if>
+			<if test="smsTitle != null and smsTitle != '' ">
+				AND t.sms_title like "%"#{smsTitle}"%"
+			</if>
 			<if test="status != null and status != '' ">
 				AND t.status = #{status}
 			</if>

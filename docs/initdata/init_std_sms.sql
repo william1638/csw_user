@@ -1,10 +1,15 @@
-INSERT INTO `tjc_company` VALUES ('CD-CCSW000007', '温州城市网', '城市网');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_userid_1', '162', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_account_1', 'hh8070', 'account');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_password_1', 'ahh8070', 'password');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_userid_2', '162', 'userid');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_account_2', 'hh8070', 'account');
-INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
+INSERT INTO `tjc_company` VALUES ('CD-CDZT000009', '定制通', '个金所');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CDZT000009', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CDZT000009', 'CSMD', 'csmd_password', 'df9f0e__', 'password');
+INSERT INTO `tstd_system_channel` (`system_code`,`channel_type`,`push_type`,`status`,`push_system`,`private_key1`,`private_key2`,`private_key3`,`remark`) VALUES ('CD-CDZT000009','1','11','1','','SDK-JDH-010-00046','df9f0e__','','个金所');
+
+INSERT INTO `tjc_company` VALUES ('CD-CCSW000008', '温州城市网', '城市网');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_userid_1', '162', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_account_1', 'hh8070', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_password_1', 'ahh8070', 'password');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_userid_2', '162', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_account_2', 'hh8070', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000008', 'HHXX', 'hhxx_password_2', 'ahh8070', 'password');
 
 INSERT INTO `tjc_company` VALUES ('CD-CGD000006', '管道', '个金所');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`)  VALUES ('CD-CGD000006', 'CSMD', 'csmd_sn', 'SDK-JDH-010-00046', 'account');
