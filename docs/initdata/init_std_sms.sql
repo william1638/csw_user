@@ -1,3 +1,11 @@
+INSERT INTO `tjc_company` VALUES ('CD-CGD000006', '全能丰禾塑业', '全能水电工助手');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_userid_1', '174', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_account_1', 'hh8081', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_password_1', 'Qngd2017', 'password');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_userid_2', '174', 'userid');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_account_2', 'hh8081', 'account');
+INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CGD000006', 'HHXX', 'hhxx_password_2', 'Qngd2017', 'password');
+
 INSERT INTO `tjc_company` VALUES ('CD-CCSW000007', '温州城市网', '城市网');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_userid_1', '162', 'userid');
 INSERT INTO `tjc_configure` (`company_code`,`channel`,`k`,`v`,`remark`) VALUES ('CD-CCSW000007', 'HHXX', 'hhxx_account_1', 'hh8070', 'account');
