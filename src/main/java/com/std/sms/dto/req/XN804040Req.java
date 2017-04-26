@@ -30,8 +30,19 @@ public class XN804040Req extends APageReq {
     // 消息类型（1 即时发 2定时发）(选填)
     private String smsType;
 
+    // 消息标题(选填)
+    private String smsTitle;
+
     // 状态（0 未发送，1 已发送） (选填)
     private String status;
+
+    public String getSmsTitle() {
+        return smsTitle;
+    }
+
+    public void setSmsTitle(String smsTitle) {
+        this.smsTitle = smsTitle;
+    }
 
     public String getToKind() {
         return toKind;
