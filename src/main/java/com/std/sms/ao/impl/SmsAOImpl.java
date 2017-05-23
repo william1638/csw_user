@@ -15,12 +15,14 @@ import com.std.sms.bo.ISmsBO;
 import com.std.sms.bo.ISystemChannelBO;
 import com.std.sms.bo.ISystemTemplateBO;
 import com.std.sms.bo.ITemplateBO;
+import com.std.sms.bo.IUserBO;
 import com.std.sms.bo.base.Paginable;
 import com.std.sms.common.JsonUtil;
 import com.std.sms.domain.Receiver;
 import com.std.sms.domain.Sms;
 import com.std.sms.domain.SystemChannel;
 import com.std.sms.domain.SystemTemplate;
+import com.std.sms.domain.User;
 import com.std.sms.enums.EBoolean;
 import com.std.sms.enums.EChannelType;
 import com.std.sms.enums.EPushType;
@@ -32,6 +34,8 @@ import com.std.sms.sent.sms.DxClientSend;
 import com.std.sms.sent.wechat.TemplateData;
 import com.std.sms.sent.wechat.WeChatClientSend;
 import com.std.sms.sent.wechat.WxTemplate;
+
+
 
 @Service
 public class SmsAOImpl implements ISmsAO {
@@ -56,6 +60,9 @@ public class SmsAOImpl implements ISmsAO {
 
     @Autowired
     private DxClientSend dxClientSend;
+    
+    @Autowired
+    private IUserBO userBO;
 
     @Override
     public void toSendDxSms(Sms data) {
@@ -136,8 +143,26 @@ public class SmsAOImpl implements ISmsAO {
                         jgSc.getPrivateKey2(), receiver.getJpushId(), content);
                 }
             } else {
-                result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
-                    jgSc.getPrivateKey2(), content);
+            	
+            	if(StringUtils.isNotBlank(data.getJpushId())){
+            		//个人推送
+            		result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
+                            jgSc.getPrivateKey2(), data.getJpushId(), content);
+            		User user = userBO.getRemoteUser(data.getJpushId());
+            		data.setToMobile(user.getMobile());
+            	}else if(StringUtils.isNotBlank(data.getCompanyCode())){
+            		//分组推送
+            		result = JPushClientSend.toSendTagPush(jgSc.getPrivateKey1(),
+                            jgSc.getPrivateKey2(), data.getCompanyCode(), content);
+            		data.setToSystemCode(data.getCompanyCode());
+            	}else{
+            		//全局推送
+            		result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
+                            jgSc.getPrivateKey2(), content);
+            	}
+            	
+            	
+                
             }
             if (result) {
                 status = ESmsStatus.SENT_YES.getCode();
@@ -146,6 +171,7 @@ public class SmsAOImpl implements ISmsAO {
             }
             data.setStatus(status);
         }
+        
         smsBO.saveSms(data);
     }
 

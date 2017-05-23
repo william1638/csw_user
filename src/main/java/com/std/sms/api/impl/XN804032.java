@@ -34,10 +34,16 @@ public class XN804032 extends AProcessor {
         data.setFromSystemCode(req.getFromSystemCode());
         data.setChannelType(EChannelType.APP.getCode());
         data.setPushType(EPushType.JIGUANG.getCode());
-        data.setToSystemCode(req.getToSystemCode());
-        data.setToMobile(req.getToMobile());
+        
+        data.setCompanyCode(req.getCompanyCode());
+        data.setJpushId(req.getUserId());
+        
+        data.setToSystemCode(req.getToSystemCode());      
+        data.setToMobile(req.getToMobile());   
         data.setSmsType(req.getSmsType());
         data.setSmsContent(req.getSmsContent());
+        data.setSmsTitle(req.getSmsTitle());
+        data.setRemark(req.getRemark());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),
             false));
         data.setUpdater(req.getUpdater());

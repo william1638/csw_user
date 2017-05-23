@@ -9,6 +9,11 @@ import java.util.Date;
  * @history:
  */
 public class XN804032Req {
+	private String userId ;
+	
+	private String companyCode ;
+	
+	
     // from系统编号(必填)
     private String fromSystemCode;
 
@@ -23,6 +28,9 @@ public class XN804032Req {
 
     // 消息内容(必填)
     private String smsContent;
+    
+    //标题
+    private String smsTitle ;
 
     // 拟发送时间(选填，定时发必填)
     private String topushDatetime;
@@ -96,5 +104,32 @@ public class XN804032Req {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getSmsTitle() {
+		return smsTitle;
+	}
+
+	public void setSmsTitle(String smsTitle) {
+		this.smsTitle = smsTitle;
+	}
+    
+	
+    
 
 }

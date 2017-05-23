@@ -18,6 +18,8 @@ public class Sms extends ABaseDO {
     // 序号
     private Long id;
 
+    private String companyCode ;
+
     // from系统编号
     private String fromSystemCode;
 
@@ -257,4 +259,15 @@ public class Sms extends ABaseDO {
     public void setJpushId(String jpushId) {
         this.jpushId = jpushId;
     }
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+    
+    
 }

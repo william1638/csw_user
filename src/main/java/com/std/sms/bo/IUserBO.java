@@ -8,6 +8,8 @@
  */
 package com.std.sms.bo;
 
+import com.std.sms.domain.User;
+
 /** 
  * @author: xieyj 
  * @since: 2016年11月30日 下午10:57:39 
@@ -33,4 +35,6 @@ public interface IUserBO {
      * @history:
      */
     public void logoutUser(String userId, String updater);
+    
+    public User getRemoteUser(String userId);
 }

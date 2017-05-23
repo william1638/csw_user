@@ -12,12 +12,17 @@ import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.IUserBO;
 import com.std.sms.common.PropertiesUtil;
+import com.std.sms.domain.User;
+import com.std.sms.dto.req.XN001400Req;
 import com.std.sms.dto.req.XN805042Req;
 import com.std.sms.dto.req.XN805052Req;
+import com.std.sms.dto.res.XN001400Res;
 import com.std.sms.dto.res.XN805042Res;
 import com.std.sms.exception.BizException;
 import com.std.sms.http.BizConnecter;
 import com.std.sms.http.JsonUtils;
+
+
 
 /** 
  * @author: xieyj 
@@ -54,5 +59,28 @@ public class UserBOImpl implements IUserBO {
         req.setRemark("办件员已删除");
         BizConnecter.getBizData("805052", JsonUtils.object2Json(req),
             Object.class);
+    }
+    
+    @Override
+    public User getRemoteUser(String userId) {
+        XN001400Req req = new XN001400Req();
+        req.setTokenId(userId);
+        req.setUserId(userId);
+        XN001400Res res = BizConnecter.getBizData("001400",
+            JsonUtils.object2Json(req), XN001400Res.class);
+        if (res == null) {
+            throw new BizException("XN000000", "编号为" + userId + "的用户不存在");
+        }
+        User user = new User();
+        user.setUserId(res.getUserId());
+        user.setLoginName(res.getLoginName());
+        user.setNickname(res.getNickname());
+        user.setPhoto(res.getPhoto());
+        user.setMobile(res.getMobile());
+        user.setIdentityFlag(res.getIdentityFlag());
+        user.setUserReferee(res.getUserReferee());
+        user.setLevel(res.getLevel());
+        user.setKind(res.getKind());
+        return user;
     }
 }
