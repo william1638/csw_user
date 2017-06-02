@@ -15,6 +15,9 @@ public class XN804040Req extends APageReq {
     // 渠道小类(11 创世漫道 12 汇禾 21 极光推送 31 微信 41 公告)(选填)
     private String pushType;
 
+    //用户编号
+    private String userId ;
+    
     // to系统编号(选填)
     private String toSystemCode;
 
@@ -115,4 +118,16 @@ public class XN804040Req extends APageReq {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+    
+    
 }

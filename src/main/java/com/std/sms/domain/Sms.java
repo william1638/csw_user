@@ -18,8 +18,6 @@ public class Sms extends ABaseDO {
     // 序号
     private Long id;
 
-    private String companyCode ;
-
     // from系统编号
     private String fromSystemCode;
 
@@ -29,20 +27,36 @@ public class Sms extends ABaseDO {
     // 渠道小类(11 创世漫道 12 汇禾 21 极光推送 31 微信 41 公告)
     private String pushType;
 
-    // to系统编号
-    private String toSystemCode;
-
-    // to分组(1 C端，2 B端，3 平台)
-    private String toKind;
+    // 用户
+    private String toUserId;
 
     // to手机号
     private String toMobile;
 
+    // to分组(1 C端，2 B端，3 平台)
+    private String toKind;
+
+    // to公司编号
+    private String toCompanyCode;
+
+    // to系统编号
+    private String toSystemCode;
+
     // 消息类型（1 即时发 2定时发）
     private String smsType;
-
+    
+    //app打开方式
+    private String openType ;
+    
+    
     // 消息标题
     private String smsTitle;
+    
+    //帖子编号
+    private String postCode ;
+    
+    //帖子标题
+    private String postTitle ;
 
     // 消息内容
     private String smsContent;
@@ -83,6 +97,8 @@ public class Sms extends ABaseDO {
 
     // 模板编号
     private String templateId;
+    
+    
 
     public String getTemplateId() {
         return templateId;
@@ -260,14 +276,48 @@ public class Sms extends ABaseDO {
         this.jpushId = jpushId;
     }
 
-	public String getCompanyCode() {
-		return companyCode;
+	public String getToUserId() {
+		return toUserId;
 	}
 
-	public void setCompanyCode(String companyCode) {
-		this.companyCode = companyCode;
+	public void setToUserId(String toUserId) {
+		this.toUserId = toUserId;
 	}
 
+	public String getToCompanyCode() {
+		return toCompanyCode;
+	}
+
+	public void setToCompanyCode(String toCompanyCode) {
+		this.toCompanyCode = toCompanyCode;
+	}
+
+	public String getOpenType() {
+		return openType;
+	}
+
+	public void setOpenType(String openType) {
+		this.openType = openType;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
     
+	
+	
+	
     
 }

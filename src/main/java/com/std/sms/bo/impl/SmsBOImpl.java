@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.std.sms.bo.ISmsBO;
+import com.std.sms.bo.base.Page;
+import com.std.sms.bo.base.Paginable;
 import com.std.sms.bo.base.PaginableBOImpl;
 import com.std.sms.dao.ISmsDAO;
+import com.std.sms.dao.base.IBaseDAO;
 import com.std.sms.domain.Sms;
+import com.std.sms.enums.EOpenType;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.enums.ESmsType;
 import com.std.sms.exception.BizException;
@@ -20,6 +24,10 @@ public class SmsBOImpl extends PaginableBOImpl<Sms> implements ISmsBO {
 
     @Autowired
     private ISmsDAO smsDAO;
+    
+    
+    @Autowired
+    private IBaseDAO<Sms> paginableDAO;
 
     @Override
     public boolean isSmsExist(Long id) {
@@ -39,6 +47,7 @@ public class SmsBOImpl extends PaginableBOImpl<Sms> implements ISmsBO {
             data.setCreateDatetime(date);
             data.setTopushDatetime(date);
             data.setUpdateDatetime(date);
+            
             if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
                 data.setPushedDatetime(date);
             }
@@ -108,4 +117,21 @@ public class SmsBOImpl extends PaginableBOImpl<Sms> implements ISmsBO {
         }
         return data;
     }
+    
+    @Override
+    public Paginable<Sms> getUserPaginable(int start, int pageSize, Sms condition) {
+        prepare(condition);
+
+        long totalCount = smsDAO.selectUserTotalCount(condition);
+
+        Paginable<Sms> page = new Page<Sms>(start, pageSize, totalCount);
+
+        List<Sms> dataList = smsDAO.selectUserList(condition, page.getStart(),
+            page.getPageSize());
+
+        page.setList(dataList);
+        return page;
+    }
+    
+    
 }

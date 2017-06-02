@@ -40,6 +40,10 @@ public class XN804034 extends AProcessor {
         data.setSmsType(req.getSmsType());
         data.setSmsTitle(req.getSmsTitle());
         data.setSmsContent(req.getSmsContent());
+        data.setToCompanyCode(req.getCompanyCode());
+        data.setToUserId(req.getUserId());
+        data.setOpenType(req.getOpenType());
+        data.setJpushId(req.getUserId());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),
             false));
         data.setUpdater(req.getUpdater());

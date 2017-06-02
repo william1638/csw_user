@@ -35,7 +35,8 @@ public class XN804032 extends AProcessor {
         data.setChannelType(EChannelType.APP.getCode());
         data.setPushType(EPushType.JIGUANG.getCode());
         
-        data.setCompanyCode(req.getCompanyCode());
+        data.setToCompanyCode(req.getCompanyCode());
+        data.setToUserId(req.getUserId());
         data.setJpushId(req.getUserId());
         
         data.setToSystemCode(req.getToSystemCode());      
@@ -44,10 +45,13 @@ public class XN804032 extends AProcessor {
         data.setSmsContent(req.getSmsContent());
         data.setSmsTitle(req.getSmsTitle());
         data.setRemark(req.getRemark());
+        data.setOpenType(req.getOpenType());
+        data.setPostCode(req.getPostCode());
+        data.setPostTitle(req.getPostTitle());
         data.setTopushDatetime(DateUtil.getFrontDate(req.getTopushDatetime(),
             false));
         data.setUpdater(req.getUpdater());
-        data.setRemark(req.getRemark());
+     
         smsAO.toSendJgSms(data);
         return new BooleanRes(true);
     }

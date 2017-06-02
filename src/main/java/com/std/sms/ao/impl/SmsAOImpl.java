@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.std.sms.ao.ISmsAO;
+import com.std.sms.bo.ICompanyBO;
 import com.std.sms.bo.IReceiverBO;
 import com.std.sms.bo.ISmsBO;
 import com.std.sms.bo.ISystemChannelBO;
@@ -25,6 +26,7 @@ import com.std.sms.domain.SystemTemplate;
 import com.std.sms.domain.User;
 import com.std.sms.enums.EBoolean;
 import com.std.sms.enums.EChannelType;
+import com.std.sms.enums.EOpenType;
 import com.std.sms.enums.EPushType;
 import com.std.sms.enums.ESmsStatus;
 import com.std.sms.enums.ESmsType;
@@ -63,6 +65,10 @@ public class SmsAOImpl implements ISmsAO {
     
     @Autowired
     private IUserBO userBO;
+    
+   
+    
+   
 
     @Override
     public void toSendDxSms(Sms data) {
@@ -133,6 +139,10 @@ public class SmsAOImpl implements ISmsAO {
         String systemCode = data.getToSystemCode();
         String content = data.getSmsContent();
         String status = ESmsStatus.TOSEND.getCode();
+        String title = data.getSmsTitle();
+        String openType = data.getOpenType();
+        String postCode = data.getPostCode();
+        String postTitle = data.getPostTitle();
         if (ESmsType.NOW_SEND.getCode().equals(data.getSmsType())) {
             SystemChannel jgSc = systemChannelBO.getSystemChannelByCondition(
                 systemCode, EChannelType.APP, EPushType.JIGUANG.getCode());
@@ -140,29 +150,27 @@ public class SmsAOImpl implements ISmsAO {
                 Receiver receiver = receiverBO.getReceiver(mobile, systemCode);
                 if (StringUtils.isNotBlank(receiver.getJpushId())) {
                     result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
-                        jgSc.getPrivateKey2(), receiver.getJpushId(), content);
+                        jgSc.getPrivateKey2(), receiver.getJpushId(),null, content,title,postTitle);
                 }
             } else {
             	
-            	if(StringUtils.isNotBlank(data.getJpushId())){
+            	if(StringUtils.isNotBlank(data.getToUserId())){
             		//个人推送
             		result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
-                            jgSc.getPrivateKey2(), data.getJpushId(), content);
+                            jgSc.getPrivateKey2(), data.getJpushId(),null, content,title,openType,postCode,postTitle);
             		User user = userBO.getRemoteUser(data.getJpushId());
             		data.setToMobile(user.getMobile());
-            	}else if(StringUtils.isNotBlank(data.getCompanyCode())){
+            	}else if(StringUtils.isNotBlank(data.getToCompanyCode())){
             		//分组推送
-            		result = JPushClientSend.toSendTagPush(jgSc.getPrivateKey1(),
-                            jgSc.getPrivateKey2(), data.getCompanyCode(), content);
-            		data.setToSystemCode(data.getCompanyCode());
+            		result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
+                            jgSc.getPrivateKey2(),null,data.getToCompanyCode(), content,title,openType,postCode,postTitle);
+            		
             	}else{
             		//全局推送
             		result = JPushClientSend.toSendPush(jgSc.getPrivateKey1(),
-                            jgSc.getPrivateKey2(), content);
+                            jgSc.getPrivateKey2(), content,title,openType,postCode,postTitle);
             	}
-            	
-            	
-                
+            	           	                
             }
             if (result) {
                 status = ESmsStatus.SENT_YES.getCode();
@@ -170,6 +178,11 @@ public class SmsAOImpl implements ISmsAO {
                 status = ESmsStatus.SENT_NO.getCode();
             }
             data.setStatus(status);
+        }
+        data.setOpenType(EOpenType.CONTENT.getCode());
+        if(EOpenType.URL.getCode().equals(openType)){
+        	data.setOpenType(EOpenType.URL.getCode());
+        	 data.setSmsContent("postCode:"+postCode);        	 
         }
         
         smsBO.saveSms(data);
@@ -342,7 +355,19 @@ public class SmsAOImpl implements ISmsAO {
 
     @Override
     public Paginable<Sms> querySmsPage(int start, int limit, Sms condition) {
-        return smsBO.getPaginable(start, limit, condition);
+    	if(StringUtils.isBlank(condition.getToUserId())){
+    		return smsBO.getPaginable(start, limit, condition);
+    	}
+    	User user = userBO.getRemoteUser(condition.getToUserId());
+    	if(user==null){
+    		throw new BizException("xn00100", "用户不存在");
+    	}
+    	String companyCode = user.getCompanyCode();
+    	if(StringUtils.isBlank(companyCode)){
+    		throw new BizException("xn00100", "站点不存在");
+    	}
+    	condition.setToCompanyCode(companyCode);
+        return smsBO.getUserPaginable(start, limit, condition);
     }
 
     @Override

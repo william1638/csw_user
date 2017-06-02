@@ -72,6 +72,7 @@ public class UserBOImpl implements IUserBO {
             throw new BizException("XN000000", "编号为" + userId + "的用户不存在");
         }
         User user = new User();
+        user.setCompanyCode(res.getCompanyCode());
         user.setUserId(res.getUserId());
         user.setLoginName(res.getLoginName());
         user.setNickname(res.getNickname());

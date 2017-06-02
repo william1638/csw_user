@@ -32,7 +32,9 @@ public class XN804040 extends AProcessor {
         condition.setToSystemCode(req.getToSystemCode());
         condition.setToKind(req.getToKind());
         condition.setToMobile(req.getToMobile());
-
+        
+        condition.setToUserId(req.getUserId());
+      
         condition.setName(req.getName());
         condition.setSmsType(req.getSmsType());
         condition.setSmsTitle(req.getSmsTitle());

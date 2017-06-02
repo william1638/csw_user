@@ -14,6 +14,7 @@ public class XN804032Req {
 	private String companyCode ;
 	
 	
+	
     // from系统编号(必填)
     private String fromSystemCode;
 
@@ -40,6 +41,15 @@ public class XN804032Req {
 
     // 备注(选填)
     private String remark;
+    
+    //app打开通知的方式
+    private String openType ;
+    
+    //帖子编号 用户app通知打开帖子详情
+    private String postCode ;
+    
+    //帖子标题 帖子链接 app通知信息
+    private String postTitle ;
 
     public String getUpdater() {
         return updater;
@@ -128,7 +138,33 @@ public class XN804032Req {
 	public void setSmsTitle(String smsTitle) {
 		this.smsTitle = smsTitle;
 	}
+
+	public String getOpenType() {
+		return openType;
+	}
+
+	public void setOpenType(String openType) {
+		this.openType = openType;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
     
+	
+	
 	
     
 

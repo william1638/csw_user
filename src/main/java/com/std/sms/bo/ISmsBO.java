@@ -3,6 +3,7 @@ package com.std.sms.bo;
 import java.util.List;
 
 import com.std.sms.bo.base.IPaginableBO;
+import com.std.sms.bo.base.Paginable;
 import com.std.sms.domain.Sms;
 
 public interface ISmsBO extends IPaginableBO<Sms> {
@@ -20,4 +21,6 @@ public interface ISmsBO extends IPaginableBO<Sms> {
     public List<Sms> querySmsList(Sms condition);
 
     public Sms getSms(Long id);
+    
+    public Paginable<Sms> getUserPaginable(int start, int pageSize, Sms condition);
 }

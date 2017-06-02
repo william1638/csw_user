@@ -15,6 +15,11 @@ public class XN804034Req {
 
     // to分组(1 C端，2 B端，3 平台)(必填)
     private String toKind;
+    
+
+    
+    //打开方式
+    private String openType ;
 
     // 消息类型(必填)（1 即时发 2定时发）
     private String smsType;
@@ -33,6 +38,12 @@ public class XN804034Req {
 
     // 备注(选填)
     private String remark;
+    
+    //站点
+    private String companyCode ;
+    
+    //用户
+    private String userId ;
 
     public String getToKind() {
         return toKind;
@@ -105,4 +116,33 @@ public class XN804034Req {
     public void setTopushDatetime(String topushDatetime) {
         this.topushDatetime = topushDatetime;
     }
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+
+	public String getOpenType() {
+		return openType;
+	}
+
+	public void setOpenType(String openType) {
+		this.openType = openType;
+	}
+    
+    
 }

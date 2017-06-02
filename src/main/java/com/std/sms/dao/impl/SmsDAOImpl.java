@@ -57,4 +57,17 @@ public class SmsDAOImpl extends AMybatisTemplate implements ISmsDAO {
         return super.selectList(NAMESPACE.concat("select_sms"), start, count,
             condition, Sms.class);
     }
+    
+    //根据用户查询 系统消息数量
+    @Override
+    public long selectUserTotalCount(Sms condition) {
+        return super.selectTotalCount(NAMESPACE.concat("select_sms_user_count"),
+            condition);
+    }
+
+	@Override
+	public List<Sms> selectUserList(Sms condition, int start, int count) {
+		return super.selectList(NAMESPACE.concat("select_user_sms"), start, count,
+	            condition, Sms.class);
+	}
 }

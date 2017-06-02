@@ -8,12 +8,15 @@
 		<result column="channel_type" property="channelType" />
 		<result column="push_type" property="pushType" />
 		<result column="to_system_code" property="toSystemCode" />
+		<result column="to_user_id" property="toUserId" />
+		<result column="to_company_code" property="toCompanyCode" />		
 		<result column="to_kind" property="toKind" />
 		<result column="to_mobile" property="toMobile" />
 		<result column="name" property="name" />
 		<result column="wechat_id" property="wechatId" />
 		<result column="jpush_id" property="jpushId" />
 		<result column="sms_type" property="smsType" />
+		<result column="open_type" property="openType" />
 		<result column="sms_title" property="smsTitle" />
 		<result column="sms_content" property="smsContent" />
 		<result column="status" property="status" />
@@ -47,6 +50,15 @@
 			<if test="toMobile != null and toMobile != '' ">
 				AND t.to_mobile = #{toMobile}
 			</if>
+			<if test="toUserId != null and toUserId != '' ">
+				AND t.to_user_id = #{toUserId}
+			</if>
+			<if test="toCompanyCode != null and toCompanyCode != '' ">
+				AND t.to_compant_code = #{toCompanyCode}
+			</if>
+			<if test="openType != null and openType != '' ">
+				AND t.open_type = #{openType}
+			</if>
 			<if test="smsType != null and smsType != '' ">
 				AND t.sms_type = #{smsType}
 			</if>
@@ -70,11 +82,14 @@
 		,t.to_system_code
 		,t.to_kind
 		,t.to_mobile
+		,t.to_user_id
+		,t.to_company_code
 		,tr.name
 		,tr.wechat_id
 		,tr.jpush_id
 		,t.sms_type
 		,t.sms_title
+		,t.open_type
 		,t.sms_content
 		,t.status
 		,t.create_datetime
@@ -106,9 +121,12 @@
 		,channel_type
 		,push_type
 		,to_system_code
+		,to_user_id
+		,to_company_code
 		,to_kind
 		,to_mobile
 		,sms_type
+		,open_type
 		,sms_title
 		,sms_content
 		,status
@@ -124,9 +142,12 @@
 		,#{channelType}
 		,#{pushType}
 		,#{toSystemCode}
+		,#{toUserId}
+		,#{toCompanyCode}
 		,#{toKind}
 		,#{toMobile}
 		,#{smsType}
+		,#{openType}
 		,#{smsTitle}
 		,#{smsContent}
 		,#{status}
@@ -162,4 +183,45 @@
 		,update_datetime = #{updateDatetime}
 		WHERE id = #{id}
 	</update>
+	
+	
+	<select id="select_sms_user_count" parameterType="sms"
+		resultType="java.lang.Long">
+		SELECT COUNT(1) FROM tstd_sms WHERE channel_type =#{channelType} 
+		AND ( to_user_id= #{toUserId} OR to_company_code=#{toCompanyCode}) 
+		
+	</select>
+	
+	<select id="select_user_sms" parameterType="sms" resultMap="sms_DB_Result">
+		SELECT
+		t.id
+		,t.from_system_code
+		,t.channel_type
+		,t.push_type
+		,t.to_system_code
+		,t.to_kind
+		,t.to_mobile
+		,t.to_user_id
+		,t.to_company_code
+		,t.sms_type
+		,t.sms_title
+		,t.open_type
+		,t.sms_content
+		,t.status
+		,t.create_datetime
+		,t.topush_datetime
+		,t.pushed_datetime
+		,t.updater
+		,t.update_datetime
+		,t.remark
+		FROM
+		tstd_sms t WHERE t.channel_type =#{channelType} and t.status='1'
+		AND ( t.to_user_id= #{toUserId} OR t.to_company_code=#{toCompanyCode} 
+		OR ((t.to_user_id =('') or t.to_user_id is null) and (t.to_company_code=('') or t.to_company_code is null)))
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				t.${order}
+			</if>
+		</trim>
+	</select>
 </mapper>
